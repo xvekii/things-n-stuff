@@ -23,7 +23,7 @@ header {
 }
 
 header > img {
-  width: 6rem;
+  width: 5rem;
 }
 
 nav {
@@ -55,6 +55,25 @@ nav {
   visibility: visible;
   right: 85%;
 }
+
+.add-task-btn {
+  background: #565770;
+  padding: 1.2rem 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  position: absolute;
+  top: 70vh;
+  right: 3rem;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0px 0px #000000bd;
+}
+
+.add-task-btn > img {
+  width: 1.2rem;
+}
+
 
 .container-right {
   overflow-y: auto;
