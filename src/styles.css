@@ -15,6 +15,24 @@ body {
   max-height: 100vh;
 }
 
+header {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header > img {
+  width: 6rem;
+}
+
+nav {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+
+}
+
 .main-container {
   position: relative;
 }
@@ -22,7 +40,7 @@ body {
 .container-left {
   position: fixed;
   background: #F4EEEE;
-  width: 220px;
+  width: 30%;
   height: 100vh;
   right: 100%;
   top: 0;
@@ -36,7 +54,6 @@ body {
   transition: 0.3s;
   visibility: visible;
   right: 85%;
-  width: 20rem;
 }
 
 .container-right {
@@ -44,21 +61,17 @@ body {
   max-height: 100vh;
 }
 
-.bar {
-  display: block;
-  width: 35px;
-  height: 4px;
-  margin: 7px 0;
-  transition: all 0.3s ease;
-  background-color: black;
-  border-radius: 4px;
-}
-
 .hamburger {
   z-index: 1;
   left: 30px;
-  top: 30px;
   position: fixed;
   background: transparent;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger > img {
+  width: 3rem;
 }
