@@ -15,6 +15,10 @@ body {
   max-height: 100vh;
 }
 
+.main-container {
+  position: relative;
+}
+
 .container-left {
   position: fixed;
   background: #F4EEEE;
@@ -24,6 +28,15 @@ body {
   top: 0;
   transition: 0.3s;
   visibility: hidden;
+  box-shadow: 4px 4px 6px #00000070;
+}
+
+.container-left.active {
+  position: fixed;
+  transition: 0.3s;
+  visibility: visible;
+  right: 85%;
+  width: 20rem;
 }
 
 .container-right {
