@@ -56,7 +56,39 @@ nav {
   right: 85%;
 }
 
-.add-task-btn {
+.container-right {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.todo {
+  width: 20%;
+  height: 34%;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  box-shadow: 3px 2px 0px 0px #073b4ccc;
+  align-self: center;
+  border: 1px solid black;
+  padding: 0 1rem;
+}
+
+.placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+
+.title {
+  font-size: 1.2rem;
+}
+
+.note {
+
+}
+
+.add-toDo-btn {
   background: #565770;
   padding: 1.2rem 1.3rem;
   display: flex;
@@ -67,17 +99,11 @@ nav {
   top: 70vh;
   right: 3rem;
   border-radius: 10px;
-  box-shadow: 4px 4px 0px 0px #000000bd;
+  box-shadow: 2px 2px 3px 0px #00000070;
 }
 
-.add-task-btn > img {
+.add-toDo-btn > img {
   width: 1.2rem;
-}
-
-
-.container-right {
-  overflow-y: auto;
-  max-height: 100vh;
 }
 
 .hamburger {
