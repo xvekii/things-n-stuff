@@ -60,13 +60,17 @@ nav {
   min-height: 100vh;
   height: auto;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
   align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 8rem;
 }
 
 .todo {
-  width: 20%;
-  height: 34%;
+  width: 30%;
+  min-width: 20rem;
+  min-height: 9rem;
   border-radius: 10px;
   background-color: #FFFFFF;
   box-shadow: 3px 2px 0px 0px #073b4ccc;
@@ -76,16 +80,18 @@ nav {
 }
 
 .placeholder {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.54);
 }
 
 
 .title {
   font-size: 1.2rem;
+  margin-bottom: 0;
 }
 
 .note {
-
+  font-size: 0.9rem;
+  margin-top: 0.7rem;
 }
 
 .add-toDo-btn {
