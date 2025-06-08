@@ -1,5 +1,5 @@
 import "./styles.css";
-import { showInitialTodo } from "./toDo-template.js"
+import { createTodo } from "./toDo-template.js"
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
 const containerRight = document.querySelector(".container-right");
@@ -10,7 +10,7 @@ hamburgerMenuBtn.addEventListener("click", () => {
 });
 
 addToDoBtn.addEventListener("click", () => {
-  const toDoCard = showInitialTodo();
+  const toDoCard = createTodo();
   containerRight.appendChild(toDoCard);
 });
 
