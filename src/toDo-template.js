@@ -1,3 +1,11 @@
+import deleteTodoImg from "./assets/images/delete.svg";
+import dueDateImg from "./assets/images/due-date.svg";
+import priorityImg from "./assets/images/priority-flag.svg";
+import projectFolderImg from "./assets/images/project-folder.svg";
+import saveTodoImg from "./assets/images/save.svg";
+import savedTodoImg from "./assets/images/saved.svg";
+
+
 const TITLE = "Title";
 const NOTE = "Write a note";
 
@@ -21,6 +29,44 @@ export function createTodo() {
 
   newTodoCard.classList.add("todo");
   newBtnContainer.classList.add("todo-btn-container");
+
+  // Add images to buttons
+  const deleteBtn = document.createElement("button");
+  const dueDateBtn = document.createElement("button");
+  const priorityBtn = document.createElement("button");
+  const projectBtn = document.createElement("button");
+  const saveBtn = document.createElement("button");
+
+  newBtnContainer.appendChild(deleteBtn);
+  newBtnContainer.appendChild(dueDateBtn);
+  newBtnContainer.appendChild(priorityBtn);
+  newBtnContainer.appendChild(projectBtn);
+  newBtnContainer.appendChild(saveBtn);
+
+  const deleteBtnImg = document.createElement("img");
+  deleteBtnImg.src = deleteTodoImg;
+  deleteBtnImg.alt = "Delete todo";
+  deleteBtn.appendChild(deleteBtnImg);
+
+  const dateBtnImg = document.createElement("img");
+  dateBtnImg.src = dueDateImg;
+  dateBtnImg.alt = "Set due date";
+  dueDateBtn.appendChild(dateBtnImg);
+  
+  const priorityBtnImg = document.createElement("img");
+  priorityBtnImg.src = priorityImg;
+  priorityBtnImg.alt = "Set priority";
+  priorityBtn.appendChild(priorityBtnImg);
+  
+  const projectBtnImg = document.createElement("img");
+  projectBtnImg.src = projectFolderImg;
+  projectBtnImg.alt = "Add to project";
+  projectBtn.appendChild(projectBtnImg);
+  
+  const saveBtnImg = document.createElement("img");
+  saveBtnImg.src = saveTodoImg;
+  saveBtnImg.alt = "Save";
+  saveBtn.appendChild(saveBtnImg);
 
   newTodoCard.appendChild(newTitle);
   newTodoCard.appendChild(newNotesContainer);
