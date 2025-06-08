@@ -8,7 +8,10 @@ export function showInitialTodo() {
   
   newTodoCard.classList.add("todo");
   newTitle.classList.add("placeholder", "title");
-  newNote.classList.add("placeholder");
+  newNote.classList.add("placeholder", "note");
+
+  newTitle.contentEditable = "true";
+  newNote.contentEditable = "true";
   
   newTitle.textContent = TITLE;
   newNote.textContent = NOTE;
