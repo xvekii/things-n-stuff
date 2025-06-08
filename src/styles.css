@@ -79,19 +79,28 @@ nav {
   padding: 0 1rem;
 }
 
-.placeholder {
-  color: rgba(0, 0, 0, 0.54);
-}
-
-
 .title {
   font-size: 1.2rem;
   margin-bottom: 0;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .note {
   font-size: 0.9rem;
   margin-top: 0.7rem;
+  width: 100%;
+}
+
+.no-border {
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.no-border:focus {
+  outline: none;
 }
 
 .add-toDo-btn {
