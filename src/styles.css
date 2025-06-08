@@ -75,7 +75,7 @@ nav {
   border-radius: 10px;
   background-color: #FFFFFF;
   box-shadow: 3px 2px 0px 0px #073b4ccc;
-  align-self: center;
+  /* align-self: center; */
   border: 1px solid black;
   padding: 0 1rem;
   display: flex;
@@ -105,6 +105,10 @@ nav {
 
 .no-border:focus {
   outline: none;
+}
+
+.new-notes-container {
+  padding-bottom: 3rem;
 }
 
 .todo-btn-container {
