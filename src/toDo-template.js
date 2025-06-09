@@ -25,7 +25,6 @@ export function createTodo() {
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
   newTitle.textContent = TITLE;
-  newNotesContainer.classList.add("new-notes-container");
 
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
