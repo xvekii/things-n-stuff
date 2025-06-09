@@ -27,7 +27,7 @@ export function createTodo() {
   newTitle.textContent = TITLE;
   newNotesContainer.classList.add("new-notes-container");
 
-  newTodoCard.classList.add("todo");
+  newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
 
   // Add images to buttons
@@ -80,6 +80,11 @@ export function createTodo() {
 
   const newNote = createNewNote();
   newNotesContainer.appendChild(newNote);
+
+  saveBtn.addEventListener("click", () => {
+    newTodoCard.classList.remove("todo-template-popup");
+    newTodoCard.classList.add("todo");
+  });
 
   newTodoCard.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
