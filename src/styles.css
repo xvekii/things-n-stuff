@@ -115,9 +115,12 @@ nav {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 1rem;
-  border: 1px solid red; 
+  bottom: 0.8rem;
   margin: 0 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  padding-top: 1rem;
 }
 
 .add-toDo-btn {
@@ -136,6 +139,18 @@ nav {
 
 .add-toDo-btn > img {
   width: 1.2rem;
+}
+
+.todo-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+}
+
+.todo-btn > img {
+  width: 1.3rem;
 }
 
 .hamburger {
