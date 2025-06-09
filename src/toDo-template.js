@@ -37,6 +37,12 @@ export function createTodo() {
   const projectBtn = document.createElement("button");
   const saveBtn = document.createElement("button");
 
+  deleteBtn.classList.add("todo-btn");
+  dueDateBtn.classList.add("todo-btn");
+  priorityBtn.classList.add("todo-btn");
+  projectBtn.classList.add("todo-btn");
+  saveBtn.classList.add("todo-btn");
+
   newBtnContainer.appendChild(deleteBtn);
   newBtnContainer.appendChild(dueDateBtn);
   newBtnContainer.appendChild(priorityBtn);
