@@ -89,11 +89,54 @@ export function createTodo() {
 
       if (check) {
         const extraNote = createNewNote();
-        newNotesContainer.appendChild(extraNote);
+        removePlaceholder(extraNote);
+        appendExtraNote(extraNote);
         extraNote.focus();
       }
     }
   });
+
+  newTodoCard.addEventListener("keydown", (e) => {
+    const target = e.target;
+    if (
+      target.tagName === "INPUT" &&
+      target.classList.contains("note") &&
+      e.key === "Enter"
+    ) {
+      const extraNote = createNewNote();
+      removePlaceholder(extraNote);
+      appendExtraNote(target, extraNote);
+      extraNote.focus();
+    }
+  });
+
+  newNotesContainer.addEventListener("keydown", (e) => {
+    const input = e.target;
+
+    if (e.key === "Backspace" && input.value === "") {
+      const note = input.closest(".note");
+      const notes = Array.from(newNotesContainer.children);
+      const index = notes.indexOf(note);
+
+      if (index > 0) {
+        note.remove();
+
+        const previous = notes[index - 1];
+        if (previous) {
+          previous.focus();
+        }
+      }
+    }
+  });
+
+  function appendExtraNote(prevNote, extraNote) {
+    prevNote.after(extraNote);
+  }
+
+  function removePlaceholder(extraNote) {
+    extraNote.removeAttribute("placeholder");
+  }
+
   return newTodoCard;
 }
 
