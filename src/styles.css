@@ -20,6 +20,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 header > img {
@@ -30,11 +31,10 @@ nav {
   display: flex; 
   justify-content: center;
   align-items: center;
-
 }
 
 .main-container {
-  position: relative;
+  padding-top: 6rem;
 }
 
 .container-left {
@@ -50,7 +50,6 @@ nav {
 }
 
 .container-left.active {
-  position: fixed;
   transition: 0.3s;
   visibility: visible;
   right: 85%;
@@ -64,14 +63,14 @@ nav {
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem 8rem;
+  margin: 2rem 2rem;
+  overflow-y: auto;
 }
 
 .todo {
-  position: relative;
   width: 200px;
-  min-width: 20rem;
-  min-height: 10rem;
+  min-width: 15rem;
+  min-height: 8rem;
   border-radius: 10px;
   background-color: #FFFFFF;
   box-shadow: 3px 2px 0px 0px #073b4ccc;
@@ -123,20 +122,13 @@ nav {
   outline: none;
 }
 
-.new-notes-container {
-  padding-bottom: 3rem;
-}
-
 .todo-btn-container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.5rem;
-  margin: 0 1rem;
   display: flex;
   justify-content: center;
   gap: 0.9rem;
   padding-top: 1rem;
+  margin-top: auto;
+  margin-bottom: 0.6rem;
 }
 
 .add-toDo-btn {
@@ -146,8 +138,8 @@ nav {
   justify-content: center;
   align-items: center;
   border: none;
-  position: absolute;
-  top: 70vh;
+  position: fixed;
+  top: 75vh;
   right: 3rem;
   border-radius: 10px;
   box-shadow: 2px 2px 3px 0px #00000070;
@@ -170,7 +162,6 @@ nav {
 }
 
 .hamburger {
-  z-index: 1;
   left: 30px;
   position: fixed;
   background: transparent;
@@ -178,6 +169,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1001;
 }
 
 .hamburger > img {
