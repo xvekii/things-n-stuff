@@ -21,6 +21,7 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
+  z-index: 1000;
 }
 
 header > img {
@@ -35,18 +36,20 @@ nav {
 
 .main-container {
   padding-top: 1rem;
+  min-height: 80%;
 }
 
 .container-left {
   position: fixed;
   background: #F4EEEE;
   width: 30%;
-  height: 100vh;
+  height: 75vh;
   right: 100%;
-  top: 0;
+  top: 101px;
   transition: 0.3s;
   visibility: hidden;
   box-shadow: 4px 4px 6px #00000070;
+  border-radius: 189px;
 }
 
 .container-left.active {
@@ -56,7 +59,7 @@ nav {
 }
 
 .container-right {
-  min-height: 100vh;
+  min-height: 80vh;
   height: auto;
   display: flex;
   justify-content: flex-start;
