@@ -16,6 +16,7 @@ export function createTodo() {
 
   newTitle.setAttribute("type", "text");
   newTitle.setAttribute("class", "title-text");
+  newTitle.setAttribute("id", "title");
   newTitle.setAttribute("name", "title");
   newTitle.setAttribute("placeholder", "Title");
   newTitle.setAttribute("autocomplete", "off");
@@ -24,6 +25,7 @@ export function createTodo() {
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
   newTitle.textContent = TITLE;
+  newNotesContainer.classList.add("new-notes-container");
 
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
@@ -82,6 +84,7 @@ export function createTodo() {
   saveBtn.addEventListener("click", () => {
     newTodoCard.classList.remove("todo-template-popup");
     newTodoCard.classList.add("todo");
+    getTodoInput(newNotesContainer, newTodoCard);
   });
 
   newNotesContainer.addEventListener("input", (e) => {
@@ -143,11 +146,19 @@ export function createTodo() {
   return newTodoCard;
 }
 
+function getTodoInput(notesContainer, todo) {
+  const title = todo.querySelector("#title").value;
+  const notesValues = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
+  console.log(title);
+  console.log(notesValues);
+}
+
 function createNewNote() {
   const newNote = document.createElement("input");
 
   newNote.setAttribute("type", "text");
   newNote.setAttribute("class", "note-text");
+  newNote.setAttribute("id", "note");
   newNote.setAttribute("name", "note");
   newNote.setAttribute("placeholder", "Write a note...");
   newNote.setAttribute("autocomplete", "off");
