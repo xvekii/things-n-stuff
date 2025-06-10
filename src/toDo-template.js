@@ -1,11 +1,10 @@
+import { Todo } from "./Todo.js";
 import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
 import projectFolderImg from "./assets/images/project-folder.svg";
 import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
-
-
 const TITLE = "Title";
 const NOTE = "Write a note";
 
@@ -85,7 +84,7 @@ export function createTodo() {
     newTodoCard.classList.add("todo");
   });
 
-  newTodoCard.addEventListener("input", (e) => {
+  newNotesContainer.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
       const target = e.target;
       const inputTextlength = target.value.length;
@@ -94,13 +93,13 @@ export function createTodo() {
       if (check) {
         const extraNote = createNewNote();
         removePlaceholder(extraNote);
-        appendExtraNote(extraNote);
+        appendExtraNote(target, extraNote);
         extraNote.focus();
       }
     }
   });
 
-  newTodoCard.addEventListener("keydown", (e) => {
+  newNotesContainer.addEventListener("keydown", (e) => {
     const target = e.target;
     if (
       target.tagName === "INPUT" &&
