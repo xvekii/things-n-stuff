@@ -13,6 +13,7 @@ body {
   line-height: 1.2;
   overflow-x: hidden;
   max-height: 100vh;
+
 }
 
 header {
@@ -36,20 +37,20 @@ nav {
 
 .main-container {
   padding-top: 1rem;
-  min-height: 80%;
+  height: 90vh;
 }
 
 .container-left {
   position: fixed;
   background: #F4EEEE;
   width: 30%;
-  height: 75vh;
+  height: 76vh;
   right: 100%;
-  top: 101px;
+  top: 6rem;
   transition: 0.3s;
   visibility: hidden;
   box-shadow: 4px 4px 6px #00000070;
-  border-radius: 189px;
+  border-radius: 38px;
 }
 
 .container-left.active {
@@ -59,14 +60,14 @@ nav {
 }
 
 .container-right {
-  min-height: 80vh;
-  height: auto;
+  height: 80vh;
+  /* height: auto; */
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem 2rem;
+  margin: 2rem 1rem;
   overflow-y: auto;
 }
 
