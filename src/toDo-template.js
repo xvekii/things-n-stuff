@@ -1,4 +1,5 @@
 import { Todo } from "./Todo.js";
+import { AllTodos } from "./AllTodos.js";
 import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
@@ -148,9 +149,15 @@ export function createTodo() {
 
 function getTodoInput(notesContainer, todo) {
   const title = todo.querySelector("#title").value;
-  const notesValues = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
+  const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
+  
+  const newTodo = new Todo(title, notes);
+  const todos = new AllTodos();
+  todos.addTodo(newTodo);
+  
   console.log(title);
-  console.log(notesValues);
+  console.log(notes);
+  console.log(todos.todosArr);
 }
 
 function createNewNote() {
