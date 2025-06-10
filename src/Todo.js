@@ -1,13 +1,18 @@
-export class toDo {
-  constructor(title, note, dueDate, priority, project) {
+export class Todo {
+  constructor(title, notes) {
     this.title = title;
-    this.note = note;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.checkList = checkList;
-    this.project = project;
-    this.ID = crypto.randomUUID();
+    this.notes = notes;
+    // this.dueDate = dueDate;
+    // this.priority = priority;
+    // this.checkList = checkList;
+    // this.project = project;
+    // this.ID = crypto.randomUUID();
   }
 
+  // addTodo(title, notes) {
+  //   
+  // }
 
 }
+
+// constructor(title, notes, dueDate, priority, project)
