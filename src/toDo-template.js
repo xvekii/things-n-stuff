@@ -85,19 +85,19 @@ export function createTodo() {
   const newNote = createNewNote();
   newNotesContainer.appendChild(newNote);
 
-  saveBtn.addEventListener("click", () => {
-    getTodoInput(newNotesContainer, newTodoCard);
-    renderTodos();  
-    showTodoBtn();  
-  });
-
-   function appendExtraNote(prevNote, extraNote) {
+  function appendExtraNote(prevNote, extraNote) {
     prevNote.after(extraNote);
   }
 
   function removePlaceholder(extraNote) {
     extraNote.removeAttribute("placeholder");
   }
+
+  saveBtn.addEventListener("click", () => {
+    getTodoInput(newNotesContainer, newTodoCard);
+    renderTodos();  
+    showTodoBtn();  
+  });
 
   newNotesContainer.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
@@ -160,9 +160,6 @@ function getTodoInput(notesContainer, todo) {
   
   todos.addTodo(newTodo);
   
-  console.log(title);
-  console.log(notes);
-  console.log(todos.todosArr);
 }
 
 function createNewNote() {
