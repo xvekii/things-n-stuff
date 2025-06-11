@@ -17,6 +17,8 @@ export function createTodo() {
   const newTitle = document.createElement("input");
   const newNotesContainer = document.createElement("div");
   const newBtnContainer = document.createElement("div");
+  const dateTimeContainer = document.createElement("div");
+  const dateInput = document.createElement("input");
 
   newTitle.setAttribute("type", "text");
   newTitle.setAttribute("class", "title-text");
@@ -25,22 +27,26 @@ export function createTodo() {
   newTitle.setAttribute("placeholder", "Title");
   newTitle.setAttribute("autocomplete", "off");
   newTitle.setAttribute("maxlength", "25");
-
+  dateInput.setAttribute("type", "datetime-local");
+  
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
   newTitle.textContent = TITLE;
   newNotesContainer.classList.add("new-notes-container");
+  dateTimeContainer.classList.add("toggle-datetime-hidden");
 
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
 
-  // Add images to buttons
+  const closeDateTimeBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const dueDateBtn = document.createElement("button");
   const priorityBtn = document.createElement("button");
   const projectBtn = document.createElement("button");
   const saveBtn = document.createElement("button");
 
+  closeDateTimeBtn.classList.add("close-datetime-btn");
+  closeDateTimeBtn.textContent = "Close";
   deleteBtn.classList.add("todo-btn");
   dueDateBtn.classList.add("todo-btn");
   priorityBtn.classList.add("todo-btn");
@@ -52,6 +58,9 @@ export function createTodo() {
   newBtnContainer.appendChild(priorityBtn);
   newBtnContainer.appendChild(projectBtn);
   newBtnContainer.appendChild(saveBtn);
+  newBtnContainer.appendChild(dateTimeContainer);
+  dateTimeContainer.appendChild(dateInput);
+  dateTimeContainer.appendChild(closeDateTimeBtn);
 
   const deleteBtnImg = document.createElement("img");
   deleteBtnImg.src = deleteTodoImg;
@@ -94,9 +103,19 @@ export function createTodo() {
   }
 
   saveBtn.addEventListener("click", () => {
-    getTodoInput(newNotesContainer, newTodoCard);
+    getTodoInput(newNotesContainer, newTodoCard, dateInput);
     renderTodos();  
     showTodoBtn();  
+  });
+
+  dueDateBtn.addEventListener("click", () => {
+    dateTimeContainer.classList.remove("toggle-datetime-hidden");
+    dateTimeContainer.classList.add("toggle-datetime-visible");
+  });
+
+  closeDateTimeBtn.addEventListener("click", () => {
+    dateTimeContainer.classList.remove("toggle-datetime-visible");
+    dateTimeContainer.classList.add("toggle-datetime-hidden");
   });
 
   newNotesContainer.addEventListener("input", (e) => {
@@ -152,12 +171,24 @@ export function createTodo() {
   return newTodoCard;
 }
 
-function getTodoInput(notesContainer, todo) {
+function getTodoInput(notesContainer, todo, dateInput) {
   const title = todo.querySelector("#title").value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
-  const newTodo = new Todo(title, notes);
-  
+  const dueDate = dateInput.value;
+  const date = new Date(dueDate);
+
+  let formattedDate = "";
+  if (dueDate && !isNaN(date)) {
+    const userLocale = navigator.language;
+    formattedDate = new Intl.DateTimeFormat(userLocale, {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }).format(date);
+  }
+
+  const newTodo = new Todo(title, notes, formattedDate);
+  console.log(formattedDate);
   todos.addTodo(newTodo);
   
 }
@@ -195,7 +226,7 @@ function renderTodos() {
 
     newTitle.setAttribute("type", "text");
     newTitle.setAttribute("class", "title-text");
-    newTitle.setAttribute("id", `${todo.ID}`);
+    newTitle.setAttribute("data-title-ID", `${todo.ID}`);
     newTitle.setAttribute("name", "title");
     newTitle.setAttribute("placeholder", "Title");
     newTitle.setAttribute("autocomplete", "off");
