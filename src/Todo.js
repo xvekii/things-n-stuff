@@ -4,9 +4,8 @@ export class Todo {
     this.notes = notes;
     // this.dueDate = dueDate;
     // this.priority = priority;
-    // this.checkList = checkList;
     // this.project = project;
-    // this.ID = crypto.randomUUID();
+    this.ID = crypto.randomUUID();
   }
 
   // addTodo(title, notes) {
