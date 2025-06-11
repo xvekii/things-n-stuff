@@ -1,8 +1,8 @@
 export class Todo {
-  constructor(title, notes) {
+  constructor(title, notes, dueDate) {
     this.title = title;
     this.notes = notes;
-    // this.dueDate = dueDate;
+    this.dueDate = dueDate;
     // this.priority = priority;
     // this.project = project;
     this.ID = crypto.randomUUID();
