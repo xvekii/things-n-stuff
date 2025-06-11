@@ -191,3 +191,31 @@ nav {
   top: 5px;
   right: 11px;
 }
+
+.toggle-datetime-hidden {
+  display: none;
+}
+
+.toggle-datetime-visible {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 166px;
+  left: 80px;
+  width: 14rem;
+  background-color: lightgreen;
+  border-radius: 12px;
+  padding: 16px;
+  gap: 0.5rem;
+}
+
+.close-datetime-btn {
+  align-self: flex-end;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: .1rem .7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
