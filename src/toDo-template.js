@@ -7,6 +7,7 @@ import projectFolderImg from "./assets/images/project-folder.svg";
 import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
 const containerRight = document.querySelector(".container-right");
+const addToDoBtn = document.querySelector(".add-toDo-btn");
 const TITLE = "Title";
 const NOTE = "Write a note";
 const todos = new AllTodos();
@@ -86,8 +87,17 @@ export function createTodo() {
 
   saveBtn.addEventListener("click", () => {
     getTodoInput(newNotesContainer, newTodoCard);
-    renderTodos();    
+    renderTodos();  
+    showTodoBtn();  
   });
+
+   function appendExtraNote(prevNote, extraNote) {
+    prevNote.after(extraNote);
+  }
+
+  function removePlaceholder(extraNote) {
+    extraNote.removeAttribute("placeholder");
+  }
 
   newNotesContainer.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
@@ -137,14 +147,8 @@ export function createTodo() {
     }
   });
 
-  function appendExtraNote(prevNote, extraNote) {
-    prevNote.after(extraNote);
-  }
-
-  function removePlaceholder(extraNote) {
-    extraNote.removeAttribute("placeholder");
-  }
-
+  hideTodoBtn();
+  
   return newTodoCard;
 }
 
@@ -212,3 +216,12 @@ function renderTodos() {
     containerRight.appendChild(newTodoCard);
   });
 }
+  
+  function showTodoBtn() {
+    addToDoBtn.style.display = "flex";
+  }
+  
+  function hideTodoBtn() {
+    addToDoBtn.style.display = "none";
+  }
+  
