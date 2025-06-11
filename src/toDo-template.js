@@ -6,8 +6,10 @@ import priorityImg from "./assets/images/priority-flag.svg";
 import projectFolderImg from "./assets/images/project-folder.svg";
 import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
+const containerRight = document.querySelector(".container-right");
 const TITLE = "Title";
 const NOTE = "Write a note";
+const todos = new AllTodos();
 
 export function createTodo() {
   const newTodoCard = document.createElement("div");
@@ -83,9 +85,8 @@ export function createTodo() {
   newNotesContainer.appendChild(newNote);
 
   saveBtn.addEventListener("click", () => {
-    newTodoCard.classList.remove("todo-template-popup");
-    newTodoCard.classList.add("todo");
     getTodoInput(newNotesContainer, newTodoCard);
+    renderTodos();    
   });
 
   newNotesContainer.addEventListener("input", (e) => {
@@ -152,7 +153,7 @@ function getTodoInput(notesContainer, todo) {
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
   const newTodo = new Todo(title, notes);
-  const todos = new AllTodos();
+  
   todos.addTodo(newTodo);
   
   console.log(title);
@@ -181,4 +182,33 @@ function checkNoteLength(textLength) {
   if (textLength == 20) {
     return true;
   }
+}
+
+function renderTodos() {
+  containerRight.replaceChildren();
+  todos.todosArr.forEach((todo) => {
+    const newTodoCard = document.createElement("div");
+    const newPriority = document.createElement("span");
+    const newTitle = document.createElement("input");
+    const newNotesContainer = document.createElement("div");
+
+    newTitle.setAttribute("type", "text");
+    newTitle.setAttribute("class", "title-text");
+    newTitle.setAttribute("id", `${todo.ID}`);
+    newTitle.setAttribute("name", "title");
+    newTitle.setAttribute("placeholder", "Title");
+    newTitle.setAttribute("autocomplete", "off");
+    newTitle.setAttribute("maxlength", "25");
+
+    newPriority.classList.add("priority-circle");
+    newTitle.classList.add("title", "no-border");
+    newNotesContainer.classList.add("new-notes-container");
+    newTodoCard.classList.add("todo");
+
+    newTitle.value = todo.title;
+
+    newTodoCard.appendChild(newPriority);
+    newTodoCard.appendChild(newTitle);
+    containerRight.appendChild(newTodoCard);
+  });
 }
