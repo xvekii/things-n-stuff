@@ -82,6 +82,7 @@ nav {
   padding: 0 1rem;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .todo-template-popup {
@@ -178,4 +179,15 @@ nav {
 
 .hamburger > img {
   width: 3rem;
+}
+
+.priority-circle {
+  width: 15px;
+  height: 15px;
+  background:rgb(255, 255, 255);
+  border-radius: 50%;
+  border: 1px solid #000;
+  position: relative;
+  top: 5px;
+  right: 11px;
 }
