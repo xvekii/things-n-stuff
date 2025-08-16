@@ -168,7 +168,7 @@ export function createTodo() {
 
   hideTodoBtn();
   
-  return newTodoCard;
+  return { newTodoCard };
 }
 
 function getTodoInput(notesContainer, todo, dateInput) {
@@ -190,7 +190,6 @@ function getTodoInput(notesContainer, todo, dateInput) {
   const newTodo = new Todo(title, notes, formattedDate);
   console.log(formattedDate);
   todos.addTodo(newTodo);
-  
 }
 
 function createNewNote() {
