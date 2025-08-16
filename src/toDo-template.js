@@ -10,7 +10,7 @@ const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const TITLE = "Title";
 const NOTE = "Write a note";
-const todos = new AllTodos();
+export const todos = new AllTodos();
 
 export function createTodo() {
   const newTodoCard = document.createElement("div");
@@ -168,7 +168,7 @@ export function createTodo() {
 
   hideTodoBtn();
   
-  return { newTodoCard };
+  return newTodoCard;
 }
 
 function getTodoInput(notesContainer, todo, dateInput) {
@@ -189,6 +189,7 @@ function getTodoInput(notesContainer, todo, dateInput) {
 
   const newTodo = new Todo(title, notes, formattedDate);
   console.log(formattedDate);
+  console.log(newTodo.ID);
   todos.addTodo(newTodo);
 }
 
