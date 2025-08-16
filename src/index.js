@@ -12,7 +12,8 @@ hamburgerMenuBtn.addEventListener("click", () => {
 
 addToDoBtn.addEventListener("click", () => {
   const toDoCard = createTodo();
-  containerRight.appendChild(toDoCard);
+  console.log(toDoCard.newTodoCard);
+  containerRight.appendChild(toDoCard.newTodoCard);
 });
 
 
