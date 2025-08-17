@@ -172,7 +172,6 @@ function createTodo(isExistingTodo, existingID = null) {
 
 function getTodoInput(title, notesContainer, dateInput, isExistingTodo, existingID) {
   const titleValue = title.value;
-  console.log(titleValue);
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
   const dueDate = dateInput.value;
@@ -187,10 +186,11 @@ function getTodoInput(title, notesContainer, dateInput, isExistingTodo, existing
     }).format(date);
   }
 
-  if (isExistingTodo === false) {
+  console.log(formattedDate);
+
+  if (!isExistingTodo) {
     const newTodo = new Todo(titleValue, notes, formattedDate);
     console.log(formattedDate);
-    console.log(newTodo.ID);
     todos.addTodo(newTodo);
 
   } else if (existingID) {
