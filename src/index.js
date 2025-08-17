@@ -2,6 +2,7 @@ import "./styles.css";
 import { createTodo } from "./toDo-template.js";
 import { todos } from "./toDo-template.js";
 import { createNewNote } from "./toDo-template.js";
+import { removePlaceholder } from "./toDo-template.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
@@ -43,6 +44,7 @@ function fillNotes(notesContainer, notes) {
   notesContainer.innerHTML = "";
   notes.forEach((note) => {
     const newNote = createNewNote();
+    removePlaceholder(newNote);
     newNote.value = note;
     notesContainer.appendChild(newNote);
   });
