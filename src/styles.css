@@ -51,6 +51,7 @@ nav {
   visibility: hidden;
   box-shadow: 4px 4px 6px #00000070;
   border-radius: 38px;
+  z-index: 1;
 }
 
 .container-left.active {
