@@ -8,8 +8,6 @@ import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
-const TITLE = "Title";
-const NOTE = "Write a note";
 const todos = new AllTodos();
 
 function createTodo(isExistingTodo, existingID = null) {
@@ -17,8 +15,9 @@ function createTodo(isExistingTodo, existingID = null) {
   const newTitle = document.createElement("input");
   const newNotesContainer = document.createElement("div");
   const newBtnContainer = document.createElement("div");
-  const dateTimeContainer = document.createElement("div");
-  const dateInput = document.createElement("input");
+  const reminderContainer = document.createElement("div");
+  const newDateTimeContainer = document.createElement("div");
+  const newDateInput = document.createElement("input");
 
   newTitle.setAttribute("type", "text");
   newTitle.setAttribute("class", "title-text");
@@ -27,13 +26,13 @@ function createTodo(isExistingTodo, existingID = null) {
   newTitle.setAttribute("placeholder", "Title");
   newTitle.setAttribute("autocomplete", "off");
   newTitle.setAttribute("maxlength", "25");
-  dateInput.setAttribute("type", "datetime-local");
+  newDateInput.setAttribute("type", "datetime-local");
   
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
-  newTitle.textContent = TITLE;
   newNotesContainer.classList.add("new-notes-container");
-  dateTimeContainer.classList.add("toggle-datetime-hidden");
+  reminderContainer.classList.add("reminder-container");
+  newDateTimeContainer.classList.add("toggle-datetime-hidden");
 
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
@@ -58,9 +57,9 @@ function createTodo(isExistingTodo, existingID = null) {
   newBtnContainer.appendChild(priorityBtn);
   newBtnContainer.appendChild(projectBtn);
   newBtnContainer.appendChild(saveBtn);
-  newBtnContainer.appendChild(dateTimeContainer);
-  dateTimeContainer.appendChild(dateInput);
-  dateTimeContainer.appendChild(closeDateTimeBtn);
+  newBtnContainer.appendChild(newDateTimeContainer);
+  newDateTimeContainer.appendChild(newDateInput);
+  newDateTimeContainer.appendChild(closeDateTimeBtn);
 
   const deleteBtnImg = document.createElement("img");
   deleteBtnImg.src = deleteTodoImg;
@@ -89,6 +88,7 @@ function createTodo(isExistingTodo, existingID = null) {
 
   newTodoCard.appendChild(newTitle);
   newTodoCard.appendChild(newNotesContainer);
+  newTodoCard.appendChild(reminderContainer);
   newTodoCard.appendChild(newBtnContainer);
 
   const newNote = createNewNote();
@@ -98,24 +98,20 @@ function createTodo(isExistingTodo, existingID = null) {
     prevNote.after(extraNote);
   }
 
-  function removePlaceholder(extraNote) {
-    extraNote.removeAttribute("placeholder");
-  }
-
   saveBtn.addEventListener("click", () => {
-    getTodoInput(newTitle, newNotesContainer, dateInput, isExistingTodo, existingID);
+    getTodoInput(newTitle, newNotesContainer, newDateInput, isExistingTodo, existingID);
     renderTodos();  
     showTodoBtn();  
   });
 
   dueDateBtn.addEventListener("click", () => {
-    dateTimeContainer.classList.remove("toggle-datetime-hidden");
-    dateTimeContainer.classList.add("toggle-datetime-visible");
+    newDateTimeContainer.classList.remove("toggle-datetime-hidden");
+    newDateTimeContainer.classList.add("toggle-datetime-visible");
   });
 
   closeDateTimeBtn.addEventListener("click", () => {
-    dateTimeContainer.classList.remove("toggle-datetime-visible");
-    dateTimeContainer.classList.add("toggle-datetime-hidden");
+    newDateTimeContainer.classList.remove("toggle-datetime-visible");
+    newDateTimeContainer.classList.add("toggle-datetime-hidden");
   });
 
   newNotesContainer.addEventListener("input", (e) => {
@@ -140,6 +136,8 @@ function createTodo(isExistingTodo, existingID = null) {
       target.classList.contains("note") &&
       e.key === "Enter"
     ) {
+      const firstNote = newNotesContainer.firstElementChild;
+      removePlaceholder(firstNote);
       const extraNote = createNewNote();
       removePlaceholder(extraNote);
       appendExtraNote(target, extraNote);
@@ -157,11 +155,12 @@ function createTodo(isExistingTodo, existingID = null) {
 
       if (index > 0) {
         note.remove();
-
         const previous = notes[index - 1];
         if (previous) {
           previous.focus();
         }
+      } else if (newNotesContainer.firstElementChild.value === "") {
+        note.setAttribute("placeholder", "Write a note...");
       }
     }
   });
@@ -170,11 +169,16 @@ function createTodo(isExistingTodo, existingID = null) {
   return newTodoCard;
 }
 
-function getTodoInput(title, notesContainer, dateInput, isExistingTodo, existingID) {
+function removePlaceholder(extraNote) {
+    extraNote.removeAttribute("placeholder");
+  }
+
+function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, existingID) {
   const titleValue = title.value;
+  console.log(titleValue);
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
-  const dueDate = dateInput.value;
+  const dueDate = newDateInput.value;
   const date = new Date(dueDate);
 
   let formattedDate = "";
@@ -186,11 +190,10 @@ function getTodoInput(title, notesContainer, dateInput, isExistingTodo, existing
     }).format(date);
   }
 
-  console.log(formattedDate);
-
-  if (!isExistingTodo) {
+  if (isExistingTodo === false) {
     const newTodo = new Todo(titleValue, notes, formattedDate);
     console.log(formattedDate);
+    console.log(newTodo.ID);
     todos.addTodo(newTodo);
 
   } else if (existingID) {
@@ -218,7 +221,6 @@ function createNewNote() {
   newNote.setAttribute("autocomplete", "off");
 
   newNote.contentEditable = "true";
-  newNote.textContent = NOTE;
   newNote.classList.add("note", "no-border");
 
   return newNote;
@@ -269,4 +271,4 @@ function renderTodos() {
   
 
   
-  export { todos, createTodo, createNewNote };
+  export { todos, createTodo, createNewNote, removePlaceholder };
