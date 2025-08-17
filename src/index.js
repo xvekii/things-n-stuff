@@ -14,7 +14,6 @@ hamburgerMenuBtn.addEventListener("click", () => {
 
 addToDoBtn.addEventListener("click", () => {
   const toDoCard = createTodo(false);
-  console.log(toDoCard);
   renderTodo(toDoCard);
 });
 
@@ -43,16 +42,13 @@ containerRight.addEventListener("click", (e) => {
 function fillNotes(notesContainer, notes) {
   notesContainer.innerHTML = "";
   notes.forEach((note) => {
-    console.log(note);
     const newNote = createNewNote();
-    newNote.removeAttribute("placeholder");
     newNote.value = note;
     notesContainer.appendChild(newNote);
   });
 }
 
 function renderTodo(todo) {
-  console.log(todo);
   containerRight.appendChild(todo);
 }
 
