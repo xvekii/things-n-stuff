@@ -8,7 +8,7 @@ export class Todo {
     this.ID = crypto.randomUUID();
   }
 
-  // addTodo(title, notes) {
+  // editTodo(title, notes) {
   //   
   // }
 
