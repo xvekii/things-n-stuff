@@ -10,9 +10,9 @@ const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const TITLE = "Title";
 const NOTE = "Write a note";
-export const todos = new AllTodos();
+const todos = new AllTodos();
 
-export function createTodo() {
+function createTodo(isExistingTodo, existingID = null) {
   const newTodoCard = document.createElement("div");
   const newTitle = document.createElement("input");
   const newNotesContainer = document.createElement("div");
@@ -103,7 +103,7 @@ export function createTodo() {
   }
 
   saveBtn.addEventListener("click", () => {
-    getTodoInput(newNotesContainer, newTodoCard, dateInput);
+    getTodoInput(newTitle, newNotesContainer, dateInput, isExistingTodo, existingID);
     renderTodos();  
     showTodoBtn();  
   });
@@ -167,12 +167,12 @@ export function createTodo() {
   });
 
   hideTodoBtn();
-  
   return newTodoCard;
 }
 
-function getTodoInput(notesContainer, todo, dateInput) {
-  const title = todo.querySelector("#title").value;
+function getTodoInput(title, notesContainer, dateInput, isExistingTodo, existingID) {
+  const titleValue = title.value;
+  console.log(titleValue);
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
   const dueDate = dateInput.value;
@@ -187,10 +187,21 @@ function getTodoInput(notesContainer, todo, dateInput) {
     }).format(date);
   }
 
-  const newTodo = new Todo(title, notes, formattedDate);
-  console.log(formattedDate);
-  console.log(newTodo.ID);
-  todos.addTodo(newTodo);
+  if (isExistingTodo === false) {
+    const newTodo = new Todo(titleValue, notes, formattedDate);
+    console.log(formattedDate);
+    console.log(newTodo.ID);
+    todos.addTodo(newTodo);
+
+  } else if (existingID) {
+    const retrievedTodos = todos.getTodos();
+    for (const obj of retrievedTodos) {
+      if (obj.ID == existingID) {
+        obj.title = titleValue;
+        obj.notes = notes;
+      }
+    }
+  }
 }
 
 function createNewNote() {
@@ -253,3 +264,6 @@ function renderTodos() {
     addToDoBtn.style.display = "none";
   }
   
+
+  
+  export { todos, createTodo, createNewNote };
