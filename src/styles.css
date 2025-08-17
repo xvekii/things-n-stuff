@@ -98,23 +98,35 @@ nav {
   background-color: #FFFFFF;
   box-shadow: 3px 2px 0px 0px #073b4ccc;
   border: 1px solid black;
-  padding: 0 1rem;
+  padding: 0rem 1rem;
   display: flex;
   flex-direction: column;
-} 
+}
 
 .title {
   font-size: 1.2rem;
-  margin-bottom: 0;
+  margin-bottom: 0.6rem;
   margin-top: 1rem;
   width: 100%;
 }
 
 .note {
   font-size: 0.9rem;
-  margin-top: 0.7rem;
   width: 100%;
   overflow-wrap: break-word;
+}
+
+.new-notes-container {
+  height: 222px;
+  overflow-y: hidden;
+}
+
+.reminder-container {
+  text-align: center;
+  background: lavender;
+  min-height: 2rem;
+  border-radius: 20px;
+  margin-top: 1rem;
 }
 
 .no-border {
@@ -133,8 +145,7 @@ nav {
   justify-content: center;
   gap: 0.9rem;
   padding-top: 1rem;
-  margin-top: auto;
-  margin-bottom: 0.6rem;
+  padding-bottom: 1rem;
 }
 
 .add-toDo-btn {
