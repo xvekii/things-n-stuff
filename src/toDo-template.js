@@ -204,12 +204,15 @@ function getTodoInput(title, notesContainer, dateInput, isExistingTodo, existing
   }
 }
 
+let noteIdCounter = 0;
+
 function createNewNote() {
+  noteIdCounter += 1;
   const newNote = document.createElement("input");
 
   newNote.setAttribute("type", "text");
   newNote.setAttribute("class", "note-text");
-  newNote.setAttribute("id", "note");
+  newNote.setAttribute("id", `note-${noteIdCounter}`);
   newNote.setAttribute("name", "note");
   newNote.setAttribute("placeholder", "Write a note...");
   newNote.setAttribute("autocomplete", "off");
