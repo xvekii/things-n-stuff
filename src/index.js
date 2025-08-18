@@ -3,6 +3,7 @@ import { createTodo } from "./toDo-template.js";
 import { todos } from "./toDo-template.js";
 import { createNewNote } from "./toDo-template.js";
 import { removePlaceholder } from "./toDo-template.js";
+import { addPlaceholder } from "./toDo-template.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
@@ -42,10 +43,17 @@ containerRight.addEventListener("click", (e) => {
 
 function fillNotes(notesContainer, notes) {
   notesContainer.innerHTML = "";
-  notes.forEach((note) => {
+  notes.forEach((note, index) => {
     const newNote = createNewNote();
-    removePlaceholder(newNote);
+    
+    if (notes.length !== 0) {
+      removePlaceholder(newNote);
+    } 
     newNote.value = note;
+    
+    if (index === 0 && note === "" && notes.length === 1) {
+      addPlaceholder(newNote);
+    }
     notesContainer.appendChild(newNote);
   });
 }
