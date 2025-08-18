@@ -18,10 +18,11 @@ function createTodo(isExistingTodo, existingID = null) {
   const reminderContainer = document.createElement("div");
   const newDateTimeContainer = document.createElement("div");
   const newDateInput = document.createElement("input");
+  const dataTitleID = existingID ? existingID : "temp1";
 
   newTitle.setAttribute("type", "text");
   newTitle.setAttribute("class", "title-text");
-  newTitle.setAttribute("id", "title");
+  newTitle.setAttribute("data-title-id", `${dataTitleID}`);
   newTitle.setAttribute("name", "title");
   newTitle.setAttribute("placeholder", "Title");
   newTitle.setAttribute("autocomplete", "off");
@@ -46,7 +47,7 @@ function createTodo(isExistingTodo, existingID = null) {
 
   closeDateTimeBtn.classList.add("close-datetime-btn");
   closeDateTimeBtn.textContent = "Close";
-  deleteBtn.classList.add("todo-btn");
+  deleteBtn.classList.add("todo-btn", "delete-btn");
   dueDateBtn.classList.add("todo-btn");
   priorityBtn.classList.add("todo-btn");
   projectBtn.classList.add("todo-btn");
@@ -97,6 +98,21 @@ function createTodo(isExistingTodo, existingID = null) {
   function appendExtraNote(prevNote, extraNote) {
     prevNote.after(extraNote);
   }
+
+  deleteBtn.addEventListener("click", () => {
+    const todoCard = deleteBtn.closest(".todo-template-popup"); 
+    const title = todoCard.querySelector("input[data-title-id]");
+    const titleID = title.dataset.titleId;
+    const currentTodos = todos.getTodos();
+    
+    currentTodos.forEach((todo, index) => {
+      if (titleID === todo.ID) {
+        currentTodos.splice(index, 1);
+      }
+    });
+    renderTodos();
+    showTodoBtn(); 
+  });
 
   saveBtn.addEventListener("click", () => {
     getTodoInput(newTitle, newNotesContainer, newDateInput, isExistingTodo, existingID);
@@ -234,6 +250,7 @@ function checkNoteLength(textLength) {
 
 function renderTodos() {
   containerRight.replaceChildren();
+  //Refactor
   todos.todosArr.forEach((todo) => {
     const newTodoCard = document.createElement("div");
     const newPriority = document.createElement("span");
@@ -242,7 +259,7 @@ function renderTodos() {
 
     newTitle.setAttribute("type", "text");
     newTitle.setAttribute("class", "title-text");
-    newTitle.setAttribute("data-title-ID", `${todo.ID}`);
+    newTitle.setAttribute("data-title-id", `${todo.ID}`);
     newTitle.setAttribute("name", "title");
     newTitle.setAttribute("placeholder", "Title");
     newTitle.setAttribute("autocomplete", "off");
