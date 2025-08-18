@@ -130,6 +130,13 @@ function createTodo(isExistingTodo, existingID = null) {
     newDateTimeContainer.classList.add("toggle-datetime-hidden");
   });
 
+  newTitle.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const firstNote = newNotesContainer.firstElementChild;
+      firstNote.focus();
+    }
+  });
+
   newNotesContainer.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
       const target = e.target;
@@ -185,9 +192,13 @@ function createTodo(isExistingTodo, existingID = null) {
   return newTodoCard;
 }
 
-function removePlaceholder(extraNote) {
-    extraNote.removeAttribute("placeholder");
-  }
+function removePlaceholder(note) {
+  note.removeAttribute("placeholder");
+}
+
+function addPlaceholder(note) {
+  note.setAttribute("placeholder", "Write a note...");
+}
 
 function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, existingID) {
   const titleValue = title.value;
@@ -288,4 +299,4 @@ function renderTodos() {
   
 
   
-  export { todos, createTodo, createNewNote, removePlaceholder };
+  export { todos, createTodo, createNewNote, removePlaceholder, addPlaceholder };
