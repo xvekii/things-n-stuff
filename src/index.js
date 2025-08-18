@@ -26,7 +26,7 @@ containerRight.addEventListener("click", (e) => {
     const titleID = title.dataset.titleId;
     const clickedToDo = createTodo(true, titleID);
 
-    const titleInput = clickedToDo.querySelector("#title");
+    const titleInput = clickedToDo.querySelector(".title-text");
     const notesContainer = clickedToDo.querySelector(".new-notes-container");
 
     const retrievedTodos = todos.getTodos();
