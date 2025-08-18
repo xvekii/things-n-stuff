@@ -88,7 +88,7 @@ nav {
 
 .todo-template-popup {
   position: fixed;
-  top: 16rem;
+  top: 18rem;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200px;
