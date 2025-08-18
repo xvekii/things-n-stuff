@@ -62,7 +62,6 @@ nav {
 
 .container-right {
   height: 80vh;
-  /* height: auto; */
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
@@ -106,7 +105,7 @@ nav {
 .title {
   font-size: 1.2rem;
   margin-bottom: 0.6rem;
-  margin-top: 1rem;
+  margin-top: 1.3rem;
   width: 100%;
 }
 
@@ -123,7 +122,6 @@ nav {
 
 .reminder-container {
   text-align: center;
-  background: lavender;
   min-height: 2rem;
   border-radius: 20px;
   margin-top: 1rem;
@@ -196,12 +194,12 @@ nav {
 .priority-circle {
   width: 15px;
   height: 15px;
-  background:rgb(255, 255, 255);
+  background: rgb(255, 255, 255);
   border-radius: 50%;
   border: 1px solid #000;
-  position: relative;
-  top: 5px;
-  right: 11px;
+  position: absolute;
+  top: 4px;
+  right: 219px;
 }
 
 .toggle-datetime-hidden {
@@ -219,6 +217,75 @@ nav {
   border-radius: 12px;
   padding: 16px;
   gap: 0.5rem;
+}
+
+.toggle-priority-hidden {
+  display: none;
+} 
+
+.toggle-priority-visible {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 96px;
+  left: 50px;
+  width: 14rem;
+  background-color: #FFF8F8;
+  border-radius: 12px;
+  padding: 16px;
+  gap: 0.5rem;
+  min-height: 13rem;
+}
+
+.priority-btn-container {
+  display: flex;
+  gap: .5rem;
+  flex-direction: column;
+  height: 118px;
+  width: 60%;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.priority-title {
+  margin: 0;
+}
+
+.priority-btn {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: .2rem .2rem;
+  border-radius: 6px;
+}
+
+.priority-btn::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 1rem;
+  margin-left: .2rem;
+  border: 1px solid black;
+}
+
+.priority-btn.low::before {
+  background: #FFFFFF;
+}
+
+.priority-btn.normal::before {
+  background: #06D6A0;
+}
+
+.priority-btn.medium::before {
+  background: #FFD166;
+}
+
+.priority-btn.high::before {
+  background: #EF476F;
 }
 
 .close-datetime-btn {
