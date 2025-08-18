@@ -45,15 +45,14 @@ function fillNotes(notesContainer, notes) {
   notesContainer.innerHTML = "";
   notes.forEach((note, index) => {
     const newNote = createNewNote();
-    
-    if (notes.length !== 0) {
-      removePlaceholder(newNote);
-    } 
     newNote.value = note;
     
     if (index === 0 && note === "" && notes.length === 1) {
       addPlaceholder(newNote);
+    } else {
+      removePlaceholder(newNote);
     }
+    
     notesContainer.appendChild(newNote);
   });
 }
