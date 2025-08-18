@@ -15,7 +15,10 @@ function createTodo(isExistingTodo, existingID = null) {
   const newTitle = document.createElement("input");
   const newNotesContainer = document.createElement("div");
   const newBtnContainer = document.createElement("div");
-  const reminderContainer = document.createElement("div");
+  const newReminderContainer = document.createElement("div");
+  const newPriorityContainer = document.createElement("div");
+  const newPriorityTitle = document.createElement("h5");
+  const newPriorityBtnContainer = document.createElement("div");
   const newDateTimeContainer = document.createElement("div");
   const newDateInput = document.createElement("input");
   const dataTitleID = existingID ? existingID : "temp1";
@@ -32,7 +35,10 @@ function createTodo(isExistingTodo, existingID = null) {
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
   newNotesContainer.classList.add("new-notes-container");
-  reminderContainer.classList.add("reminder-container");
+  newReminderContainer.classList.add("reminder-container");
+  newPriorityContainer.classList.add("toggle-priority-hidden");
+  newPriorityTitle.classList.add("priority-title");
+  newPriorityBtnContainer.classList.add("priority-btn-container");
   newDateTimeContainer.classList.add("toggle-datetime-hidden");
 
   newTodoCard.classList.add("todo-template-popup");
@@ -50,8 +56,24 @@ function createTodo(isExistingTodo, existingID = null) {
   deleteBtn.classList.add("todo-btn", "delete-btn");
   dueDateBtn.classList.add("todo-btn");
   priorityBtn.classList.add("todo-btn");
+  newPriorityTitle.textContent = "Select priority:";
   projectBtn.classList.add("todo-btn");
   saveBtn.classList.add("todo-btn");
+
+  const priorityLowBtn = document.createElement("button");
+  const priorityNormalBtn = document.createElement("button");
+  const priorityMediumBtn = document.createElement("button");
+  const priorityHighBtn = document.createElement("button");
+
+  priorityLowBtn.classList.add("priority-btn", "low");
+  priorityNormalBtn.classList.add("priority-btn", "normal");
+  priorityMediumBtn.classList.add("priority-btn", "medium");
+  priorityHighBtn.classList.add("priority-btn", "high");
+
+  priorityLowBtn.textContent = "Low";
+  priorityNormalBtn.textContent = "Normal";
+  priorityMediumBtn.textContent = "Medium";
+  priorityHighBtn.textContent = "High"; 
 
   newBtnContainer.appendChild(deleteBtn);
   newBtnContainer.appendChild(dueDateBtn);
@@ -59,8 +81,18 @@ function createTodo(isExistingTodo, existingID = null) {
   newBtnContainer.appendChild(projectBtn);
   newBtnContainer.appendChild(saveBtn);
   newBtnContainer.appendChild(newDateTimeContainer);
+  
   newDateTimeContainer.appendChild(newDateInput);
   newDateTimeContainer.appendChild(closeDateTimeBtn);
+  
+  newPriorityContainer.appendChild(newPriorityTitle);
+  newPriorityContainer.appendChild(newPriorityBtnContainer);
+  newPriorityBtnContainer.appendChild(priorityLowBtn);
+  newPriorityBtnContainer.appendChild(priorityNormalBtn);
+  newPriorityBtnContainer.appendChild(priorityMediumBtn);
+  newPriorityBtnContainer.appendChild(priorityHighBtn);
+  
+  newBtnContainer.appendChild(newPriorityContainer);
 
   const deleteBtnImg = document.createElement("img");
   deleteBtnImg.src = deleteTodoImg;
@@ -89,7 +121,7 @@ function createTodo(isExistingTodo, existingID = null) {
 
   newTodoCard.appendChild(newTitle);
   newTodoCard.appendChild(newNotesContainer);
-  newTodoCard.appendChild(reminderContainer);
+  newTodoCard.appendChild(newReminderContainer);
   newTodoCard.appendChild(newBtnContainer);
 
   const newNote = createNewNote();
@@ -112,6 +144,12 @@ function createTodo(isExistingTodo, existingID = null) {
     });
     renderTodos();
     showTodoBtn(); 
+  });
+
+  // Refactor as one toggle function
+  priorityBtn.addEventListener("click", () => {
+    newPriorityContainer.classList.remove("toggle-priority-hidden");
+    newPriorityContainer.classList.add("toggle-priority-visible");
   });
 
   saveBtn.addEventListener("click", () => {
