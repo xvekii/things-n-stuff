@@ -303,23 +303,18 @@ function renderTodos() {
   todos.todosArr.forEach((todo) => {
     const newTodoCard = document.createElement("div");
     const newPriority = document.createElement("span");
-    const newTitle = document.createElement("input");
+    const newTitle = document.createElement("p");
     const newNotesContainer = document.createElement("div");
 
-    newTitle.setAttribute("type", "text");
     newTitle.setAttribute("class", "title-text");
     newTitle.setAttribute("data-title-id", `${todo.ID}`);
-    newTitle.setAttribute("name", "title");
-    newTitle.setAttribute("placeholder", "Title");
-    newTitle.setAttribute("autocomplete", "off");
-    newTitle.setAttribute("maxlength", "25");
 
     newPriority.classList.add("priority-circle");
     newTitle.classList.add("title", "no-border");
     newNotesContainer.classList.add("new-notes-container");
     newTodoCard.classList.add("todo");
 
-    newTitle.value = todo.title;
+    newTitle.textContent = todo.title;
 
     newTodoCard.appendChild(newPriority);
     newTodoCard.appendChild(newTitle);
