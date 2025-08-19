@@ -23,7 +23,7 @@ containerRight.addEventListener("click", (e) => {
   const todo = e.target.closest(".todo"); 
   
   if (todo) {
-    const title = todo.querySelector("input[data-title-id]");
+    const title = todo.querySelector("p[data-title-id]");
     const titleID = title.dataset.titleId;
     const clickedToDo = createTodo(true, titleID);
 
