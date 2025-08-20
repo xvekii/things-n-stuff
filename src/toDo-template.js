@@ -146,7 +146,7 @@ function createTodo(isExistingTodo, existingID = null) {
     showTodoBtn(); 
   });
 
-  // Refactor as one toggle function
+  // Refactor as one toggle function?
   priorityBtn.addEventListener("click", () => {
     newPriorityContainer.classList.remove("toggle-priority-hidden");
     newPriorityContainer.classList.add("toggle-priority-visible");
@@ -230,12 +230,10 @@ function createTodo(isExistingTodo, existingID = null) {
   return newTodoCard;
 }
 
-function removePlaceholder(note) {
-  note.removeAttribute("placeholder");
-}
-
-function addPlaceholder(note) {
-  note.setAttribute("placeholder", "Write a note...");
+function checkNoteLength(textLength) {
+  if (textLength == 20) {
+    return true;
+  }
 }
 
 function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, existingID) {
@@ -291,45 +289,58 @@ function createNewNote() {
   return newNote;
 }
 
-function checkNoteLength(textLength) {
-  if (textLength == 20) {
-    return true;
-  }
-}
-
 function renderTodos() {
   containerRight.replaceChildren();
   //Refactor
-  todos.todosArr.forEach((todo) => {
+  todos.todosArr.forEach((todo, idx) => {
     const newTodoCard = document.createElement("div");
     const newPriority = document.createElement("span");
     const newTitle = document.createElement("p");
-    const newNotesContainer = document.createElement("div");
 
     newTitle.setAttribute("class", "title-text");
     newTitle.setAttribute("data-title-id", `${todo.ID}`);
 
     newPriority.classList.add("priority-circle");
     newTitle.classList.add("title", "no-border");
-    newNotesContainer.classList.add("new-notes-container");
     newTodoCard.classList.add("todo");
 
     newTitle.textContent = todo.title;
-
+    
     newTodoCard.appendChild(newPriority);
     newTodoCard.appendChild(newTitle);
+    
+    if (todo.notes && todo.notes.length > 0) {
+      for (let i = 0; i < Math.min(3, todo.notes.length); i++) {
+        const newNote = document.createElement("p");
+        newNote.textContent = todo.notes[i];
+        newNote.setAttribute("class", "todo-note");
+        newTodoCard.appendChild(newNote);
+      }
+    }
+
+    if (idx == todos.todosArr.length - 1) {
+      newTodoCard.classList.add("todo-saved");
+    }
+
     containerRight.appendChild(newTodoCard);
   });
 }
   
-  function showTodoBtn() {
-    addToDoBtn.style.display = "flex";
-  }
+function showTodoBtn() {
+  addToDoBtn.style.display = "flex";
+}
+
+function hideTodoBtn() {
+  addToDoBtn.style.display = "none";
+}
   
-  function hideTodoBtn() {
-    addToDoBtn.style.display = "none";
-  }
-  
+function removePlaceholder(note) {
+  note.removeAttribute("placeholder");
+}
+
+function addPlaceholder(note) {
+  note.setAttribute("placeholder", "Write a note...");
+}
 
   
-  export { todos, createTodo, createNewNote, removePlaceholder, addPlaceholder };
+export { todos, createTodo, createNewNote, removePlaceholder, addPlaceholder };
