@@ -146,7 +146,6 @@ function createTodo(isExistingTodo, existingID = null) {
     showTodoBtn(); 
   });
 
-  // Refactor as one toggle function?
   priorityBtn.addEventListener("click", () => {
     newPriorityContainer.classList.toggle("visible");
   });
@@ -236,7 +235,6 @@ function checkNoteLength(textLength) {
 
 function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, existingID) {
   const titleValue = title.value;
-  console.log(titleValue);
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
   const dueDate = newDateInput.value;
@@ -254,7 +252,6 @@ function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, exist
   if (isExistingTodo === false) {
     const newTodo = new Todo(titleValue, notes, formattedDate);
     console.log(formattedDate);
-    console.log(newTodo.ID);
     todos.addTodo(newTodo);
 
   } else if (existingID) {
@@ -289,8 +286,9 @@ function createNewNote() {
 
 function renderTodos() {
   containerRight.replaceChildren();
-  //Refactor
-  todos.todosArr.forEach((todo, idx) => {
+
+  const retrievedTodos = todos.getTodos();
+  retrievedTodos.forEach((todo, idx) => {
     const newTodoCard = document.createElement("div");
     const newPriority = document.createElement("span");
     const newTitle = document.createElement("p");
