@@ -36,10 +36,10 @@ function createTodo(isExistingTodo, existingID = null) {
   newTitle.contentEditable = "true";
   newNotesContainer.classList.add("new-notes-container");
   newReminderContainer.classList.add("reminder-container");
-  newPriorityContainer.classList.add("toggle-priority-hidden");
+  newPriorityContainer.classList.add("toggle-priority");
   newPriorityTitle.classList.add("priority-title");
   newPriorityBtnContainer.classList.add("priority-btn-container");
-  newDateTimeContainer.classList.add("toggle-datetime-hidden");
+  newDateTimeContainer.classList.add("toggle-datetime");
 
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
@@ -148,8 +148,7 @@ function createTodo(isExistingTodo, existingID = null) {
 
   // Refactor as one toggle function?
   priorityBtn.addEventListener("click", () => {
-    newPriorityContainer.classList.remove("toggle-priority-hidden");
-    newPriorityContainer.classList.add("toggle-priority-visible");
+    newPriorityContainer.classList.toggle("visible");
   });
 
   saveBtn.addEventListener("click", () => {
@@ -159,13 +158,12 @@ function createTodo(isExistingTodo, existingID = null) {
   });
 
   dueDateBtn.addEventListener("click", () => {
-    newDateTimeContainer.classList.remove("toggle-datetime-hidden");
-    newDateTimeContainer.classList.add("toggle-datetime-visible");
+    newDateTimeContainer.classList.toggle("visible");
+
   });
 
   closeDateTimeBtn.addEventListener("click", () => {
-    newDateTimeContainer.classList.remove("toggle-datetime-visible");
-    newDateTimeContainer.classList.add("toggle-datetime-hidden");
+    newDateTimeContainer.classList.toggle("visible");
   });
 
   newTitle.addEventListener("keydown", (e) => {

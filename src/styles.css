@@ -234,11 +234,11 @@ nav {
   left: 4px;
 }
 
-.toggle-datetime-hidden {
+.toggle-datetime {
   display: none;
 }
 
-.toggle-datetime-visible {
+.toggle-datetime.visible {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -251,11 +251,11 @@ nav {
   gap: 0.5rem;
 }
 
-.toggle-priority-hidden {
+.toggle-priority {
   display: none;
 } 
 
-.toggle-priority-visible {
+.toggle-priority.visible {
   display: flex;
   flex-direction: column;
   position: absolute;
