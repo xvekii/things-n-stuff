@@ -12,6 +12,7 @@ const todos = new AllTodos();
 
 function createTodo(existingID = null) {
   const newTodoCard = document.createElement("div");
+  const newPriorityCircle = document.createElement("span");
   const newTitle = document.createElement("input");
   const newNotesContainer = document.createElement("div");
   const newBtnContainer = document.createElement("div");
@@ -22,6 +23,10 @@ function createTodo(existingID = null) {
   const newDateTimeContainer = document.createElement("div");
   const newDateInput = document.createElement("input");
   const dataTitleID = existingID ? existingID : "temp1";
+  const LOW = "#FFFFFF";
+  const NORMAL = "#06D6A0";
+  const MEDIUM = "#FFD166";
+  const HIGH = "#EF476F";
 
   newTitle.setAttribute("type", "text");
   newTitle.setAttribute("class", "title-text");
@@ -34,6 +39,7 @@ function createTodo(existingID = null) {
   
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
+  newPriorityCircle.classList.add("priority-circle");
   newNotesContainer.classList.add("new-notes-container");
   newReminderContainer.classList.add("reminder-container");
   newPriorityContainer.classList.add("toggle-priority");
@@ -119,6 +125,7 @@ function createTodo(existingID = null) {
   saveBtnImg.alt = "Save";
   saveBtn.appendChild(saveBtnImg);
 
+  newTodoCard.appendChild(newPriorityCircle);
   newTodoCard.appendChild(newTitle);
   newTodoCard.appendChild(newNotesContainer);
   newTodoCard.appendChild(newReminderContainer);
@@ -150,8 +157,17 @@ function createTodo(existingID = null) {
     newPriorityContainer.classList.toggle("visible");
   });
 
+  newPriorityBtnContainer.addEventListener("click", (e) => {
+    const clickedBtn = e.target;
+    console.log(clickedBtn);
+
+    if (clickedBtn.classList.contains("normal")) {
+      newPriorityCircle.style.backgroundColor = NORMAL;
+    }
+  });
+
   saveBtn.addEventListener("click", () => {
-    getTodoInput(newTitle, newNotesContainer, newDateInput, existingID);
+    getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID);
     renderTodos(existingID);  
     showTodoBtn();  
   });
@@ -233,7 +249,8 @@ function checkNoteLength(textLength) {
   }
 }
 
-function getTodoInput(title, notesContainer, newDateInput, existingID) {
+function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
+  const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
@@ -250,19 +267,17 @@ function getTodoInput(title, notesContainer, newDateInput, existingID) {
   }
 
   if (!existingID) {
-    const newTodo = new Todo(titleValue, notes, formattedDate);
+    const newTodo = new Todo(priorityValue, titleValue, notes, formattedDate);
     console.log(formattedDate);
-    // Add priority
     todos.addTodo(newTodo);
   } else {
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
 
+    todoUpdate.priority = priorityValue;
     todoUpdate.title = titleValue;
     todoUpdate.notes = notes;
-    // Add priority
-    
-    
+    // Add due date
   }
 }
 
@@ -307,6 +322,9 @@ function renderTodos(existingID = null, deleting = null) {
       newTodoCard.classList.add("todo-saved");
     } 
     
+    if (todo.priority) {
+      newPriority.style.backgroundColor = todo.priority;
+    }
     newTitle.textContent = todo.title;
     
     newTodoCard.appendChild(newPriority);
