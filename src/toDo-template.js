@@ -10,8 +10,7 @@ const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const todos = new AllTodos();
 
-// Remove isExistingTodo?
-function createTodo(isExistingTodo, existingID = null) {
+function createTodo(existingID = null) {
   const newTodoCard = document.createElement("div");
   const newTitle = document.createElement("input");
   const newNotesContainer = document.createElement("div");
@@ -143,7 +142,7 @@ function createTodo(isExistingTodo, existingID = null) {
         currentTodos.splice(index, 1);
       }
     });
-    renderTodos();
+    renderTodos(existingID, true);
     showTodoBtn(); 
   });
 
@@ -152,7 +151,7 @@ function createTodo(isExistingTodo, existingID = null) {
   });
 
   saveBtn.addEventListener("click", () => {
-    getTodoInput(newTitle, newNotesContainer, newDateInput, isExistingTodo, existingID);
+    getTodoInput(newTitle, newNotesContainer, newDateInput, existingID);
     renderTodos(existingID);  
     showTodoBtn();  
   });
@@ -234,7 +233,7 @@ function checkNoteLength(textLength) {
   }
 }
 
-function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, existingID) {
+function getTodoInput(title, notesContainer, newDateInput, existingID) {
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
@@ -250,21 +249,20 @@ function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, exist
     }).format(date);
   }
 
-  if (isExistingTodo === false) {
+  if (!existingID) {
     const newTodo = new Todo(titleValue, notes, formattedDate);
     console.log(formattedDate);
     // Add priority
     todos.addTodo(newTodo);
+  } else {
+    const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
+    if (!todoUpdate) return;
 
-  } else if (existingID) {
-    const retrievedTodos = todos.getTodos();
-    for (const obj of retrievedTodos) {
-      if (obj.ID == existingID) {
-        obj.title = titleValue;
-        obj.notes = notes;
-        // Add priority
-      }
-    }
+    todoUpdate.title = titleValue;
+    todoUpdate.notes = notes;
+    // Add priority
+    
+    
   }
 }
 
@@ -287,7 +285,7 @@ function createNewNote() {
   return newNote;
 }
 
-function renderTodos(existingID) {
+function renderTodos(existingID = null, deleting = null) {
   containerRight.replaceChildren();
 
   const retrievedTodos = todos.getTodos();
@@ -305,8 +303,10 @@ function renderTodos(existingID) {
 
     if (todo.ID === existingID) {
       newTodoCard.classList.add("todo-saved");
+    } else if (!existingID && idx === retrievedTodos.length - 1 && !deleting) {
+      newTodoCard.classList.add("todo-saved");
     } 
-
+    
     newTitle.textContent = todo.title;
     
     newTodoCard.appendChild(newPriority);
@@ -319,10 +319,6 @@ function renderTodos(existingID) {
         newNote.setAttribute("class", "todo-note");
         newTodoCard.appendChild(newNote);
       }
-    }
-
-    if (!existingID && idx == todos.todosArr.length - 1) {
-      newTodoCard.classList.add("todo-saved");
     }
 
     containerRight.appendChild(newTodoCard);
