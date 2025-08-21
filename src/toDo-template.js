@@ -10,6 +10,7 @@ const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const todos = new AllTodos();
 
+// Remove isExistingTodo?
 function createTodo(isExistingTodo, existingID = null) {
   const newTodoCard = document.createElement("div");
   const newTitle = document.createElement("input");
@@ -152,7 +153,7 @@ function createTodo(isExistingTodo, existingID = null) {
 
   saveBtn.addEventListener("click", () => {
     getTodoInput(newTitle, newNotesContainer, newDateInput, isExistingTodo, existingID);
-    renderTodos();  
+    renderTodos(existingID);  
     showTodoBtn();  
   });
 
@@ -252,6 +253,7 @@ function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, exist
   if (isExistingTodo === false) {
     const newTodo = new Todo(titleValue, notes, formattedDate);
     console.log(formattedDate);
+    // Add priority
     todos.addTodo(newTodo);
 
   } else if (existingID) {
@@ -260,6 +262,7 @@ function getTodoInput(title, notesContainer, newDateInput, isExistingTodo, exist
       if (obj.ID == existingID) {
         obj.title = titleValue;
         obj.notes = notes;
+        // Add priority
       }
     }
   }
@@ -284,7 +287,7 @@ function createNewNote() {
   return newNote;
 }
 
-function renderTodos() {
+function renderTodos(existingID) {
   containerRight.replaceChildren();
 
   const retrievedTodos = todos.getTodos();
@@ -300,6 +303,10 @@ function renderTodos() {
     newTitle.classList.add("title", "no-border");
     newTodoCard.classList.add("todo");
 
+    if (todo.ID === existingID) {
+      newTodoCard.classList.add("todo-saved");
+    } 
+
     newTitle.textContent = todo.title;
     
     newTodoCard.appendChild(newPriority);
@@ -314,7 +321,7 @@ function renderTodos() {
       }
     }
 
-    if (idx == todos.todosArr.length - 1) {
+    if (!existingID && idx == todos.todosArr.length - 1) {
       newTodoCard.classList.add("todo-saved");
     }
 
