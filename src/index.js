@@ -29,18 +29,20 @@ containerRight.addEventListener("click", (e) => {
     const toDoTemplatePopup = createTodo(titleID);
     console.log(toDoTemplatePopup);
 
+    const priorityCircle = toDoTemplatePopup.querySelector(".priority-circle");
     const titleInput = toDoTemplatePopup.querySelector(".title-text");
     const notesContainer = toDoTemplatePopup.querySelector(".new-notes-container");
     // Add dueDate
 
-    const retrievedTodos = todos.getTodos();
-    for (const obj of retrievedTodos) {
-      if (obj.ID == titleID) {
-        titleInput.value = obj.title;
-        fillNotes(notesContainer, obj.notes);
-        // Add dueDate
-      }
-    }
+    const retrievedTodo = todos.getTodos().find(obj => obj.ID === titleID);
+    if (!retrievedTodo) return;
+
+    priorityCircle.style.backgroundColor = retrievedTodo.priority;
+    titleInput.value = retrievedTodo.title;
+    fillNotes(notesContainer, retrievedTodo.notes);
+    // Add dueDate
+      
+    
     renderTodo(toDoTemplatePopup);
   }
 });
