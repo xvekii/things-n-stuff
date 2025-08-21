@@ -20,24 +20,28 @@ addToDoBtn.addEventListener("click", () => {
 });
 
 containerRight.addEventListener("click", (e) => {
-  const todo = e.target.closest(".todo"); 
+  const clickedTodo = e.target.closest(".todo"); 
   
-  if (todo) {
-    const title = todo.querySelector("p[data-title-id]");
+  if (clickedTodo) {
+    const title = clickedTodo.querySelector("p[data-title-id]");
     const titleID = title.dataset.titleId;
-    const clickedToDo = createTodo(true, titleID);
+    
+    const toDoTemplatePopup = createTodo(true, titleID);
+    console.log(toDoTemplatePopup);
 
-    const titleInput = clickedToDo.querySelector(".title-text");
-    const notesContainer = clickedToDo.querySelector(".new-notes-container");
+    const titleInput = toDoTemplatePopup.querySelector(".title-text");
+    const notesContainer = toDoTemplatePopup.querySelector(".new-notes-container");
+    // Add dueDate
 
     const retrievedTodos = todos.getTodos();
     for (const obj of retrievedTodos) {
       if (obj.ID == titleID) {
         titleInput.value = obj.title;
         fillNotes(notesContainer, obj.notes);
+        // Add dueDate
       }
     }
-    renderTodo(clickedToDo);
+    renderTodo(toDoTemplatePopup);
   }
 });
 
