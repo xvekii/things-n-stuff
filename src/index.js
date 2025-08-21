@@ -15,7 +15,7 @@ hamburgerMenuBtn.addEventListener("click", () => {
 });
 
 addToDoBtn.addEventListener("click", () => {
-  const toDoCard = createTodo(false);
+  const toDoCard = createTodo();
   renderTodo(toDoCard);
 });
 
@@ -26,7 +26,7 @@ containerRight.addEventListener("click", (e) => {
     const title = clickedTodo.querySelector("p[data-title-id]");
     const titleID = title.dataset.titleId;
     
-    const toDoTemplatePopup = createTodo(true, titleID);
+    const toDoTemplatePopup = createTodo(titleID);
     console.log(toDoTemplatePopup);
 
     const titleInput = toDoTemplatePopup.querySelector(".title-text");
