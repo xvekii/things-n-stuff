@@ -80,7 +80,7 @@ nav {
   min-width: 20rem;
   min-height: 8rem;
   border-radius: 10px;
-  background-color: #FFFFFF;
+  background-color: #ffd1660f;
   box-shadow: 3px 2px 0px 0px #073b4ccc;
   border: 1px solid black;
   padding: 0 1rem;
@@ -258,28 +258,30 @@ nav {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 96px;
-  left: 50px;
+  top: 57px;
+  left: 31px;
   width: 14rem;
   background-color: #FFF8F8;
-  border-radius: 12px;
+  border: 1px solid black;
+  border-radius: 10px;
   padding: 16px;
   gap: 0.5rem;
-  min-height: 13rem;
+  min-height: 16rem;
+  justify-content: space-around;
 }
 
 .priority-btn-container {
   display: flex;
-  gap: .5rem;
+  gap: .6rem;
   flex-direction: column;
   height: 118px;
   width: 60%;
   align-self: center;
-  margin-top: 1rem;
 }
 
 .priority-title {
   margin: 0;
+  font-size: 1rem;
 }
 
 .priority-btn {
@@ -319,16 +321,21 @@ nav {
   background: #EF476F;
 }
 
-.close-datetime-btn {
+.close-datetime-btn, 
+.close-priority-btn {
   align-self: flex-end;
   background-color: white;
   border: 1px solid black;
   border-radius: 2px;
-  padding: .1rem .7rem;
+  padding: .2rem .7rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.close-priority-btn {
+  margin-top: 1rem;  
+}
+
 
 @keyframes todo-open {
   0% {
