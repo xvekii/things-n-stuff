@@ -50,21 +50,31 @@ function createTodo(existingID = null) {
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
 
-  const closeDateTimeBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
+  const closeDateTimeBtn = document.createElement("button");
   const dueDateBtn = document.createElement("button");
   const priorityBtn = document.createElement("button");
+  const closePriorityBtn = document.createElement("button");
   const projectBtn = document.createElement("button");
   const saveBtn = document.createElement("button");
 
   closeDateTimeBtn.classList.add("close-datetime-btn");
   closeDateTimeBtn.textContent = "Close";
+  closeDateTimeBtn.type = "button";
   deleteBtn.classList.add("todo-btn", "delete-btn");
+  deleteBtn.type = "button";
   dueDateBtn.classList.add("todo-btn");
+  dueDateBtn.type = "button";
   priorityBtn.classList.add("todo-btn");
+  priorityBtn.type = "button";
+  closePriorityBtn.classList.add("todo-btn", "close-priority-btn");
+  closePriorityBtn.textContent = "Close";
+  closePriorityBtn.type = "button";
   newPriorityTitle.textContent = "Select priority:";
   projectBtn.classList.add("todo-btn");
+  projectBtn.type = "button";
   saveBtn.classList.add("todo-btn");
+  saveBtn.type = "button";
 
   const priorityLowBtn = document.createElement("button");
   const priorityNormalBtn = document.createElement("button");
@@ -72,9 +82,13 @@ function createTodo(existingID = null) {
   const priorityHighBtn = document.createElement("button");
 
   priorityLowBtn.classList.add("priority-btn", "low");
+  priorityLowBtn.type = "button";
   priorityNormalBtn.classList.add("priority-btn", "normal");
+  priorityNormalBtn.type = "button";
   priorityMediumBtn.classList.add("priority-btn", "medium");
+  priorityMediumBtn.type = "button";
   priorityHighBtn.classList.add("priority-btn", "high");
+  priorityHighBtn.type = "button";
 
   priorityLowBtn.textContent = "Low";
   priorityNormalBtn.textContent = "Normal";
@@ -93,11 +107,12 @@ function createTodo(existingID = null) {
   
   newPriorityContainer.appendChild(newPriorityTitle);
   newPriorityContainer.appendChild(newPriorityBtnContainer);
+  newPriorityContainer.appendChild(closePriorityBtn);
   newPriorityBtnContainer.appendChild(priorityLowBtn);
   newPriorityBtnContainer.appendChild(priorityNormalBtn);
   newPriorityBtnContainer.appendChild(priorityMediumBtn);
   newPriorityBtnContainer.appendChild(priorityHighBtn);
-  
+
   newBtnContainer.appendChild(newPriorityContainer);
 
   const deleteBtnImg = document.createElement("img");
@@ -159,13 +174,37 @@ function createTodo(existingID = null) {
 
   newPriorityBtnContainer.addEventListener("click", (e) => {
     const clickedBtn = e.target;
-    console.log(clickedBtn);
+
+    if (clickedBtn.classList.contains("low")) {
+      newPriorityCircle.style.backgroundColor = LOW;
+    }
 
     if (clickedBtn.classList.contains("normal")) {
       newPriorityCircle.style.backgroundColor = NORMAL;
     }
+
+    if (clickedBtn.classList.contains("medium")) {
+      newPriorityCircle.style.backgroundColor = MEDIUM;
+    }
+
+    if (clickedBtn.classList.contains("high")) {
+      newPriorityCircle.style.backgroundColor = HIGH;
+    }
+
   });
 
+  
+  newPriorityContainer.addEventListener("click", (e) => {
+    const clickedBtn = e.target;
+
+    if (clickedBtn.classList.contains("close-priority-btn")) {
+      newPriorityContainer.classList.remove("visible");
+    }
+
+  });
+  
+  // Refactor with event delegation
+  
   saveBtn.addEventListener("click", () => {
     getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID);
     renderTodos(existingID);  
