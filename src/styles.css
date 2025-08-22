@@ -13,7 +13,7 @@ html {
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
-  background-color: #FFFFFF;
+  background-color: #ff98000f;
   line-height: 1.2;
   overflow-x: hidden;
   max-height: 100vh;
@@ -67,7 +67,7 @@ nav {
 .container-right {
   height: 80vh;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
@@ -80,8 +80,8 @@ nav {
   min-width: 20rem;
   min-height: 8rem;
   border-radius: 10px;
-  background-color: #ffd1660f;
-  box-shadow: 3px 2px 0px 0px #073b4ccc;
+  background-color: #ffffff;
+  box-shadow: 2px 2px 0px 0px #073b4ccc;
   border: 1px solid black;
   padding: 0 1rem;
   display: flex;
@@ -109,16 +109,17 @@ nav {
   transform: translate(-50%, -50%);
   width: 200px;
   min-width: 20rem;
-  min-height: 20rem;
+  height: 33rem;
   border-radius: 10px;
   background-color: #FFFFFF;
-  box-shadow: 3px 2px 0px 0px #073b4ccc;
+  box-shadow: 4px 1px 7px 3px #073b4ccc;
   border: 1px solid black;
   padding: 0 0 0 1rem;
   display: flex;
   flex-direction: column;
   opacity: 0;
   animation: todo-open 0.3s forwards;
+  justify-content: space-between;
 }
 
 .todo-saved {
@@ -147,7 +148,7 @@ nav {
 }
 
 .new-notes-container {
-  height: 222px;
+  min-height: 23rem;
   overflow-y: auto;
 }
 
@@ -268,6 +269,7 @@ nav {
   gap: 0.5rem;
   min-height: 16rem;
   justify-content: space-around;
+  box-shadow: 2px 2px 0px 0px #000000;
 }
 
 .priority-btn-container {
