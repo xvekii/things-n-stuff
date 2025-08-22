@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+@supports not (scrollbar-gutter: stable) {
+  .container-right {
+    overflow-y: scroll;
+  }
+}
+
 * {
   font-family: inherit;
 }
@@ -17,7 +23,6 @@ body {
   line-height: 1.2;
   overflow-x: hidden;
   max-height: 100vh;
-
 }
 
 header {
@@ -73,6 +78,7 @@ nav {
   gap: 1rem;
   margin: 2rem 1rem;
   overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .todo {
@@ -112,7 +118,7 @@ nav {
   height: 33rem;
   border-radius: 10px;
   background-color: #FFFFFF;
-  box-shadow: 4px 1px 7px 3px #073b4ccc;
+  box-shadow: 6px -1px 11px 0px #073b4ccc;
   border: 1px solid black;
   padding: 0 0 0 1rem;
   display: flex;
