@@ -34,7 +34,7 @@ function createTodo(existingID = null) {
   newTitle.setAttribute("name", "title");
   newTitle.setAttribute("placeholder", "Title");
   newTitle.setAttribute("autocomplete", "off");
-  newTitle.setAttribute("maxlength", "25");
+  newTitle.setAttribute("maxlength", "24");
   newDateInput.setAttribute("type", "datetime-local");
   
   newTitle.classList.add("title", "no-border");
@@ -283,7 +283,7 @@ function createTodo(existingID = null) {
 }
 
 function checkNoteLength(textLength) {
-  if (textLength == 20) {
+  if (textLength == 31) {
     return true;
   }
 }
