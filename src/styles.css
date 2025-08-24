@@ -17,7 +17,8 @@ html {
 }
 
 body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  font-family: monospace, Courier;
   margin: 0;
   background-color: #ff98000f;
   line-height: 1.2;
@@ -76,14 +77,14 @@ nav {
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem 1rem;
+  margin: 2rem 0 2rem 1rem;
   overflow-y: auto;
   scrollbar-gutter: stable;
 }
 
 .todo {
   width: 200px;
-  min-width: 20rem;
+  min-width: 22rem;
   min-height: 8rem;
   border-radius: 10px;
   background-color: #ffffff;
@@ -103,9 +104,9 @@ nav {
 }
 
 .todo > .todo-note {
-   font-size: .9rem;
-   margin-top: 0;
-   margin-bottom: 0.2rem;
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.1rem;
 }
 
 .todo-template-popup {
@@ -114,7 +115,7 @@ nav {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200px;
-  min-width: 20rem;
+  min-width: 22rem;
   height: 33rem;
   border-radius: 10px;
   background-color: #FFFFFF;
@@ -142,9 +143,10 @@ nav {
 }
 
 .note {
-  font-size: 0.9rem;
+  font-size: 1rem;
   width: 100%;
   overflow-wrap: break-word;
+  margin-bottom: 0.1rem;
 }
 
 .title-text,
@@ -179,7 +181,7 @@ nav {
 .todo-btn-container {
   display: flex;
   justify-content: center;
-  gap: 0.9rem;
+  gap: 1.3rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
@@ -193,7 +195,7 @@ nav {
   border: none;
   position: fixed;
   top: 75vh;
-  right: 3rem;
+  right: 2rem;
   border-radius: 10px;
   box-shadow: 2px 2px 3px 0px #00000070;
 }
