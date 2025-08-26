@@ -14,6 +14,7 @@ hamburgerMenuBtn.addEventListener("click", () => {
   containerLeft.classList.toggle("active");
 });
 
+// Revise
 addToDoBtn.addEventListener("click", () => {
   const toDoCard = createTodo();
   renderTodo(toDoCard);
@@ -23,6 +24,7 @@ containerRight.addEventListener("click", (e) => {
   const clickedTodo = e.target.closest(".todo"); 
   
   if (clickedTodo) {
+    // Revise
     const title = clickedTodo.querySelector("p[data-title-id]");
     const titleID = title.dataset.titleId;
     
@@ -47,6 +49,7 @@ containerRight.addEventListener("click", (e) => {
   }
 });
 
+// Revise
 function fillNotes(notesContainer, notes) {
   notesContainer.innerHTML = "";
   notes.forEach((note, index) => {

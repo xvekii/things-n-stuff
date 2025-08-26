@@ -98,9 +98,8 @@ nav {
 }
 
 .todo > .title-text {
-   font-size: 1.1rem;
-   margin-bottom: .8rem;
-
+  font-size: 1.1rem;
+  margin-bottom: .8rem;
 }
 
 .todo > .todo-note {
@@ -167,6 +166,7 @@ nav {
   margin-top: 1rem;
 }
 
+/* Revise */
 .no-border {
   border: none;
   outline: none;

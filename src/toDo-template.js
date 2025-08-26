@@ -149,10 +149,12 @@ function createTodo(existingID = null) {
   const newNote = createNewNote();
   newNotesContainer.appendChild(newNote);
 
+  // Revise
   function appendExtraNote(prevNote, extraNote) {
     prevNote.after(extraNote);
   }
 
+  // Revise
   deleteBtn.addEventListener("click", () => {
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");
@@ -193,18 +195,15 @@ function createTodo(existingID = null) {
 
   });
 
-  
   newPriorityContainer.addEventListener("click", (e) => {
     const clickedBtn = e.target;
 
     if (clickedBtn.classList.contains("close-priority-btn")) {
       newPriorityContainer.classList.remove("visible");
     }
-
   });
   
   // Refactor with event delegation
-  
   saveBtn.addEventListener("click", () => {
     getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID);
     renderTodos(existingID);  
@@ -227,12 +226,14 @@ function createTodo(existingID = null) {
     }
   });
 
+  // Change input to textarea
   newNotesContainer.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
       const target = e.target;
       const inputTextlength = target.value.length;
       const check = checkNoteLength(inputTextlength);
 
+      // Placeholder? No need for appending extra notes
       if (check) {
         const extraNote = createNewNote();
         removePlaceholder(extraNote);
@@ -242,6 +243,7 @@ function createTodo(existingID = null) {
     }
   });
 
+  // Revise appending extra note
   newNotesContainer.addEventListener("keydown", (e) => {
     const target = e.target;
     if (
@@ -258,6 +260,7 @@ function createTodo(existingID = null) {
     }
   });
 
+  // Revise
   newNotesContainer.addEventListener("keydown", (e) => {
     const input = e.target;
 
@@ -282,6 +285,7 @@ function createTodo(existingID = null) {
   return newTodoCard;
 }
 
+// Revise
 function checkNoteLength(textLength) {
   if (textLength == 31) {
     return true;
@@ -291,6 +295,7 @@ function checkNoteLength(textLength) {
 function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
+  // Revise input/textarea
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
   const dueDate = newDateInput.value;
@@ -320,6 +325,7 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   }
 }
 
+// Revise
 let noteIdCounter = 0;
 
 function createNewNote() {
@@ -377,7 +383,6 @@ function renderTodos(existingID = null, deleting = null) {
         newTodoCard.appendChild(newNote);
       }
     }
-
     containerRight.appendChild(newTodoCard);
   });
 }
@@ -389,14 +394,15 @@ function showTodoBtn() {
 function hideTodoBtn() {
   addToDoBtn.style.display = "none";
 }
-  
+
+// Revise
 function removePlaceholder(note) {
   note.removeAttribute("placeholder");
 }
-
+// Revise
 function addPlaceholder(note) {
   note.setAttribute("placeholder", "Write a note...");
 }
 
-  
+// Revise
 export { todos, createTodo, createNewNote, removePlaceholder, addPlaceholder };
