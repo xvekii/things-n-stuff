@@ -149,6 +149,10 @@ function createTodo(existingID = null) {
   const newNote = createNewNote();
   newNotesContainer.appendChild(newNote);
 
+  newNote.addEventListener("input", () => {
+    resizeNote(newNote);
+  });
+
   // Revise
   function appendExtraNote(prevNote, extraNote) {
     prevNote.after(extraNote);
@@ -219,10 +223,12 @@ function createTodo(existingID = null) {
     newDateTimeContainer.classList.toggle("visible");
   });
 
+  // Revise to add new 
   newTitle.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const firstNote = newNotesContainer.firstElementChild;
       firstNote.focus();
+      // resizeNote(newNote);
     }
   });
 
@@ -330,16 +336,18 @@ let noteIdCounter = 0;
 
 function createNewNote() {
   noteIdCounter += 1;
-  const newNote = document.createElement("input");
+  const newNote = document.createElement("textarea");
 
-  newNote.setAttribute("type", "text");
   newNote.setAttribute("class", "note-text");
+  newNote.setAttribute("cols", "12");
+  newNote.setAttribute("rows", "1");
+  newNote.setAttribute("wrap", "hard");
+  // newNote.setAttribute("maxlength", "80");
   newNote.setAttribute("id", `note-${noteIdCounter}`);
   newNote.setAttribute("name", "note");
   newNote.setAttribute("placeholder", "Write a note...");
   newNote.setAttribute("autocomplete", "off");
 
-  newNote.contentEditable = "true";
   newNote.classList.add("note", "no-border");
 
   return newNote;
@@ -375,11 +383,19 @@ function renderTodos(existingID = null, deleting = null) {
     newTodoCard.appendChild(newPriority);
     newTodoCard.appendChild(newTitle);
     
+    // Revise the number of notes visible 
     if (todo.notes && todo.notes.length > 0) {
       for (let i = 0; i < Math.min(3, todo.notes.length); i++) {
-        const newNote = document.createElement("p");
+        const newNote = document.createElement("textarea");
         newNote.textContent = todo.notes[i];
+        
+        // newNote.setAttribute("class", "note-text");
+        newNote.setAttribute("wrap", "hard");
         newNote.setAttribute("class", "todo-note");
+        newNote.setAttribute("name", "note");
+        newNote.setAttribute("rows", "2");
+        newNote.classList.add("note", "no-border");
+
         newTodoCard.appendChild(newNote);
       }
     }
@@ -402,7 +418,16 @@ function removePlaceholder(note) {
 // Revise
 function addPlaceholder(note) {
   note.setAttribute("placeholder", "Write a note...");
+} 
+
+function resizeNote(note) {
+  requestAnimationFrame(() => {
+    note.style.height = "auto";
+    note.style.height = note.scrollHeight + "px";
+  });
 }
 
 // Revise
-export { todos, createTodo, createNewNote, removePlaceholder, addPlaceholder };
+export { todos, createTodo, createNewNote, 
+  removePlaceholder, addPlaceholder, resizeNote 
+};

@@ -106,6 +106,7 @@ nav {
   font-size: 1rem;
   margin-top: 0;
   margin-bottom: 0.1rem;
+  overflow-wrap: break-word;
 }
 
 .todo-template-popup {
@@ -146,6 +147,7 @@ nav {
   width: 100%;
   overflow-wrap: break-word;
   margin-bottom: 0.1rem;
+  padding-right: 1rem;
 }
 
 .title-text,
@@ -164,6 +166,11 @@ nav {
   min-height: 2rem;
   border-radius: 20px;
   margin-top: 1rem;
+}
+
+textarea {
+  resize: none;
+  overflow: hidden;
 }
 
 /* Revise */

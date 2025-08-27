@@ -2,6 +2,7 @@ import "./styles.css";
 import { createTodo } from "./toDo-template.js";
 import { todos } from "./toDo-template.js";
 import { createNewNote } from "./toDo-template.js";
+import { resizeNote } from "./toDo-template.js";
 import { removePlaceholder } from "./toDo-template.js";
 import { addPlaceholder } from "./toDo-template.js";
 
@@ -43,8 +44,7 @@ containerRight.addEventListener("click", (e) => {
     titleInput.value = retrievedTodo.title;
     fillNotes(notesContainer, retrievedTodo.notes);
     // Add dueDate
-      
-    
+  
     renderTodo(toDoTemplatePopup);
   }
 });
@@ -55,6 +55,7 @@ function fillNotes(notesContainer, notes) {
   notes.forEach((note, index) => {
     const newNote = createNewNote();
     newNote.value = note;
+    resizeNote(newNote);
     
     if (index === 0 && note === "" && notes.length === 1) {
       addPlaceholder(newNote);
