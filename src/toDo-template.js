@@ -34,6 +34,7 @@ function createTodo(existingID = null) {
   newTitle.setAttribute("name", "title");
   newTitle.setAttribute("placeholder", "Title");
   newTitle.setAttribute("autocomplete", "off");
+  newTitle.setAttribute("spellcheck", "false");
   newTitle.setAttribute("maxlength", "24");
   newDateInput.setAttribute("type", "datetime-local");
   
@@ -226,13 +227,13 @@ function createTodo(existingID = null) {
   // Revise to add new 
   newTitle.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
+      const firstNote = newNotesContainer.firstElementChild;
       e.preventDefault();
       e.stopPropagation(); 
-      const firstNote = newNotesContainer.firstElementChild;
       
       resizeNote(firstNote);
       firstNote.focus();
-      firstNote.setSelectionRange(0, 0);
+      placeCaretAtStart(firstNote);
     }
   });
 
@@ -351,8 +352,8 @@ function createNewNote() {
   newNote.setAttribute("name", "note");
   newNote.setAttribute("placeholder", "Write a note...");
   newNote.setAttribute("autocomplete", "off");
+  newNote.setAttribute("autocorrect", "off");
   newNote.setAttribute("spellcheck", "false");
-
   newNote.classList.add("note", "no-border");
 
   return newNote;
@@ -394,7 +395,6 @@ function renderTodos(existingID = null, deleting = null) {
         const newNote = document.createElement("textarea");
         newNote.textContent = todo.notes[i];
         
-        // newNote.setAttribute("class", "note-text");
         newNote.setAttribute("wrap", "hard");
         newNote.setAttribute("class", "todo-note");
         newNote.setAttribute("name", "note");
@@ -431,6 +431,10 @@ function resizeNote(note) {
     note.style.height = note.scrollHeight + "px";
   });
 }
+
+function placeCaretAtStart(el) {
+  el.setSelectionRange(0, 0);
+} 
 
 // Revise
 export { todos, createTodo, createNewNote, 
