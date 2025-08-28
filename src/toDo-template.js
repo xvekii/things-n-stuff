@@ -236,48 +236,38 @@ function createTodo(existingID = null) {
     }
   });
 
-  // Change input to textarea REMOVE?
   newNotesContainer.addEventListener("input", (e) => {
-    if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
-      const target = e.target;
-      const inputTextlength = target.value.length;
-      const check = checkNoteLength(inputTextlength);
+    const target = e.target;
 
-      // Placeholder? No need for appending extra notes? RM?
-      if (check) {
-        const extraNote = createNewNote();
-        removePlaceholder(extraNote);
-        appendExtraNote(target, extraNote);
-        extraNote.focus();
-      }
+    if (target.tagName === "TEXTAREA" && target.classList.contains("note")) {
+      resizeNote(target);
     }
   });
 
   // Append extra note on enter
   // => if checkBoxNote, else act like textNote - add to conditional
+
+  // Deleting a note
+  // Revise - if checkboxNote, if not empty and bp pressed focus up
+
   newNotesContainer.addEventListener("keydown", (e) => {
     const targetNote = e.target;
-    if (
-      targetNote.tagName === "TEXTAREA" &&
-      targetNote.classList.contains("note") &&
-      e.key === "Enter"
-    ) {
+
+    if (targetNote.tagName !== "TEXTAREA" || !targetNote.classList.contains("note")) {
+      return;
+    }
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+
       removePlaceholder(targetNote);
       const extraNote = createNewNote();
       removePlaceholder(extraNote);
       appendExtraNote(targetNote, extraNote);
-      
-      e.preventDefault();
     }
-  });
 
-  // Deleting a note
-  // Revise - if checkboxNote, if not empty and bp pressed focus up
-  newNotesContainer.addEventListener("keydown", (e) => {
-    const input = e.target;
-
-    if (e.key === "Backspace" && input.value === "") {
-      const note = input.closest(".note");
+    if (e.key === "Backspace" && targetNote.value === "") {
+      const note = targetNote.closest(".note");
       const notes = Array.from(newNotesContainer.children);
       const index = notes.indexOf(note);
 
@@ -295,13 +285,6 @@ function createTodo(existingID = null) {
 
   hideTodoBtn();
   return newTodoCard;
-}
-
-// Revise / RM?
-function checkNoteLength(textLength) {
-  if (textLength == 31) {
-    return true;
-  }
 }
 
 function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
@@ -356,10 +339,6 @@ function createNewNote() {
   newNote.setAttribute("autocorrect", "off");
   newNote.setAttribute("spellcheck", "false");
   newNote.classList.add("note", "no-border");
-
-  newNote.addEventListener("input", () => {
-    resizeNote(newNote);
-  });
 
   return newNote;
 }
