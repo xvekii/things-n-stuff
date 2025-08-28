@@ -150,13 +150,13 @@ function createTodo(existingID = null) {
   const newNote = createNewNote();
   newNotesContainer.appendChild(newNote);
 
-  newNote.addEventListener("input", () => {
-    resizeNote(newNote);
-  });
-
-  // Revise
   function appendExtraNote(prevNote, extraNote) {
     prevNote.after(extraNote);
+    focusNote(extraNote);
+  }
+
+  function focusNote(note) {
+    note.focus();
   }
 
   // Revise
@@ -217,7 +217,6 @@ function createTodo(existingID = null) {
 
   dueDateBtn.addEventListener("click", () => {
     newDateTimeContainer.classList.toggle("visible");
-
   });
 
   closeDateTimeBtn.addEventListener("click", () => {
@@ -237,14 +236,14 @@ function createTodo(existingID = null) {
     }
   });
 
-  // Change input to textarea
+  // Change input to textarea REMOVE?
   newNotesContainer.addEventListener("input", (e) => {
     if (e.target.tagName === "INPUT" && e.target.classList.contains("note")) {
       const target = e.target;
       const inputTextlength = target.value.length;
       const check = checkNoteLength(inputTextlength);
 
-      // Placeholder? No need for appending extra notes
+      // Placeholder? No need for appending extra notes? RM?
       if (check) {
         const extraNote = createNewNote();
         removePlaceholder(extraNote);
@@ -254,24 +253,26 @@ function createTodo(existingID = null) {
     }
   });
 
-  // Revise appending extra note
+  // Append extra note on enter
+  // => if checkBoxNote, else act like textNote - add to conditional
   newNotesContainer.addEventListener("keydown", (e) => {
-    const target = e.target;
+    const targetNote = e.target;
     if (
-      target.tagName === "INPUT" &&
-      target.classList.contains("note") &&
+      targetNote.tagName === "TEXTAREA" &&
+      targetNote.classList.contains("note") &&
       e.key === "Enter"
     ) {
-      const firstNote = newNotesContainer.firstElementChild;
-      removePlaceholder(firstNote);
+      removePlaceholder(targetNote);
       const extraNote = createNewNote();
       removePlaceholder(extraNote);
-      appendExtraNote(target, extraNote);
-      extraNote.focus();
+      appendExtraNote(targetNote, extraNote);
+      
+      e.preventDefault();
     }
   });
 
-  // Revise
+  // Deleting a note
+  // Revise - if checkboxNote, if not empty and bp pressed focus up
   newNotesContainer.addEventListener("keydown", (e) => {
     const input = e.target;
 
@@ -296,7 +297,7 @@ function createTodo(existingID = null) {
   return newTodoCard;
 }
 
-// Revise
+// Revise / RM?
 function checkNoteLength(textLength) {
   if (textLength == 31) {
     return true;
@@ -356,6 +357,10 @@ function createNewNote() {
   newNote.setAttribute("spellcheck", "false");
   newNote.classList.add("note", "no-border");
 
+  newNote.addEventListener("input", () => {
+    resizeNote(newNote);
+  });
+
   return newNote;
 }
 
@@ -390,6 +395,7 @@ function renderTodos(existingID = null, deleting = null) {
     newTodoCard.appendChild(newTitle);
     
     // Revise the number of notes visible 
+    // If textNote, if checkboxNote
     if (todo.notes && todo.notes.length > 0) {
       for (let i = 0; i < Math.min(3, todo.notes.length); i++) {
         const newNote = document.createElement("textarea");
@@ -398,7 +404,8 @@ function renderTodos(existingID = null, deleting = null) {
         newNote.setAttribute("wrap", "hard");
         newNote.setAttribute("class", "todo-note");
         newNote.setAttribute("name", "note");
-        newNote.setAttribute("rows", "2");
+        // If textNote 2-3, if checkboxNote, 1
+        newNote.setAttribute("rows", "1");
         newNote.classList.add("note", "no-border");
 
         newTodoCard.appendChild(newNote);
