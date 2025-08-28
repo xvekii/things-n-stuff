@@ -226,9 +226,13 @@ function createTodo(existingID = null) {
   // Revise to add new 
   newTitle.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation(); 
       const firstNote = newNotesContainer.firstElementChild;
+      
+      resizeNote(firstNote);
       firstNote.focus();
-      // resizeNote(newNote);
+      firstNote.setSelectionRange(0, 0);
     }
   });
 
@@ -342,11 +346,12 @@ function createNewNote() {
   newNote.setAttribute("cols", "12");
   newNote.setAttribute("rows", "1");
   newNote.setAttribute("wrap", "hard");
-  // newNote.setAttribute("maxlength", "80");
+  newNote.setAttribute("maxlength", "580");
   newNote.setAttribute("id", `note-${noteIdCounter}`);
   newNote.setAttribute("name", "note");
   newNote.setAttribute("placeholder", "Write a note...");
   newNote.setAttribute("autocomplete", "off");
+  newNote.setAttribute("spellcheck", "false");
 
   newNote.classList.add("note", "no-border");
 
