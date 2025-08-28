@@ -6,6 +6,8 @@ export class Todo {
     this.priority = priority;
     // this.project = project;
     this.ID = crypto.randomUUID();
+    // this.textNote = false;
+    // this.checkboxNote = false;
   }
 
   // editTodo(title, notes) {
