@@ -244,45 +244,59 @@ function createTodo(existingID = null) {
     }
   });
 
-  // Append extra note on enter
   // => if checkBoxNote, else act like textNote - add to conditional
-
-  // Deleting a note
   // Revise - if checkboxNote, if not empty and bp pressed focus up
 
   newNotesContainer.addEventListener("keydown", (e) => {
     const targetNote = e.target;
+    const prevNote = targetNote.previousElementSibling;
+    const notes = Array.from(newNotesContainer.children);
+    const index = notes.indexOf(targetNote);
 
     if (targetNote.tagName !== "TEXTAREA" || !targetNote.classList.contains("note")) {
       return;
     }
 
+    // Append an extra note on enter
     if (e.key === "Enter") {
       e.preventDefault();
-
       removePlaceholder(targetNote);
       const extraNote = createNewNote();
       removePlaceholder(extraNote);
+      // Add targetNote transferring to extraNote
+      if (targetNote.value) {
+        const targetNoteStartCaretPos = targetNote.selectionStart;
+        extraNote.value = targetNote.value.slice(targetNoteStartCaretPos);
+        targetNote.value = targetNote.value.slice(0, targetNoteStartCaretPos);
+        extraNote.setSelectionRange(0, 0);
+      }
       appendExtraNote(targetNote, extraNote);
     }
-
-    if (e.key === "Backspace" && targetNote.value === "") {
-      const note = targetNote.closest(".note");
-      const notes = Array.from(newNotesContainer.children);
-      const index = notes.indexOf(note);
-
-      if (index > 0) {
-        note.remove();
-        const previous = notes[index - 1];
-        if (previous) {
-          previous.focus();
-        }
-      } else if (newNotesContainer.firstElementChild.value === "") {
-        note.setAttribute("placeholder", "Write a note...");
-      }
+    // Deleting a note   
+    if (e.key === "Backspace" && index > 0) {
+      if (prevNote && !targetNote.value) {
+        removePlaceholder(newNotesContainer.firstElementChild);
+        targetNote.remove();
+        prevNote.focus();
+        e.preventDefault();
+      } else if (prevNote && targetNote.value && targetNote.selectionStart === 0) {
+        const targetNoteValue = targetNote.value;
+        targetNote.remove();
+        e.preventDefault();
+        prevNote.focus();
+        prevNote.setSelectionRange(prevNote.value.length, prevNote.value.length);
+        prevNote.value += targetNoteValue;
+        
+        const prevNoteLength = prevNote.value.length;
+        const targetNoteLength = targetNoteValue.length;
+        const caretPos = prevNoteLength - targetNoteLength;
+        prevNote.setSelectionRange(caretPos, caretPos);
+      } 
+    } else if (e.key === "Backspace" && index === 0 && targetNote.value.trim() === "") {
+      addPlaceholder(targetNote);
     }
   });
-
+  
   hideTodoBtn();
   return newTodoCard;
 }
