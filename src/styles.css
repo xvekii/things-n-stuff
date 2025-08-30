@@ -190,7 +190,7 @@ textarea {
 .todo-btn-container {
   display: flex;
   justify-content: center;
-  gap: 1.3rem;
+  gap: 1rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
