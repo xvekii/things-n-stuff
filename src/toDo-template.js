@@ -3,6 +3,8 @@ import { AllTodos } from "./AllTodos.js";
 import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
+import checkboxImg from "./assets/images/checkbox.svg";
+import textboxImg from "./assets/images/textbox.svg";
 import projectFolderImg from "./assets/images/project-folder.svg";
 import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
@@ -23,6 +25,8 @@ function createTodo(existingID = null) {
   const newDateTimeContainer = document.createElement("div");
   const newDateInput = document.createElement("input");
   const dataTitleID = existingID ? existingID : "temp1";
+  let currentTodoStyle = setTodoStyle(existingID);
+  console.log(currentTodoStyle);
   const LOW = "#FFFFFF";
   const NORMAL = "#06D6A0";
   const MEDIUM = "#FFD166";
@@ -56,6 +60,7 @@ function createTodo(existingID = null) {
   const dueDateBtn = document.createElement("button");
   const priorityBtn = document.createElement("button");
   const closePriorityBtn = document.createElement("button");
+  const toggleTodoStyleBtn = document.createElement("button");
   const projectBtn = document.createElement("button");
   const saveBtn = document.createElement("button");
 
@@ -72,6 +77,8 @@ function createTodo(existingID = null) {
   closePriorityBtn.textContent = "Close";
   closePriorityBtn.type = "button";
   newPriorityTitle.textContent = "Select priority:";
+  toggleTodoStyleBtn.classList.add("todo-btn", "toggle-todo-style-btn");
+  toggleTodoStyleBtn.type = "button";
   projectBtn.classList.add("todo-btn");
   projectBtn.type = "button";
   saveBtn.classList.add("todo-btn");
@@ -99,6 +106,7 @@ function createTodo(existingID = null) {
   newBtnContainer.appendChild(deleteBtn);
   newBtnContainer.appendChild(dueDateBtn);
   newBtnContainer.appendChild(priorityBtn);
+  newBtnContainer.appendChild(toggleTodoStyleBtn);
   newBtnContainer.appendChild(projectBtn);
   newBtnContainer.appendChild(saveBtn);
   newBtnContainer.appendChild(newDateTimeContainer);
@@ -131,6 +139,11 @@ function createTodo(existingID = null) {
   priorityBtnImg.alt = "Set priority";
   priorityBtn.appendChild(priorityBtnImg);
   
+  const toggleTodoStyleBtnImg = document.createElement("img");
+  toggleTodoStyleBtnImg.src = currentTodoStyle === "text" ? checkboxImg : textboxImg;
+  toggleTodoStyleBtnImg.alt = "Toggle todo style";
+  toggleTodoStyleBtn.appendChild(toggleTodoStyleBtnImg);
+
   const projectBtnImg = document.createElement("img");
   projectBtnImg.src = projectFolderImg;
   projectBtnImg.alt = "Add to project";
@@ -159,6 +172,22 @@ function createTodo(existingID = null) {
     note.focus();
   }
 
+  function setTodoStyle(existingID) {
+    let currentStyle;
+    
+    const retrievedTodos = todos.getTodos();
+    if (existingID) {
+      for (let todo of retrievedTodos) {
+        if (todo.ID === existingID) {
+          currentStyle = todo.currentStyle;
+        }
+      }
+    } else {
+      currentStyle = "text";
+    }
+    return currentStyle;
+  }
+
   // Revise
   deleteBtn.addEventListener("click", () => {
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
@@ -177,6 +206,13 @@ function createTodo(existingID = null) {
 
   priorityBtn.addEventListener("click", () => {
     newPriorityContainer.classList.toggle("visible");
+  });
+
+  // Toggle text or checkbox todo style
+  toggleTodoStyleBtn.addEventListener("click", () => {
+    currentTodoStyle = currentTodoStyle === "text" ? "checkbox" : "text"; 
+    toggleTodoStyleBtnImg.src =
+      toggleTodoStyleBtnImg.src === textboxImg ? checkboxImg : textboxImg; 
   });
 
   newPriorityBtnContainer.addEventListener("click", (e) => {
@@ -210,7 +246,7 @@ function createTodo(existingID = null) {
   
   // Refactor with event delegation
   saveBtn.addEventListener("click", () => {
-    getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID);
+    getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, currentTodoStyle, existingID);
     renderTodos(existingID);  
     showTodoBtn();  
   });
@@ -303,13 +339,14 @@ function createTodo(existingID = null) {
   return newTodoCard;
 }
 
-function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
+function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, currentTodoStyle, existingID) {
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
   // Revise input/textarea
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   
   const dueDate = newDateInput.value;
+  const style = currentTodoStyle;
   const date = new Date(dueDate);
 
   let formattedDate = "";
@@ -322,8 +359,9 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   }
 
   if (!existingID) {
-    const newTodo = new Todo(priorityValue, titleValue, notes, formattedDate);
+    const newTodo = new Todo(priorityValue, titleValue, notes, formattedDate, style);
     console.log(formattedDate);
+    console.log(style)
     todos.addTodo(newTodo);
   } else {
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
@@ -332,6 +370,7 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
     todoUpdate.priority = priorityValue;
     todoUpdate.title = titleValue;
     todoUpdate.notes = notes;
+    todoUpdate.currentStyle = style;
     // Add due date
   }
 }
