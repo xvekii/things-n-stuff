@@ -26,7 +26,7 @@ containerRight.addEventListener("click", (e) => {
   
   if (clickedTodo) {
     // Revise
-    const title = clickedTodo.querySelector("p[data-title-id]");
+    const title = clickedTodo.querySelector("input[data-title-id]");
     const titleID = title.dataset.titleId;
     
     const toDoTemplatePopup = createTodo(titleID);
