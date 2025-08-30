@@ -30,7 +30,6 @@ containerRight.addEventListener("click", (e) => {
     const titleID = title.dataset.titleId;
     
     const toDoTemplatePopup = createTodo(titleID);
-    console.log(toDoTemplatePopup);
 
     const priorityCircle = toDoTemplatePopup.querySelector(".priority-circle");
     const titleInput = toDoTemplatePopup.querySelector(".title-text");
