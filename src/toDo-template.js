@@ -268,7 +268,7 @@ function createTodo(existingID = null) {
       // Add targetNote transferring to extraNote
       if (targetNote.value) {
         const targetNoteStartCaretPos = targetNote.selectionStart;
-        extraNote.value = targetNote.value.slice(targetNoteStartCaretPos);
+        extraNote.value = targetNote.value.slice(targetNoteStartCaretPos).trim();
         targetNote.value = targetNote.value.slice(0, targetNoteStartCaretPos);
         extraNote.setSelectionRange(0, 0);
       }
@@ -367,13 +367,16 @@ function renderTodos(existingID = null, deleting = null) {
   retrievedTodos.forEach((todo, idx) => {
     const newTodoCard = document.createElement("div");
     const newPriority = document.createElement("span");
-    const newTitle = document.createElement("p");
+    const newTitle = document.createElement("input");
 
     newTitle.setAttribute("class", "title-text");
     newTitle.setAttribute("data-title-id", `${todo.ID}`);
+    newTitle.setAttribute("name", "title");
+    newTitle.setAttribute("placeholder", "Title");
 
     newPriority.classList.add("priority-circle");
     newTitle.classList.add("title", "no-border");
+    newTitle.contentEditable = "false";
     newTodoCard.classList.add("todo");
 
     if (todo.ID === existingID) {
@@ -385,11 +388,15 @@ function renderTodos(existingID = null, deleting = null) {
     if (todo.priority) {
       newPriority.style.backgroundColor = todo.priority;
     }
-    newTitle.textContent = todo.title;
+    
+    if (todo.title) {
+      newTitle.value = todo.title;
+    } 
     
     newTodoCard.appendChild(newPriority);
     newTodoCard.appendChild(newTitle);
     
+    // Add note
     // Revise the number of notes visible 
     // If textNote, if checkboxNote
     if (todo.notes && todo.notes.length > 0) {
@@ -405,6 +412,7 @@ function renderTodos(existingID = null, deleting = null) {
         newNote.classList.add("note", "no-border");
 
         newTodoCard.appendChild(newNote);
+        // Add date container
       }
     }
     containerRight.appendChild(newTodoCard);
