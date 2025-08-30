@@ -236,6 +236,7 @@ function createTodo(existingID = null) {
     }
   });
 
+  // Note resizing on input
   newNotesContainer.addEventListener("input", (e) => {
     const target = e.target;
 
@@ -263,6 +264,7 @@ function createTodo(existingID = null) {
       removePlaceholder(targetNote);
       const extraNote = createNewNote();
       removePlaceholder(extraNote);
+      
       // Add targetNote transferring to extraNote
       if (targetNote.value) {
         const targetNoteStartCaretPos = targetNote.selectionStart;
@@ -356,7 +358,8 @@ function createNewNote() {
 
   return newNote;
 }
-
+// Render saved todos
+// Refactor with several smaller functions
 function renderTodos(existingID = null, deleting = null) {
   containerRight.replaceChildren();
 
