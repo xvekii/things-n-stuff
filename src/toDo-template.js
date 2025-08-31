@@ -1,5 +1,6 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
+import closeReminderImg from "./assets/images/closeX.svg";
 import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
@@ -17,6 +18,7 @@ function createTodo(existingID = null) {
   const newNotesContainer = document.createElement("div");
   const newBtnContainer = document.createElement("div");
   const newReminderContainer = document.createElement("div");
+  const newReminderSpan = document.createElement("span");
   const newPriorityContainer = document.createElement("div");
   const newPriorityTitle = document.createElement("h5");
   const newPriorityBtnContainer = document.createElement("div");
@@ -43,6 +45,7 @@ function createTodo(existingID = null) {
   newPriorityCircle.classList.add("priority-circle");
   newNotesContainer.classList.add("new-notes-container");
   newReminderContainer.classList.add("reminder-container");
+  newReminderSpan.classList.add("reminder-span");
   newPriorityContainer.classList.add("toggle-priority");
   newPriorityTitle.classList.add("priority-title");
   newPriorityBtnContainer.classList.add("priority-btn-container");
@@ -51,6 +54,7 @@ function createTodo(existingID = null) {
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
 
+  const removeReminderBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const closeDateTimeBtn = document.createElement("button");
   const dueDateBtn = document.createElement("button");
@@ -62,6 +66,9 @@ function createTodo(existingID = null) {
   closeDateTimeBtn.classList.add("close-datetime-btn");
   closeDateTimeBtn.textContent = "Close";
   closeDateTimeBtn.type = "button";
+
+  removeReminderBtn.classList.add("remove-reminder-btn");
+  removeReminderBtn.type = "button";
   deleteBtn.classList.add("todo-btn", "delete-btn");
   deleteBtn.type = "button";
   dueDateBtn.classList.add("todo-btn");
@@ -96,6 +103,9 @@ function createTodo(existingID = null) {
   priorityMediumBtn.textContent = "Medium";
   priorityHighBtn.textContent = "High"; 
 
+  newReminderContainer.appendChild(newReminderSpan);
+  newReminderContainer.appendChild(removeReminderBtn);
+
   newBtnContainer.appendChild(deleteBtn);
   newBtnContainer.appendChild(dueDateBtn);
   newBtnContainer.appendChild(priorityBtn);
@@ -115,6 +125,12 @@ function createTodo(existingID = null) {
   newPriorityBtnContainer.appendChild(priorityHighBtn);
 
   newBtnContainer.appendChild(newPriorityContainer);
+
+  const removeReminderImg = document.createElement("img");
+  removeReminderImg.classList.add("remove-reminder-img");
+  removeReminderImg.src = closeReminderImg;
+  removeReminderImg.alt = "Remove reminder";
+  removeReminderBtn.appendChild(removeReminderImg);
 
   const deleteBtnImg = document.createElement("img");
   deleteBtnImg.src = deleteTodoImg;
@@ -221,14 +237,19 @@ function createTodo(existingID = null) {
 
   closeDateTimeBtn.addEventListener("click", () => {
     newDateTimeContainer.classList.toggle("visible");
-    const dateTime = newDateInput.value;
+    const dateTime = newDateInput.value.trim();
     
     if (dateTime) {
-      newReminderContainer.textContent = formatDateTime(dateTime);
+      newReminderSpan.textContent = formatDateTime(dateTime);
+      newReminderContainer.classList.add("active");
       // console.log(newDateInput.value);
-    } else {
-      newReminderContainer.textContent = "";
-    }
+    } 
+    // get the date from class, if nothing, don't show anything
+    // else {
+      // newReminderSpan.textContent = "";
+      
+      // newReminderContainer.classList.remove("active");
+    // }
   });
 
   // Revise to add new 
@@ -316,14 +337,17 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   console.log(newDateInput.value);
-  const dueDate = newDateInput.value ? new Date(newDateInput.value) : null;
-  const newReminderContainer = document.querySelector(".reminder-container");
+  const dueDate = newDateInput.value.trim() ? new Date(newDateInput.value) : null;
+  const reminderContainer = document.querySelector(".reminder-container");
+  const reminderSpan = document.querySelector(".reminder-span");
 
   if (dueDate) {
     let formattedDate = formatDateTime(dueDate);
-    newReminderContainer.textContent = formattedDate;
+    reminderSpan.textContent = formattedDate;
+    // newReminderContainer.classList.add("active");
   } else {
-     newReminderContainer.textContent = "";
+    reminderSpan.textContent = ""; 
+    reminderContainer.classList.remove("active");
   }
 
   if (!existingID) {
@@ -335,7 +359,7 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
 
     if (dueDate) {
       todoUpdate.dueDate = dueDate;
-    } 
+    }
     todoUpdate.priority = priorityValue;
     todoUpdate.title = titleValue;
     todoUpdate.notes = notes;
