@@ -1,5 +1,5 @@
 export class Todo {
-  constructor(priority, title, notes, dueDate, currentStyle) {
+  constructor(priority, title, notes, dueDate) {
     this.title = title;
     this.notes = notes;
     this.dueDate = dueDate;
