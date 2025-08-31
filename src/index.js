@@ -37,6 +37,7 @@ containerRight.addEventListener("click", (e) => {
     const titleInput = toDoTemplatePopup.querySelector(".title-text");
     const notesContainer = toDoTemplatePopup.querySelector(".new-notes-container");
     const reminderContainer = toDoTemplatePopup.querySelector(".reminder-container");
+    const reminderSpan = toDoTemplatePopup.querySelector(".reminder-span");
 
     const retrievedTodo = todos.getTodos().find(obj => obj.ID === titleID);
     if (!retrievedTodo) return;
@@ -44,7 +45,15 @@ containerRight.addEventListener("click", (e) => {
     priorityCircle.style.backgroundColor = retrievedTodo.priority;
     titleInput.value = retrievedTodo.title;
     fillNotes(notesContainer, retrievedTodo.notes);
-    reminderContainer.textContent = formatDateTime(retrievedTodo.dueDate);
+
+    // Check if there's already a date
+    if (retrievedTodo.dueDate) {
+      reminderSpan.textContent = formatDateTime(retrievedTodo.dueDate);
+      reminderContainer.classList.add("active");
+    } else {
+      reminderSpan.textContent = "";
+      reminderContainer.classList.remove("active");
+    }
   
     renderTodo(toDoTemplatePopup);
   }
