@@ -221,6 +221,14 @@ function createTodo(existingID = null) {
 
   closeDateTimeBtn.addEventListener("click", () => {
     newDateTimeContainer.classList.toggle("visible");
+    const dateTime = newDateInput.value;
+    
+    if (dateTime) {
+      newReminderContainer.textContent = formatDateTime(dateTime);
+      // console.log(newDateInput.value);
+    } else {
+      newReminderContainer.textContent = "";
+    }
   });
 
   // Revise to add new 
@@ -306,34 +314,46 @@ function createTodo(existingID = null) {
 function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
-  // Revise input/textarea
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
-  
-  const dueDate = newDateInput.value;
-  const date = new Date(dueDate);
+  console.log(newDateInput.value);
+  const dueDate = newDateInput.value ? new Date(newDateInput.value) : null;
+  const newReminderContainer = document.querySelector(".reminder-container");
 
-  let formattedDate = "";
-  if (dueDate && !isNaN(date)) {
-    const userLocale = navigator.language;
-    formattedDate = new Intl.DateTimeFormat(userLocale, {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-    }).format(date);
+  if (dueDate) {
+    let formattedDate = formatDateTime(dueDate);
+    newReminderContainer.textContent = formattedDate;
+  } else {
+     newReminderContainer.textContent = "";
   }
 
   if (!existingID) {
-    const newTodo = new Todo(priorityValue, titleValue, notes, formattedDate);
-    console.log(formattedDate);
+    const newTodo = new Todo(priorityValue, titleValue, notes, dueDate);
     todos.addTodo(newTodo);
   } else {
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
 
+    if (dueDate) {
+      todoUpdate.dueDate = dueDate;
+    } 
     todoUpdate.priority = priorityValue;
     todoUpdate.title = titleValue;
     todoUpdate.notes = notes;
-    // Add due date
+    // todoUpdate.dueDate = dueDate ? dueDate : null;
   }
+}
+
+function formatDateTime(date) {
+  const newDate = new Date(date);
+  if (isNaN(newDate)) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(newDate);
 }
 
 // Revise
@@ -441,5 +461,5 @@ function placeCaretAtStart(el) {
 
 // Revise
 export { todos, createTodo, createNewNote, 
-  removePlaceholder, addPlaceholder, resizeNote 
+  removePlaceholder, addPlaceholder, resizeNote, formatDateTime 
 };
