@@ -6,13 +6,5 @@ export class Todo {
     this.priority = priority;
     // this.project = project;
     this.ID = crypto.randomUUID();
-    this.currentStyle = currentStyle;
   }
-
-  // editTodo(title, notes) {
-  //   
-  // }
-
 }
-
-// constructor(title, notes, dueDate, priority, project)

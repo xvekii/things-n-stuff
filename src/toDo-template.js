@@ -1,5 +1,6 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
+import closeReminderImg from "./assets/images/closeX.svg";
 import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
@@ -19,6 +20,7 @@ function createTodo(existingID = null) {
   const newNotesContainer = document.createElement("div");
   const newBtnContainer = document.createElement("div");
   const newReminderContainer = document.createElement("div");
+  const newReminderSpan = document.createElement("span");
   const newPriorityContainer = document.createElement("div");
   const newPriorityTitle = document.createElement("h5");
   const newPriorityBtnContainer = document.createElement("div");
@@ -47,6 +49,7 @@ function createTodo(existingID = null) {
   newPriorityCircle.classList.add("priority-circle");
   newNotesContainer.classList.add("new-notes-container");
   newReminderContainer.classList.add("reminder-container");
+  newReminderSpan.classList.add("reminder-span");
   newPriorityContainer.classList.add("toggle-priority");
   newPriorityTitle.classList.add("priority-title");
   newPriorityBtnContainer.classList.add("priority-btn-container");
@@ -55,6 +58,7 @@ function createTodo(existingID = null) {
   newTodoCard.classList.add("todo-template-popup");
   newBtnContainer.classList.add("todo-btn-container");
 
+  const removeReminderBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const closeDateTimeBtn = document.createElement("button");
   const dueDateBtn = document.createElement("button");
@@ -67,6 +71,9 @@ function createTodo(existingID = null) {
   closeDateTimeBtn.classList.add("close-datetime-btn");
   closeDateTimeBtn.textContent = "Close";
   closeDateTimeBtn.type = "button";
+
+  removeReminderBtn.classList.add("remove-reminder-btn");
+  removeReminderBtn.type = "button";
   deleteBtn.classList.add("todo-btn", "delete-btn");
   deleteBtn.type = "button";
   dueDateBtn.classList.add("todo-btn");
@@ -103,6 +110,9 @@ function createTodo(existingID = null) {
   priorityMediumBtn.textContent = "Medium";
   priorityHighBtn.textContent = "High"; 
 
+  newReminderContainer.appendChild(newReminderSpan);
+  newReminderContainer.appendChild(removeReminderBtn);
+
   newBtnContainer.appendChild(deleteBtn);
   newBtnContainer.appendChild(dueDateBtn);
   newBtnContainer.appendChild(priorityBtn);
@@ -123,6 +133,12 @@ function createTodo(existingID = null) {
   newPriorityBtnContainer.appendChild(priorityHighBtn);
 
   newBtnContainer.appendChild(newPriorityContainer);
+
+  const removeReminderImg = document.createElement("img");
+  removeReminderImg.classList.add("remove-reminder-img");
+  removeReminderImg.src = closeReminderImg;
+  removeReminderImg.alt = "Remove reminder";
+  removeReminderBtn.appendChild(removeReminderImg);
 
   const deleteBtnImg = document.createElement("img");
   deleteBtnImg.src = deleteTodoImg;
@@ -257,6 +273,19 @@ function createTodo(existingID = null) {
 
   closeDateTimeBtn.addEventListener("click", () => {
     newDateTimeContainer.classList.toggle("visible");
+    const dateTime = newDateInput.value.trim();
+    
+    if (dateTime) {
+      newReminderSpan.textContent = formatDateTime(dateTime);
+      newReminderContainer.classList.add("active");
+      // console.log(newDateInput.value);
+    } 
+    // get the date from class, if nothing, don't show anything
+    // else {
+      // newReminderSpan.textContent = "";
+      
+      // newReminderContainer.classList.remove("active");
+    // }
   });
 
   // Revise to add new 
@@ -342,37 +371,49 @@ function createTodo(existingID = null) {
 function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, currentTodoStyle, existingID) {
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
-  // Revise input/textarea
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
-  
-  const dueDate = newDateInput.value;
-  const style = currentTodoStyle;
-  const date = new Date(dueDate);
+  console.log(newDateInput.value);
+  const dueDate = newDateInput.value.trim() ? new Date(newDateInput.value) : null;
+  const reminderContainer = document.querySelector(".reminder-container");
+  const reminderSpan = document.querySelector(".reminder-span");
 
-  let formattedDate = "";
-  if (dueDate && !isNaN(date)) {
-    const userLocale = navigator.language;
-    formattedDate = new Intl.DateTimeFormat(userLocale, {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-    }).format(date);
+  if (dueDate) {
+    let formattedDate = formatDateTime(dueDate);
+    reminderSpan.textContent = formattedDate;
+    // newReminderContainer.classList.add("active");
+  } else {
+    reminderSpan.textContent = ""; 
+    reminderContainer.classList.remove("active");
   }
 
   if (!existingID) {
-    const newTodo = new Todo(priorityValue, titleValue, notes, formattedDate, style);
-    console.log(formattedDate);
-    console.log(style)
+    const newTodo = new Todo(priorityValue, titleValue, notes, dueDate);
     todos.addTodo(newTodo);
   } else {
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
 
+    if (dueDate) {
+      todoUpdate.dueDate = dueDate;
+    }
     todoUpdate.priority = priorityValue;
     todoUpdate.title = titleValue;
     todoUpdate.notes = notes;
-    todoUpdate.currentStyle = style;
-    // Add due date
+    // todoUpdate.dueDate = dueDate ? dueDate : null;
   }
+}
+
+function formatDateTime(date) {
+  const newDate = new Date(date);
+  if (isNaN(newDate)) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(newDate);
 }
 
 // Revise
@@ -488,5 +529,5 @@ function placeCaretAtStart(el) {
 
 // Revise
 export { todos, createTodo, createNewNote, 
-  removePlaceholder, addPlaceholder, resizeNote 
+  removePlaceholder, addPlaceholder, resizeNote, formatDateTime 
 };

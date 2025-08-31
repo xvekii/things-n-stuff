@@ -152,7 +152,6 @@ nav {
 }
 
 .title-text,
-.reminder-container,
 .todo-btn-container {
   padding-right: 1rem;
 }
@@ -164,10 +163,52 @@ nav {
 }
 
 .reminder-container {
-  text-align: center;
   min-height: 2rem;
   border-radius: 20px;
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+  position: relative;
+}
+
+.reminder-container.active {
+  position: relative;
+  border: 1px solid #80808040;
+}
+
+.reminder-span {
+  font-size: .9rem;
+}
+
+.remove-reminder-btn {
+  position: absolute;
+  width: 29px;
+  height: 29px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 1px;
+  transition: opacity 0.3s ease;
+}
+
+.remove-reminder-img {
+  min-width: 100%;
+  border-radius: 50%;
+  background: transparent;
+  color: #80808040;
+}
+
+.reminder-container.active:hover .remove-reminder-btn {
+  opacity: 0.3;
+  pointer-events: auto;
 }
 
 textarea {
