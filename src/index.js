@@ -5,7 +5,9 @@ import { createNewNote } from "./toDo-template.js";
 import { resizeNote } from "./toDo-template.js";
 import { removePlaceholder } from "./toDo-template.js";
 import { addPlaceholder } from "./toDo-template.js";
+// Revise
 import { formatDateTime } from "./toDo-template.js";
+import { formatForUser } from "./toDo-template.js";
 // Revise and put the same ones together
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
@@ -46,9 +48,10 @@ containerRight.addEventListener("click", (e) => {
     titleInput.value = retrievedTodo.title;
     fillNotes(notesContainer, retrievedTodo.notes);
 
-    // Check if there's already a date
     if (retrievedTodo.dueDate) {
-      reminderSpan.textContent = formatDateTime(retrievedTodo.dueDate);
+      // !!!
+      const formattedDateTime = formatDateTime(retrievedTodo.dueDate)
+      reminderSpan.textContent = formatForUser(formattedDateTime);
       reminderContainer.classList.add("active");
     } else {
       reminderSpan.textContent = "";

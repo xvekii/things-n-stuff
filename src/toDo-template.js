@@ -1,5 +1,7 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
+import { format, formatISO, parseISO, differenceInMilliseconds, parse } from "date-fns";
+
 import closeReminderImg from "./assets/images/closeX.svg";
 import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
@@ -237,19 +239,13 @@ function createTodo(existingID = null) {
 
   closeDateTimeBtn.addEventListener("click", () => {
     newDateTimeContainer.classList.toggle("visible");
-    const dateTime = newDateInput.value.trim();
+    const dateTime = getDueDate(newDateInput.value);
     
     if (dateTime) {
-      newReminderSpan.textContent = formatDateTime(dateTime);
+      const formattedDT = formatDateTime(dateTime)
+      newReminderSpan.textContent = formatForUser(formattedDT);
       newReminderContainer.classList.add("active");
-      // console.log(newDateInput.value);
     } 
-    // get the date from class, if nothing, don't show anything
-    // else {
-      // newReminderSpan.textContent = "";
-      
-      // newReminderContainer.classList.remove("active");
-    // }
   });
 
   // Revise to add new 
@@ -331,51 +327,67 @@ function createTodo(existingID = null) {
 }
 
 function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
+  // revise bgClr
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   console.log(newDateInput.value);
-  const dueDate = newDateInput.value.trim() ? new Date(newDateInput.value) : null;
+  
+  const dueDateInput = getDueDate(newDateInput.value);
+  const dueDateISO = dueDateInput ? formatISO(dueDateInput) : null;
+  
   const reminderContainer = document.querySelector(".reminder-container");
   const reminderSpan = document.querySelector(".reminder-span");
 
-  if (dueDate) {
-    let formattedDate = formatDateTime(dueDate);
-    reminderSpan.textContent = formattedDate;
-    // newReminderContainer.classList.add("active");
+  if (dueDateISO) {
+    const formattedDateTime = formatDateTime(dueDateISO)
+    reminderSpan.textContent = formatForUser(formattedDateTime);
   } else {
     reminderSpan.textContent = ""; 
     reminderContainer.classList.remove("active");
   }
 
   if (!existingID) {
-    const newTodo = new Todo(priorityValue, titleValue, notes, dueDate);
+    const newTodo = new Todo(priorityValue, titleValue, notes, dueDateISO);
     todos.addTodo(newTodo);
+    console.log(dueDateISO);
   } else {
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
 
-    if (dueDate) {
-      todoUpdate.dueDate = dueDate;
-    }
     todoUpdate.priority = priorityValue;
     todoUpdate.title = titleValue;
     todoUpdate.notes = notes;
+
+    if (dueDateISO) {
+      todoUpdate.dueDate = dueDateISO;
+    }
   }
 }
 
-function formatDateTime(date) {
-  const newDate = new Date(date);
-  if (isNaN(newDate)) return "";
+function getDueDate(newDateTimeInput) {
+  if (!newDateTimeInput.trim()) return null;
 
-  return new Intl.DateTimeFormat("en-US", {
+  const parsedDateTime = parseISO(newDateTimeInput);
+  return formatISO(parsedDateTime);
+}
+
+function formatDateTime(isoString) {
+  const dateTime = parseISO(isoString);
+  return format(dateTime, "MMM d, HH:mm");
+}
+
+function formatForUser(isoString) {
+  const date = new Date(isoString);
+  
+  return new Intl.DateTimeFormat(undefined, {
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
-    hour12: true,
-  }).format(newDate);
+  }).format(date);
 }
+
 
 // Revise
 let noteIdCounter = 0;
@@ -486,7 +498,8 @@ function placeCaretAtStart(el) {
   el.setSelectionRange(0, 0);
 } 
 
-// Revise
+
 export { todos, createTodo, createNewNote, 
-  removePlaceholder, addPlaceholder, resizeNote, formatDateTime 
+  removePlaceholder, addPlaceholder, resizeNote, 
+  formatDateTime, formatForUser
 };
