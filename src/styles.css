@@ -39,7 +39,7 @@ header > img {
   width: 5rem;
 }
 
-nav {
+.hamburger-container {
   display: flex; 
   justify-content: center;
   align-items: center;
@@ -52,22 +52,89 @@ nav {
 
 .container-left {
   position: fixed;
-  background: #F4EEEE;
-  width: 30%;
+  background: #FFFFFF;
+  width: 18rem;
   height: 76vh;
   right: 100%;
   top: 6rem;
   transition: 0.3s;
   visibility: hidden;
   box-shadow: 4px 4px 6px #00000070;
-  border-radius: 38px;
+  border-radius: 2px 10px 10px 2px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .container-left.active {
   transition: 0.3s;
   visibility: visible;
-  right: 85%;
+  left: 0px;
+}
+
+.container-left button {
+  border: none;
+  background: #FFFFFF;
+}
+
+nav,
+.add-new-project-wrapper {
+  width: 76%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.main-btn-li {
+  border-bottom: 1px solid #00000033;
+  padding-bottom: 1rem;
+}
+
+.my-projects-btn-li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-btn,
+.my-projects-btn,
+.add-new-project-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem
+}
+
+.main-btn,
+.my-projects-btn {
+  font-size: .9rem;
+  padding: .2rem .4rem;
+}
+
+.add-new-project-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid #00000033;
+  padding-bottom: 1rem;
+}
+
+.add-new-project-btn > img {
+  width: 1.2rem;
+}
+
+.add-new-project-btn, 
+.edit-projects-btn {
+  color: #0b0b0bb0;
+  font-size: .7rem;
 }
 
 .container-right {

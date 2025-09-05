@@ -7,16 +7,42 @@
 </head>
 <body>
   <header>
-    <nav>
-        <button aria-label="Open main menu" class="hamburger">
-          <img src="./assets/images/hamburger.svg" alt="Menu">
-        </button>
-      </nav>
+    <div class="hamburger-container">
+      <button aria-label="Open main menu" class="hamburger">
+        <img src="./assets/images/hamburger.svg" alt="Menu">
+      </button>
+    </div>
     <img src="./assets/images/logo.svg" alt="">
   </header>
   <main class="main-container">
     <button class="add-toDo-btn" type="button"><img src="./assets/images/add-task.svg" alt="Add task"></button>
-    <div class="container-left"></div>
+    <div class="container-left">
+      <nav>
+        <ul>
+          <li class="main-btn-li">
+            <button class="main-btn">
+              <img src="./assets/images/main-btn-img.svg" alt="Main button">
+              Main
+            </button>
+            <span></span>
+          </li>
+          <li class="my-projects-btn-li">
+            <button class="my-projects-btn">
+              <img src="./assets/images/my-projects.svg" alt="My projects">
+              My projects
+            </button>
+            <button class="edit-projects-btn">
+               Edit
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div class="add-new-project-wrapper">
+        <button class="add-new-project-btn">
+          <img src="./assets/images/plus.svg" alt="Add new project">
+          Add new project</button>
+      </div>
+    </div>
     <div class="container-right">
     </div>
   </main>
