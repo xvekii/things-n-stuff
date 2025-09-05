@@ -1,6 +1,6 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
-import { format, formatISO, parseISO, differenceInMilliseconds, parse } from "date-fns";
+import { format, formatISO, parseISO } from "date-fns";
 
 import closeReminderImg from "./assets/images/closeX.svg";
 import deleteTodoImg from "./assets/images/delete.svg";
@@ -248,6 +248,9 @@ function createTodo(existingID = null) {
     } 
   });
 
+  // Add removeReminderBtn and closeDateTimeBtn to clearReminder
+  // Ask for notifications
+
   // Revise to add new 
   newTitle.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -322,6 +325,30 @@ function createTodo(existingID = null) {
     }
   });
   
+  newReminderContainer.addEventListener("click", (e) => {
+    const removeBtn = e.target.closest(".remove-reminder-btn");
+
+    if (removeBtn) {
+      if (existingID) {
+        const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
+        if (!todoUpdate) return;
+
+        if (todoUpdate.dueDate) {
+          todoUpdate.dueDate = null;
+          todoUpdate.clearReminder();
+          newReminderSpan.textContent = "";
+          newReminderContainer.classList.remove("active");
+        }
+      } else {
+        newDateInput.value = "";
+        newReminderSpan.textContent = "";
+        newReminderContainer.classList.remove("active");
+      }
+    } else if (newReminderContainer.classList.contains("active")) {
+      newDateTimeContainer.classList.toggle("visible");
+    }
+  });
+
   hideTodoBtn();
   return newTodoCard;
 }
@@ -333,12 +360,11 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   console.log(newDateInput.value);
   
-  const dueDateInput = getDueDate(newDateInput.value);
-  const dueDateISO = dueDateInput ? formatISO(dueDateInput) : null;
-  
   const reminderContainer = document.querySelector(".reminder-container");
   const reminderSpan = document.querySelector(".reminder-span");
-
+  
+  const dueDateISO = getDueDate(newDateInput.value);
+  
   if (dueDateISO) {
     const formattedDateTime = formatDateTime(dueDateISO)
     reminderSpan.textContent = formatForUser(formattedDateTime);
@@ -361,6 +387,9 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
 
     if (dueDateISO) {
       todoUpdate.dueDate = dueDateISO;
+      todoUpdate.setReminder(dueDateISO, () => {
+        alert(titleValue);
+      });
     }
   }
 }
