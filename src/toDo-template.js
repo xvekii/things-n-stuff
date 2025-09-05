@@ -11,6 +11,7 @@ import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
+const navUL = document.querySelector(".nav-ul");
 const todos = new AllTodos();
 
 function createTodo(existingID = null) {
@@ -176,6 +177,11 @@ function createTodo(existingID = null) {
   function focusNote(note) {
     note.focus();
   }
+
+  // navUL.addEventListener("click", (e) => {
+  //   const target = e.target;
+
+  // });
 
   // Revise
   deleteBtn.addEventListener("click", () => {
