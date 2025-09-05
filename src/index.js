@@ -5,6 +5,7 @@ import { createNewNote } from "./toDo-template.js";
 import { resizeNote } from "./toDo-template.js";
 import { removePlaceholder } from "./toDo-template.js";
 import { addPlaceholder } from "./toDo-template.js";
+import projectFolderImgLight from "./assets/images/project-folder-lighter.svg";
 // Revise
 import { formatDateTime } from "./toDo-template.js";
 import { formatForUser } from "./toDo-template.js";
@@ -14,6 +15,8 @@ const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
+const navUL = document.querySelector(".nav-ul");
+const addNewProjectBtn = document.querySelector(".add-new-project-btn");
 
 hamburgerMenuBtn.addEventListener("click", () => {
   containerLeft.classList.toggle("active");
@@ -24,6 +27,23 @@ addToDoBtn.addEventListener("click", () => {
   const toDoCard = createTodo();
   renderTodo(toDoCard);
 });
+
+addNewProjectBtn.addEventListener("click", () => {
+    const newLI = document.createElement("li");
+    const newProjectBtn = document.createElement("button");
+    const newProjectBtnImg = document.createElement("img");
+    
+    newProjectBtnImg.src = projectFolderImgLight;
+    newProjectBtnImg.alt = "Project icon";
+    newProjectBtn.type = "button";
+    newProjectBtn.classList.add("project-name");
+    
+    newProjectBtn.appendChild(newProjectBtnImg);
+    newProjectBtn.appendChild(document.createTextNode("New Project"));
+    newLI.appendChild(newProjectBtn);
+
+    navUL.appendChild(newLI);
+  });
 
 containerRight.addEventListener("click", (e) => {
   const clickedTodo = e.target.closest(".todo"); 
