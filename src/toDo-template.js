@@ -534,7 +534,13 @@ function placeCaretAtStart(el) {
 } 
 
 
-export { todos, createTodo, createNewNote, 
-  removePlaceholder, addPlaceholder, resizeNote, 
-  formatDateTime, formatForUser
+export {
+  todos, 
+  createTodo,
+  createNewNote, 
+  removePlaceholder,
+  addPlaceholder,
+  resizeNote, 
+  formatDateTime,
+  formatForUser,
 };
