@@ -55,9 +55,9 @@ header > img {
   background: #FFFFFF;
   width: 18rem;
   height: 76vh;
-  right: 100%;
+  left: -35%;
   top: 6rem;
-  transition: 0.3s;
+  transition: 0.4s ease-in-out;
   visibility: hidden;
   box-shadow: 4px 4px 6px #00000070;
   border-radius: 2px 10px 10px 2px;
@@ -68,10 +68,11 @@ header > img {
   align-items: center;
   overflow-y: auto;
   scrollbar-gutter: stable;
+  padding-left: 0.8rem;
 }
 
 .container-left.active {
-  transition: 0.3s;
+  transition: 0.4s ease-in-out;
   visibility: visible;
   left: 0px;
 }
@@ -83,7 +84,7 @@ header > img {
 
 nav,
 .add-new-project-wrapper {
-  width: 76%;
+  width: 88%;
 }
 
 .nav-ul {
@@ -104,7 +105,7 @@ nav,
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
 }
 
 .main-btn,
@@ -114,7 +115,7 @@ nav,
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: .5rem
+  gap: .8rem
 }
 
 .main-btn,
@@ -126,14 +127,14 @@ nav,
 .add-new-project-wrapper {
   display: flex;
   justify-content: flex-start;
-  margin-top: 1.5rem;
   border-bottom: 1px solid #00000033;
   padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.add-new-project-btn > img {
+/* .add-new-project-btn > img {
   width: 1.2rem;
-}
+} */
 
 .add-new-project-btn, 
 .edit-projects-btn {
@@ -144,12 +145,11 @@ nav,
 .project-name {
   font-size: .8rem;
   color: #0b0b0bb0;
-  margin-bottom: .3rem;
 }
 
-.project-name > img {
+/* .project-name > img {
   width: 1.2rem;
-}
+} */
 
 .container-right {
   height: 80vh;
