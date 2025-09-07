@@ -1,15 +1,15 @@
 import "./styles.css";
-import { createTodo } from "./toDo-template.js";
-import { todos } from "./toDo-template.js";
-import { createNewNote } from "./toDo-template.js";
-import { resizeNote } from "./toDo-template.js";
-import { removePlaceholder } from "./toDo-template.js";
-import { addPlaceholder } from "./toDo-template.js";
 import projectFolderImgLight from "./assets/images/project-folder-lighter.svg";
-// Revise
-import { formatDateTime } from "./toDo-template.js";
-import { formatForUser } from "./toDo-template.js";
-// Revise and put the same ones together
+import {
+  createTodo,
+  todos,
+  createNewNote,
+  resizeNote,
+  removePlaceholder,
+  addPlaceholder,
+  formatDateTime,
+  formatForUser,
+} from "./toDo-template.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
