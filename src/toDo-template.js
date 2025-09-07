@@ -7,6 +7,7 @@ import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
 import projectFolderImg from "./assets/images/project-folder.svg";
+import addProjectImg from "./assets/images/add-project.svg";
 import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
 const containerRight = document.querySelector(".container-right");
@@ -25,6 +26,14 @@ function createTodo(existingID = null) {
   const newPriorityContainer = document.createElement("div");
   const newPriorityTitle = document.createElement("h5");
   const newPriorityBtnContainer = document.createElement("div");
+
+  const newProjectContainer = document.createElement("div");
+  const newProjectTitle = document.createElement("h5");
+  const newProjectListContainer = document.createElement("div");
+  const newProjectInputContainer = document.createElement("div");
+  const newProjectInput = document.createElement("input");
+  const newProjectBtnContainer = document.createElement("div");
+
   const newDateTimeContainer = document.createElement("div");
   const newDateInput = document.createElement("input");
   const dataTitleID = existingID ? existingID : "temp1";
@@ -42,6 +51,13 @@ function createTodo(existingID = null) {
   newTitle.setAttribute("spellcheck", "false");
   newTitle.setAttribute("maxlength", "24");
   newDateInput.setAttribute("type", "datetime-local");
+  newProjectInput.setAttribute("type", "text");
+  newProjectInput.setAttribute("class", "project-input");
+  newProjectInput.setAttribute("name", "new project input");
+  newProjectInput.setAttribute("placeholder", "New project name");
+  newProjectInput.setAttribute("autocomplete", "off");
+  newProjectInput.setAttribute("spellcheck", "false");
+  newProjectInput.setAttribute("maxlength", "20");
   
   newTitle.classList.add("title", "no-border");
   newTitle.contentEditable = "true";
@@ -52,6 +68,12 @@ function createTodo(existingID = null) {
   newPriorityContainer.classList.add("toggle-priority");
   newPriorityTitle.classList.add("priority-title");
   newPriorityBtnContainer.classList.add("priority-btn-container");
+ 
+  newProjectContainer.classList.add("toggle-project", "project-container");
+  newProjectTitle.classList.add("project-title"); 
+  newProjectListContainer.classList.add("project-list-container");
+  newProjectInputContainer.classList.add("project-input-container");
+  newProjectBtnContainer.classList.add("project-btn-container"); 
   newDateTimeContainer.classList.add("toggle-datetime");
 
   newTodoCard.classList.add("todo-template-popup");
@@ -64,6 +86,9 @@ function createTodo(existingID = null) {
   const priorityBtn = document.createElement("button");
   const closePriorityBtn = document.createElement("button");
   const projectBtn = document.createElement("button");
+  const addProjectBtn = document.createElement("button");
+  const cancelProjectBtn = document.createElement("button");
+  const saveProjectBtn = document.createElement("button");
   const saveBtn = document.createElement("button");
 
   closeDateTimeBtn.classList.add("close-datetime-btn");
@@ -82,8 +107,17 @@ function createTodo(existingID = null) {
   closePriorityBtn.textContent = "Close";
   closePriorityBtn.type = "button";
   newPriorityTitle.textContent = "Select priority:";
-  projectBtn.classList.add("todo-btn");
+  newProjectTitle.textContent = "Add to a project:"
+  projectBtn.classList.add("todo-btn", "project-btn");
   projectBtn.type = "button";
+  addProjectBtn.classList.add("todo-btn", "add-project-btn");
+  addProjectBtn.type = "button";
+  cancelProjectBtn.classList.add("todo-btn", "cancel-project-btn");
+  cancelProjectBtn.type = "button";
+  cancelProjectBtn.textContent = "Cancel";
+  saveProjectBtn.classList.add("todo-btn", "save-project-btn");
+  saveProjectBtn.type = "button";
+  saveProjectBtn.textContent = "Save";
   saveBtn.classList.add("todo-btn");
   saveBtn.type = "button";
 
@@ -128,6 +162,16 @@ function createTodo(existingID = null) {
   newPriorityBtnContainer.appendChild(priorityHighBtn);
 
   newBtnContainer.appendChild(newPriorityContainer);
+  newBtnContainer.appendChild(newProjectContainer);
+  
+  newProjectContainer.appendChild(newProjectTitle);
+  newProjectContainer.appendChild(newProjectListContainer);
+  newProjectContainer.appendChild(newProjectInputContainer);
+  newProjectInputContainer.appendChild(newProjectInput);
+  newProjectInputContainer.appendChild(addProjectBtn);
+  newProjectBtnContainer.appendChild(cancelProjectBtn);
+  newProjectBtnContainer.appendChild(saveProjectBtn);
+  newProjectContainer.appendChild(newProjectBtnContainer);
 
   const removeReminderImg = document.createElement("img");
   removeReminderImg.classList.add("remove-reminder-img");
@@ -154,6 +198,12 @@ function createTodo(existingID = null) {
   projectBtnImg.src = projectFolderImg;
   projectBtnImg.alt = "Add to project";
   projectBtn.appendChild(projectBtnImg);
+
+  const addProjectBtnImg = document.createElement("img");
+  addProjectBtnImg.src = addProjectImg;
+  addProjectBtnImg.alt = "Add project";
+  addProjectBtn.appendChild(addProjectBtnImg);
+
   
   const saveBtnImg = document.createElement("img");
   saveBtnImg.src = saveTodoImg;
@@ -221,7 +271,6 @@ function createTodo(existingID = null) {
     if (clickedBtn.classList.contains("high")) {
       newPriorityCircle.style.backgroundColor = HIGH;
     }
-
   });
 
   newPriorityContainer.addEventListener("click", (e) => {
@@ -230,6 +279,10 @@ function createTodo(existingID = null) {
     if (clickedBtn.classList.contains("close-priority-btn")) {
       newPriorityContainer.classList.remove("visible");
     }
+  });
+
+  projectBtn.addEventListener("click", () => {
+    newProjectContainer.classList.toggle("visible");
   });
   
   // Refactor with event delegation
