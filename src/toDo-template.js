@@ -183,7 +183,7 @@ function createTodo(existingID = null) {
 
   // });
 
-  // Revise
+  // Revise - add method to AllTodos for removing
   deleteBtn.addEventListener("click", () => {
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");
