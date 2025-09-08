@@ -6,7 +6,7 @@ export class Todo {
     this.notes = notes;
     this.dueDate = dueDate;
     this.priority = priority;
-    // this.project = project;
+    // this.projectID = project;
     this.ID = crypto.randomUUID();
     this.reminderTimerId = null;
   
