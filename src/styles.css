@@ -161,8 +161,8 @@ nav,
   justify-content: space-between;
   position: absolute;
   top: 57px;
-  left: 31px;
-  width: 18rem;
+  left: 17px;
+  width: 20rem;
   background-color: #FCFAF8;
   border: 1px solid black;
   border-radius: 10px;
@@ -181,8 +181,24 @@ nav,
   width: 100%;
   border: 1px solid #9e9e9e42;
   border-radius: 10px;
-  
+  padding: 1rem 0 1rem 0.9rem;
   background: #FFFFFF;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.project-item-wrapper {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.project-item-input {
+  /* border: none; */
+  /* outline: none; */
 }
 
 .project-input {
