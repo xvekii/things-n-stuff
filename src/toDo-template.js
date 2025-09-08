@@ -7,9 +7,13 @@ import deleteTodoImg from "./assets/images/delete.svg";
 import dueDateImg from "./assets/images/due-date.svg";
 import priorityImg from "./assets/images/priority-flag.svg";
 import projectFolderImg from "./assets/images/project-folder.svg";
+import projectFolderImgLight from "./assets/images/project-folder-lighter.svg";
 import addProjectImg from "./assets/images/add-project.svg";
 import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
+import deleteLighter from "./assets/images/delete-lighter.svg";
+import editPencilLighter from "./assets/images/edit-pencil-lighter.svg";
+import saveLighter from "./assets/images/save-lighter.svg";
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const navUL = document.querySelector(".nav-ul");
@@ -204,7 +208,6 @@ function createTodo(existingID = null) {
   addProjectBtnImg.alt = "Add project";
   addProjectBtn.appendChild(addProjectBtnImg);
 
-  
   const saveBtnImg = document.createElement("img");
   saveBtnImg.src = saveTodoImg;
   saveBtnImg.alt = "Save";
@@ -284,6 +287,68 @@ function createTodo(existingID = null) {
   projectBtn.addEventListener("click", () => {
     newProjectContainer.classList.toggle("visible");
   });
+
+  addProjectBtn.addEventListener("click", () => {
+    // Get newProjectInput, if (unique) name, create project object, create + store unique proj. ID
+    // + store project name in the object, add to Projects array
+    const projectInput = newProjectInput.value;
+    if (!projectInput) return;
+    
+    const projectItemWrapper = document.createElement("div");
+    projectItemWrapper.classList.add("project-item-wrapper");
+
+    // Folder/trash btn + initial folder img, changes to delete
+    const deleteProjectItemBtn = document.createElement("button");
+    deleteProjectItemBtn.classList.add("todo-btn", "delete-project-item-btn");
+    deleteProjectItemBtn.type = "button";
+
+    const deleteProjectItemBtnImg = document.createElement("img");
+    deleteProjectItemBtnImg.classList.add("delete-project-item-img");
+    deleteProjectItemBtnImg.src = projectFolderImgLight;
+    deleteProjectItemBtnImg.alt = "Delete project item";
+
+    // Project item input
+    const projectItemInput = document.createElement("input");
+    projectItemInput.setAttribute("type", "text");
+    projectItemInput.setAttribute("class", "project-item-input");
+    projectItemInput.setAttribute("name", "project item input");
+    projectItemInput.setAttribute("autocomplete", "off");
+    projectItemInput.setAttribute("spellcheck", "false");
+    projectItemInput.setAttribute("maxlength", "20");
+    
+    // Btn pencil/save
+    const editProjectItemBtn = document.createElement("button");
+    editProjectItemBtn.classList.add("todo-btn", "edit-project-item-btn");
+    editProjectItemBtn.type = "button";
+
+    const editProjectItemBtnImg = document.createElement("img");
+    editProjectItemBtnImg.classList.add("edit-project-item-img");
+    editProjectItemBtnImg.src = editPencilLighter;
+    editProjectItemBtnImg.alt = "Edit project item";
+
+    // Append images to their buttons
+    deleteProjectItemBtn.appendChild(deleteProjectItemBtnImg);
+    editProjectItemBtn.appendChild(editProjectItemBtnImg);
+    
+    // Append buttons and input to project item wrapper (row)
+    projectItemWrapper.appendChild(deleteProjectItemBtn);
+    projectItemWrapper.appendChild(projectItemInput);
+    projectItemWrapper.appendChild(editProjectItemBtn);
+
+    newProjectListContainer.prepend(projectItemWrapper);
+    // New Project class w project class - proj. name, create ID, rename()
+    // New Projects module w Projects class (store all in array)
+    
+    // If existingID and input, save it on the existing todos.project
+    // If no existingID, save the project name upon save/getTodoInput
+    
+    // Prepend to the project list container
+    // 
+
+  });
+
+  // saveProjectBtn - save the project ID to 
+  // add deleteProject - 
   
   // Refactor with event delegation
   saveBtn.addEventListener("click", () => {
