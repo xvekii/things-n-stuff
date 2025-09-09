@@ -291,7 +291,8 @@ function createTodo(existingID = null) {
   addProjectBtn.addEventListener("click", () => {
     // Get newProjectInput, if (unique) name, create project object, create + store unique proj. ID
     // + store project name in the object, add to Projects array
-    const projectInput = newProjectInput.value;
+    const projectInput = newProjectInput.value.trim();
+    newProjectInput.value = "";
     if (!projectInput) return;
     
     const projectItemWrapper = document.createElement("div");
@@ -330,6 +331,13 @@ function createTodo(existingID = null) {
     deleteProjectItemBtn.appendChild(deleteProjectItemBtnImg);
     editProjectItemBtn.appendChild(editProjectItemBtnImg);
     
+    // Transfer project input value into the list item input
+    // Create a new instance of Project, push to Projects
+    // Check for existing name 
+    projectItemInput.value = projectInput;
+
+
+
     // Append buttons and input to project item wrapper (row)
     projectItemWrapper.appendChild(deleteProjectItemBtn);
     projectItemWrapper.appendChild(projectItemInput);
