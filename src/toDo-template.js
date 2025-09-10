@@ -1,5 +1,7 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
+import { Project } from "./Project.js";
+import { projects } from "./projects.js";
 import { format, formatISO, parseISO } from "date-fns";
 
 import closeReminderImg from "./assets/images/closeX.svg";
@@ -35,6 +37,8 @@ function createTodo(existingID = null) {
   const newProjectTitle = document.createElement("h5");
   const newProjectListContainer = document.createElement("div");
   const newProjectInputContainer = document.createElement("div");
+  const newProjectInputWrapper = document.createElement("div");
+  const newProjectInputErrorMsg = document.createElement("span");
   const newProjectInput = document.createElement("input");
   const newProjectBtnContainer = document.createElement("div");
 
@@ -59,6 +63,7 @@ function createTodo(existingID = null) {
   newProjectInput.setAttribute("class", "project-input");
   newProjectInput.setAttribute("name", "new project input");
   newProjectInput.setAttribute("placeholder", "New project name");
+  newProjectInput.setAttribute("aria-label", "New project name");
   newProjectInput.setAttribute("autocomplete", "off");
   newProjectInput.setAttribute("spellcheck", "false");
   newProjectInput.setAttribute("maxlength", "20");
@@ -77,6 +82,8 @@ function createTodo(existingID = null) {
   newProjectTitle.classList.add("project-title"); 
   newProjectListContainer.classList.add("project-list-container");
   newProjectInputContainer.classList.add("project-input-container");
+  newProjectInputWrapper.classList.add("project-input-wrapper");
+  newProjectInputErrorMsg.classList.add("project-input-error");
   newProjectBtnContainer.classList.add("project-btn-container"); 
   newDateTimeContainer.classList.add("toggle-datetime");
 
@@ -171,7 +178,9 @@ function createTodo(existingID = null) {
   newProjectContainer.appendChild(newProjectTitle);
   newProjectContainer.appendChild(newProjectListContainer);
   newProjectContainer.appendChild(newProjectInputContainer);
-  newProjectInputContainer.appendChild(newProjectInput);
+  newProjectInputContainer.appendChild(newProjectInputWrapper);
+  newProjectInputWrapper.appendChild(newProjectInputErrorMsg);
+  newProjectInputWrapper.appendChild(newProjectInput);
   newProjectInputContainer.appendChild(addProjectBtn);
   newProjectBtnContainer.appendChild(cancelProjectBtn);
   newProjectBtnContainer.appendChild(saveProjectBtn);
@@ -286,15 +295,77 @@ function createTodo(existingID = null) {
 
   projectBtn.addEventListener("click", () => {
     newProjectContainer.classList.toggle("visible");
+
+    if (newProjectContainer.classList.contains("visible")) {
+      renderSavedProjects();
+    }
+  });
+
+  function renderSavedProjects() {
+    // Get the projects from Projects and renderTodos, add ID to attr
+    // New function that builds the project items 
+    newProjectListContainer.replaceChildren();
+    if (projects.arr === 0) return;
+
+    projects.arr.forEach(project => {
+      const newProjectRow = createProjectListItem(project);
+      newProjectListContainer.appendChild(newProjectRow);
+    });
+  }
+
+  newProjectInput.addEventListener("input", () => {
+    hideError();
   });
 
   addProjectBtn.addEventListener("click", () => {
-    // Get newProjectInput, if (unique) name, create project object, create + store unique proj. ID
-    // + store project name in the object, add to Projects array
-    const projectInput = newProjectInput.value.trim();
-    newProjectInput.value = "";
-    if (!projectInput) return;
+    const inputName = newProjectInput.value.trim();
+    const duplicateName = projects.checkDuplicateName(inputName);
     
+    if (!inputName) {
+      emptyInput();
+      return;
+    }
+
+    if (duplicateName) {
+      showError("This name already exists");
+      return;   
+    }
+
+    hideError();
+    
+    // Get newProjectInput, if (unique) name, 
+    // create + store unique proj.
+    const newProject = new Project(inputName);
+    projects.addProject(newProject);
+    emptyInput();
+    
+    const projectRow = createProjectListItem(newProject);
+    newProjectListContainer.prepend(projectRow);
+    
+    // New Project class w project class - proj. name, create ID, rename()
+    // New Projects module w Projects class (store all in array)
+    
+    // If existingID and input, save it on the existing todos.project
+    // If no existingID, save the project name upon save/getTodoInput
+  });
+
+  function emptyInput() {
+    newProjectInput.value = "";
+  }
+
+  function showError(msg) {
+    newProjectInput.style.borderColor = "red";
+    newProjectInputErrorMsg.textContent = msg;
+    newProjectInputErrorMsg.style.visibility = "visible";
+  }
+
+  function hideError() {
+    newProjectInput.style.borderColor = "";
+    newProjectInputErrorMsg.style.visibility = "hidden";  
+  }
+
+  function createProjectListItem(project) {
+
     const projectItemWrapper = document.createElement("div");
     projectItemWrapper.classList.add("project-item-wrapper");
 
@@ -312,7 +383,9 @@ function createTodo(existingID = null) {
     const projectItemInput = document.createElement("input");
     projectItemInput.setAttribute("type", "text");
     projectItemInput.setAttribute("class", "project-item-input");
+    projectItemInput.setAttribute("data-title-id", `${project.ID}`);
     projectItemInput.setAttribute("name", "project item input");
+    projectItemInput.setAttribute("aria-label", "project item input");
     projectItemInput.setAttribute("autocomplete", "off");
     projectItemInput.setAttribute("spellcheck", "false");
     projectItemInput.setAttribute("maxlength", "20");
@@ -334,27 +407,15 @@ function createTodo(existingID = null) {
     // Transfer project input value into the list item input
     // Create a new instance of Project, push to Projects
     // Check for existing name 
-    projectItemInput.value = projectInput;
-
-
+    projectItemInput.value = project.name;
 
     // Append buttons and input to project item wrapper (row)
     projectItemWrapper.appendChild(deleteProjectItemBtn);
     projectItemWrapper.appendChild(projectItemInput);
     projectItemWrapper.appendChild(editProjectItemBtn);
 
-    newProjectListContainer.prepend(projectItemWrapper);
-    // New Project class w project class - proj. name, create ID, rename()
-    // New Projects module w Projects class (store all in array)
-    
-    // If existingID and input, save it on the existing todos.project
-    // If no existingID, save the project name upon save/getTodoInput
-    
-    // Prepend to the project list container
-    // 
-
-  });
-
+    return projectItemWrapper;
+  }
   // saveProjectBtn - save the project ID to 
   // add deleteProject - 
   
