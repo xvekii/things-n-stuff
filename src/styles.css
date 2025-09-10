@@ -187,17 +187,19 @@ nav,
   scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: .3rem;
 }
 
 .project-item-wrapper {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 2px;
+  min-height: 1.4rem;
+  justify-content: space-around;
 }
 
 .project-item-input {
-  /* border: none; */
+  border: none;
   /* outline: none; */
 }
 
@@ -205,9 +207,22 @@ nav,
   font-size: .8rem;
 }
 
+.project-input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-input-error {
+  height: 1rem;
+  font-size: .8rem;
+  color: red;
+  visibility: hidden;
+}
+
 .project-input-container {
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   gap: 1.4rem;
 }
 
