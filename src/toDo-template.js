@@ -294,6 +294,8 @@ function createTodo(existingID = null) {
   });
 
   projectBtn.addEventListener("click", () => {
+    hideError();
+    emptyInput();
     newProjectContainer.classList.toggle("visible");
 
     if (newProjectContainer.classList.contains("visible")) {
@@ -314,27 +316,27 @@ function createTodo(existingID = null) {
   }
 
   newProjectInput.addEventListener("input", () => {
-    hideError();
+    const inputName = newProjectInput.value.trim();
+    const { valid, error } = validateProjectName(inputName);
+    
+    if (!valid) {
+      showError(error);
+    } else {
+      hideError(); 
+    }
   });
 
   addProjectBtn.addEventListener("click", () => {
     const inputName = newProjectInput.value.trim();
-    const duplicateName = projects.checkDuplicateName(inputName);
+    const { valid, error } = validateProjectName(inputName);
     
-    if (!inputName) {
-      emptyInput();
+    if (!valid) {
+      showError(error);
       return;
     }
-
-    if (duplicateName) {
-      showError("This name already exists");
-      return;   
-    }
-
     hideError();
     
-    // Get newProjectInput, if (unique) name, 
-    // create + store unique proj.
+    // Add new project
     const newProject = new Project(inputName);
     projects.addProject(newProject);
     emptyInput();
@@ -348,6 +350,18 @@ function createTodo(existingID = null) {
     // If existingID and input, save it on the existing todos.project
     // If no existingID, save the project name upon save/getTodoInput
   });
+
+  function validateProjectName(name) {
+    if (!name) {
+      return { valid: false, error: "Name cannot be empty" };
+    }
+
+    if (projects.checkDuplicateName(name)) {
+      return { valid: false, error: "This name already exists" };
+    }
+
+    return { valid: true, error: "" };
+  }
 
   function emptyInput() {
     newProjectInput.value = "";
