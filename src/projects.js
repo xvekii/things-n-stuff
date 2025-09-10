@@ -5,13 +5,13 @@ export const projects = {
     return this._arr;
   },
 
-  set arr(obj) {
+  addProject (obj) {
     this._arr.push(obj);
   },
 
   checkDuplicateName(name) {
-    return this_arr.some(
-      projectName => projectName === name);
+    return this._arr.some(
+      project => project.name === name);
   },
 
   deleteProject(name) {
