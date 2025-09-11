@@ -315,6 +315,38 @@ function createTodo(existingID = null) {
     });
   }
 
+  // Temporarily store currently selected project
+  if (newProjectListContainer) {
+    newProjectListContainer.addEventListener("click", (e) => {
+      const target = e.target;
+
+      if (target.matches("input.project-item-input[readonly]")) {
+        // Get the wrapper row
+        const wrapper = target.closest(".project-item-wrapper");
+        if (!wrapper) return;
+
+        // Remove 'selected-project' from all wrappers
+        const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
+        allWrappers.forEach(w => w !== wrapper && w.classList.remove("selected-project"));
+
+        // Add 'selected-project' to the clicked wrapper
+        wrapper.classList.add("selected-project");
+
+        // Focus the input
+        target.focus();
+
+        // Store the selected project ID
+        projects.tempID = target.dataset.titleId;
+      }
+    });
+  }
+
+  // Mark the passed target
+  function markSelectedProject(target) {
+    target.classList.toggle("selected-project");
+  }
+
+
   newProjectInput.addEventListener("input", () => {
     const inputName = newProjectInput.value.trim();
     const { valid, error } = validateProjectName(inputName);
@@ -379,7 +411,6 @@ function createTodo(existingID = null) {
   }
 
   function createProjectListItem(project) {
-
     const projectItemWrapper = document.createElement("div");
     projectItemWrapper.classList.add("project-item-wrapper");
 
@@ -403,6 +434,7 @@ function createTodo(existingID = null) {
     projectItemInput.setAttribute("autocomplete", "off");
     projectItemInput.setAttribute("spellcheck", "false");
     projectItemInput.setAttribute("maxlength", "20");
+    projectItemInput.setAttribute("readonly", true);
     
     // Btn pencil/save
     const editProjectItemBtn = document.createElement("button");

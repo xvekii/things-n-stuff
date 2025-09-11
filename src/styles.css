@@ -198,6 +198,20 @@ nav,
   justify-content: space-around;
 }
 
+input.project-item-input[readonly]:hover {
+  cursor: pointer;
+  outline: 1px solid #8e44ad; 
+  background-color: #f5f0fa;
+  transition: background-color 0.2s, outline 0.2s;
+}
+
+.project-item-wrapper.selected-project {
+  background-color: #d1e7dd;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+
 .project-item-input {
   border: none;
   /* outline: none; */

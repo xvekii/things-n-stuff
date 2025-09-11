@@ -1,5 +1,6 @@
 export const projects = {
   _arr: [],
+  _tempProjectID: null, 
 
   get arr() {
     return this._arr;
@@ -12,6 +13,14 @@ export const projects = {
   checkDuplicateName(name) {
     return this._arr.some(
       project => project.name === name);
+  },
+
+  set tempID(ID) {
+    this._tempProjectID = ID;
+  },
+
+  get tempID() {
+    return this._tempProjectID;
   },
 
   deleteProject(name) {
