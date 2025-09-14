@@ -16,6 +16,7 @@ import savedTodoImg from "./assets/images/saved.svg";
 import deleteLighter from "./assets/images/delete-lighter.svg";
 import editPencilLighter from "./assets/images/edit-pencil-lighter.svg";
 import saveLighter from "./assets/images/save-lighter.svg";
+import selectedFolder from "./assets/images/selected-folder.svg";
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const navUL = document.querySelector(".nav-ul");
@@ -311,41 +312,82 @@ function createTodo(existingID = null) {
 
     projects.arr.forEach(project => {
       const newProjectRow = createProjectListItem(project);
+      // if existingID, get project name if there is one, mark selected
+      const existingTodo = todos.getTodos().find(obj => obj.ID === existingID);
+      
+      let selectedProjectID;
+      if (existingTodo && !projects.tempID) {
+        selectedProjectID = checkExistingProject(existingTodo);
+        if (selectedProjectID === project.ID) {
+          markSelectedProject(newProjectRow);
+        }   
+      } else if (projects.tempID) {
+        if (project.ID === projects.tempID) {
+          markSelectedProject(newProjectRow);
+        }
+      }
+      
+      
       newProjectListContainer.appendChild(newProjectRow);
     });
   }
 
+  function checkExistingProject(todo) {
+    return todo.projectID ? todo.projectID : null;
+  }
+
   // Temporarily store currently selected project
-  if (newProjectListContainer) {
-    newProjectListContainer.addEventListener("click", (e) => {
+  if (newProjectContainer) {
+    newProjectContainer.addEventListener("click", (e) => {
       const target = e.target;
 
-      if (target.matches("input.project-item-input[readonly]")) {
+      // Temporarily store the selected project ID
+      if (target.closest(".save-project-btn")) {
+        const selectedInput = newProjectListContainer.querySelector(
+        ".project-item-wrapper.selected-project .project-item-input"
+        );
+        const selectedID = selectedInput ? selectedInput.dataset.titleId : null;
+        
+        projects.tempID = selectedID || null;
+        newProjectContainer.classList.toggle("visible");
+      } 
+
+      // Cancel project selection
+      if (target.closest(".cancel-project-btn")) {
+        projects.tempID = null;
+        newProjectContainer.classList.toggle("visible");
+      }
+
+      if (target.matches("input.project-item-input[readonly]") ||
+        target.closest(".delete-project-item-btn")) {
+        
         // Get the wrapper row
         const wrapper = target.closest(".project-item-wrapper");
         if (!wrapper) return;
 
-        // Remove 'selected-project' from all wrappers
+        // Remove "selected-project" from all unselected
         const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
-        allWrappers.forEach(w => w !== wrapper && w.classList.remove("selected-project"));
+        allWrappers.forEach(w => w.classList.toggle("selected-project", w === wrapper));
 
-        // Add 'selected-project' to the clicked wrapper
-        wrapper.classList.add("selected-project");
+        // Mark selected project item (row)
+        markSelectedProject(wrapper);
+         
+        const closestInput = wrapper.querySelector(".project-item-input");
+        const closestInputID = closestInput ? closestInput.dataset.titleId : null;
+        
+        wrapper.focus();
 
-        // Focus the input
-        target.focus();
-
-        // Store the selected project ID
-        projects.tempID = target.dataset.titleId;
+        if (closestInputID) {
+        projects.tempID = closestInputID;
+        }
       }
     });
   }
 
   // Mark the passed target
   function markSelectedProject(target) {
-    target.classList.toggle("selected-project");
+    target.classList.add("selected-project");
   }
-
 
   newProjectInput.addEventListener("input", () => {
     const inputName = newProjectInput.value.trim();
@@ -597,7 +639,8 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
-  console.log(newDateInput.value);
+  // Temporary project ID
+  const projectID = projects.tempID;
   
   const reminderContainer = document.querySelector(".reminder-container");
   const reminderSpan = document.querySelector(".reminder-span");
@@ -613,9 +656,8 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   }
 
   if (!existingID) {
-    const newTodo = new Todo(priorityValue, titleValue, notes, dueDateISO);
+    const newTodo = new Todo(priorityValue, titleValue, notes, dueDateISO, projectID);
     todos.addTodo(newTodo);
-    console.log(dueDateISO);
   } else {
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
@@ -629,6 +671,10 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
       todoUpdate.setReminder(dueDateISO, () => {
         alert(titleValue);
       });
+    }
+
+    if (projectID) {
+      todoUpdate.projectID = projectID;
     }
   }
 }

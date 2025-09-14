@@ -198,23 +198,36 @@ nav,
   justify-content: space-around;
 }
 
-input.project-item-input[readonly]:hover {
-  cursor: pointer;
-  outline: 1px solid #8e44ad; 
-  background-color: #f5f0fa;
-  transition: background-color 0.2s, outline 0.2s;
+.project-item-wrapper:hover {
+  background-color: #f1efeeff;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
 .project-item-wrapper.selected-project {
-  background-color: #d1e7dd;
+  cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  box-shadow: 0px 1px 3px 1px #121212;
 }
 
 
 .project-item-input {
   border: none;
   /* outline: none; */
+}
+ 
+.project-item-input:focus {
+  outline: 2px solid #4d352c;
+}
+
+.project-item-input[readonly]:focus {
+  outline: none;
+}
+
+.delete-project-item-btn:hover, 
+.edit-project-item-btn:hover,
+.project-item-input:hover {
+  cursor: pointer;
 }
 
 .project-input {

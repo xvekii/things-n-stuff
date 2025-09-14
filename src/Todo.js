@@ -1,12 +1,12 @@
 import { parseISO, differenceInMilliseconds, isAfter } from "date-fns";
 
 export class Todo {
-  constructor(priority, title, notes, dueDate) {
+  constructor(priority, title, notes, dueDate, projectID) {
     this.title = title;
     this.notes = notes;
     this.dueDate = dueDate;
     this.priority = priority;
-    // this.projectID = project;
+    this.projectID = projectID;
     this.ID = crypto.randomUUID();
     this.reminderTimerId = null;
   
