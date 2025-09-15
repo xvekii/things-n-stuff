@@ -365,22 +365,32 @@ function createTodo(existingID = null) {
         const wrapper = target.closest(".project-item-wrapper");
         if (!wrapper) return;
 
-        // Remove "selected-project" from all unselected
-        const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
-        allWrappers.forEach(w => w.classList.toggle("selected-project", w === wrapper));
+        // Deselect the project
+        if (wrapper.classList.contains("selected-project")) {
+          wrapper.classList.remove("selected-project");
+          projects.tempID = null;
+          // remove projectID from the existing todo 
+          // get the closest input ID, go through the todo list by existingID and remove projID
+        } else {
+          // Remove "selected-project" from all unselected
+          const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
+          allWrappers.forEach(w => w.classList.toggle("selected-project", w === wrapper));
 
-        // Mark selected project item (row)
-        markSelectedProject(wrapper);
-         
-        const closestInput = wrapper.querySelector(".project-item-input");
-        const closestInputID = closestInput ? closestInput.dataset.titleId : null;
-        
-        wrapper.focus();
+          // Mark selected project item (row)
+          markSelectedProject(wrapper);
+          
+          const closestInput = wrapper.querySelector(".project-item-input");
+          const closestInputID = closestInput ? closestInput.dataset.titleId : null;
+          
+          wrapper.focus();
 
-        if (closestInputID) {
-        projects.tempID = closestInputID;
+          if (closestInputID) {
+          projects.tempID = closestInputID;
+          }
         }
-      }
+
+        
+      } 
     });
   }
 
