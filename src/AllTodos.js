@@ -10,6 +10,10 @@ export class AllTodos {
   getTodos() {
     return this.todosArr;
   }
+
+  getTodo(todoID) {
+    return this.getTodos().find(obj => obj.ID === todoID);
+  }
   
   // Add check for existing todo
   // Upon editing an existing todo, check its place in todosArr
