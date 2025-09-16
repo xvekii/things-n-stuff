@@ -132,10 +132,6 @@ nav,
   margin-bottom: 1rem;
 }
 
-/* .add-new-project-btn > img {
-  width: 1.2rem;
-} */
-
 .add-new-project-btn, 
 .edit-projects-btn {
   color: #0b0b0bb0;
@@ -146,10 +142,6 @@ nav,
   font-size: .8rem;
   color: #0b0b0bb0;
 }
-
-/* .project-name > img {
-  width: 1.2rem;
-} */
 
 .toggle-project {
   display: none;
@@ -210,7 +202,6 @@ nav,
   box-shadow: 0px 1px 3px 1px #121212;
 }
 
-
 .project-item-input {
   border: none;
   /* outline: none; */
@@ -256,7 +247,7 @@ nav,
 
 .project-btn-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 1.5rem;
 }
 
