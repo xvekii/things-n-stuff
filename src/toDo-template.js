@@ -99,7 +99,6 @@ function createTodo(existingID = null) {
   const closePriorityBtn = document.createElement("button");
   const projectBtn = document.createElement("button");
   const addProjectBtn = document.createElement("button");
-  const cancelProjectBtn = document.createElement("button");
   const saveProjectBtn = document.createElement("button");
   const saveBtn = document.createElement("button");
 
@@ -124,9 +123,6 @@ function createTodo(existingID = null) {
   projectBtn.type = "button";
   addProjectBtn.classList.add("todo-btn", "add-project-btn");
   addProjectBtn.type = "button";
-  cancelProjectBtn.classList.add("todo-btn", "cancel-project-btn");
-  cancelProjectBtn.type = "button";
-  cancelProjectBtn.textContent = "Cancel";
   saveProjectBtn.classList.add("todo-btn", "save-project-btn");
   saveProjectBtn.type = "button";
   saveProjectBtn.textContent = "Save";
@@ -183,7 +179,6 @@ function createTodo(existingID = null) {
   newProjectInputWrapper.appendChild(newProjectInputErrorMsg);
   newProjectInputWrapper.appendChild(newProjectInput);
   newProjectInputContainer.appendChild(addProjectBtn);
-  newProjectBtnContainer.appendChild(cancelProjectBtn);
   newProjectBtnContainer.appendChild(saveProjectBtn);
   newProjectContainer.appendChild(newProjectBtnContainer);
 
@@ -306,28 +301,28 @@ function createTodo(existingID = null) {
 
   function renderSavedProjects() {
     // Get the projects from Projects and renderTodos, add ID to attr
-    // New function that builds the project items 
     newProjectListContainer.replaceChildren();
     if (projects.arr === 0) return;
 
     projects.arr.forEach(project => {
       const newProjectRow = createProjectListItem(project);
       // if existingID, get project name if there is one, mark selected
-      const existingTodo = todos.getTodos().find(obj => obj.ID === existingID);
+      const currentTodo = todos.getTodos().find(obj => obj.ID === existingID);
       
+      // revise
+      // If rendered upon opening and there's a saved todo
       let selectedProjectID;
-      if (existingTodo && !projects.tempID) {
-        selectedProjectID = checkExistingProject(existingTodo);
+      if (currentTodo && !projects.tempID) {
+        selectedProjectID = checkExistingProject(currentTodo);
         if (selectedProjectID === project.ID) {
           markSelectedProject(newProjectRow);
         }   
+      // If yet unsaved todo
       } else if (projects.tempID) {
         if (project.ID === projects.tempID) {
           markSelectedProject(newProjectRow);
         }
       }
-      
-      
       newProjectListContainer.appendChild(newProjectRow);
     });
   }
@@ -352,12 +347,6 @@ function createTodo(existingID = null) {
         newProjectContainer.classList.toggle("visible");
       } 
 
-      // Cancel project selection
-      if (target.closest(".cancel-project-btn")) {
-        projects.tempID = null;
-        newProjectContainer.classList.toggle("visible");
-      }
-
       if (target.matches("input.project-item-input[readonly]") ||
         target.closest(".delete-project-item-btn")) {
         
@@ -369,8 +358,15 @@ function createTodo(existingID = null) {
         if (wrapper.classList.contains("selected-project")) {
           wrapper.classList.remove("selected-project");
           projects.tempID = null;
-          // remove projectID from the existing todo 
-          // get the closest input ID, go through the todo list by existingID and remove projID
+          // Remove projectID from the existing todo 
+          if (existingID) {
+            const currentTodo = todos.getTodo(existingID);
+            if (!currentTodo) return;
+
+            currentTodo.projectID = null;
+            projects.tempID = null;
+          }
+          // Get the closest input ID, go through the todo list by existingID and remove projID
         } else {
           // Remove "selected-project" from all unselected
           const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
@@ -388,8 +384,6 @@ function createTodo(existingID = null) {
           projects.tempID = closestInputID;
           }
         }
-
-        
       } 
     });
   }
@@ -520,7 +514,8 @@ function createTodo(existingID = null) {
   // Refactor with event delegation
   saveBtn.addEventListener("click", () => {
     getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID);
-    renderTodos(existingID);  
+    renderTodos(existingID); 
+    projects.tempID = null; 
     showTodoBtn();  
   });
 
