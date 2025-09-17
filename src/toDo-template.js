@@ -15,6 +15,7 @@ import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
 import deleteLighter from "./assets/images/delete-lighter.svg";
 import editPencilLighter from "./assets/images/edit-pencil-lighter.svg";
+import checkLighter from "./assets/images/check-lighter.svg";
 import saveLighter from "./assets/images/save-lighter.svg";
 import selectedFolder from "./assets/images/selected-folder.svg";
 const containerRight = document.querySelector(".container-right");
@@ -385,13 +386,60 @@ function createTodo(existingID = null) {
           }
         }
       } 
+
+      // Project name editing mode
+      if (target.closest(".edit-project-item-btn")) {
+        const editBtn = target.closest(".edit-project-item-btn");
+        const editImg = editBtn.querySelector(".edit-project-item-img");
+       
+        // If edit clicked, get closest input's ID
+        const closestWrapper = target.closest(".project-item-wrapper");
+        const closestInput = closestWrapper.querySelector("input.project-item-input");
+        const closestInputID = closestInput.dataset.titleId;
+        
+        if (closestInput.hasAttribute("readonly")) {
+          closestInput.removeAttribute("readonly");
+          switchEditingMode(closestInput, editImg);
+          closestInput.focus();
+        } else {
+          const closestInputValue = closestInput.value.trim();
+          if (!closestInputValue) {
+            closestInput.classList.add("error");
+            alert("Name cannot be empty");
+          }
+          
+          const updateMsg = projects.updateName(closestInputValue, closestInputID);
+    
+          if (updateMsg) {
+            closestInput.classList.add("error");
+            alert(updateMsg);
+          } else {
+            closestInput.classList.remove("error");
+            closestInput.setAttribute("readonly", "true");
+            switchEditingMode(closestInput, editImg);
+          }
+        }        
+      } 
     });
   }
 
-  // Mark the passed target
+  function switchEditingMode(input, imgEl) {
+    if (!input.hasAttribute("readonly")) {
+      imgEl.src = checkLighter;
+    } else {
+      imgEl.src = editPencilLighter;
+    }
+  }
+  
   function markSelectedProject(target) {
     target.classList.add("selected-project");
   }
+
+  newProjectInput.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && newProjectInput.value === "") {
+      hideError();
+    }
+  });
 
   newProjectInput.addEventListener("input", () => {
     const inputName = newProjectInput.value.trim();

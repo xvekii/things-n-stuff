@@ -197,14 +197,16 @@ nav,
 }
 
 .project-item-wrapper.selected-project {
-  cursor: pointer;
   border-radius: 4px;
   box-shadow: 0px 1px 3px 1px #121212;
 }
 
 .project-item-input {
   border: none;
-  /* outline: none; */
+}
+
+.project-item-input.error {
+  border: 2px solid red;
 }
  
 .project-item-input:focus {
@@ -213,6 +215,10 @@ nav,
 
 .project-item-input[readonly]:focus {
   outline: none;
+}
+
+.project-item-input:not([readonly]):hover {
+  cursor: text;
 }
 
 .delete-project-item-btn:hover, 
