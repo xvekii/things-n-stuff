@@ -37,7 +37,10 @@ export const projects = {
     return this._tempProjectID;
   },
 
-  deleteProject(name) {
-    // get _arr, check for name, get ID and splice
+  deleteProject(ID) {
+    const projectIndex = this.arr.findIndex(project => project.ID === ID);
+    if (projectIndex === -1) return;
+
+    this._arr.splice(projectIndex, 1);
   },
 }

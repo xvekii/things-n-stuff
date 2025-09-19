@@ -349,7 +349,7 @@ function createTodo(existingID = null) {
       } 
 
       if (target.matches("input.project-item-input[readonly]") ||
-        target.closest(".delete-project-item-btn")) {
+        target.closest(".delete-project-item-btn:not(.active)")) {
         
         // Get the wrapper row
         const wrapper = target.closest(".project-item-wrapper");
@@ -367,7 +367,7 @@ function createTodo(existingID = null) {
             currentTodo.projectID = null;
             projects.tempID = null;
           }
-          // Get the closest input ID, go through the todo list by existingID and remove projID
+        // Get the closest input ID, go through the todo list by existingID and remove projID
         } else {
           // Remove "selected-project" from all unselected
           const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
@@ -396,10 +396,14 @@ function createTodo(existingID = null) {
         const closestWrapper = target.closest(".project-item-wrapper");
         const closestInput = closestWrapper.querySelector("input.project-item-input");
         const closestInputID = closestInput.dataset.titleId;
+        const deleteProjBtn = closestWrapper.querySelector(".delete-project-item-btn");
+        const deleteProjImg = deleteProjBtn.querySelector(".delete-project-item-img");
         
+        // Switch editing mode
         if (closestInput.hasAttribute("readonly")) {
           closestInput.removeAttribute("readonly");
-          switchEditingMode(closestInput, editImg);
+          switchEditingMode(closestInput, editImg, deleteProjImg);
+          toggleDeleteProjBtn(deleteProjBtn);
           closestInput.focus();
         } else {
           const closestInputValue = closestInput.value.trim();
@@ -416,19 +420,41 @@ function createTodo(existingID = null) {
           } else {
             closestInput.classList.remove("error");
             closestInput.setAttribute("readonly", "true");
-            switchEditingMode(closestInput, editImg);
+            switchEditingMode(closestInput, editImg, deleteProjImg);
+            toggleDeleteProjBtn(deleteProjBtn);
           }
         }        
       } 
+
+      if (target.closest(".delete-project-item-btn.active")) {
+        const closestWrapper = target.closest(".project-item-wrapper");
+        if (!closestWrapper) return;
+
+        const closestInput = closestWrapper.querySelector(".project-item-input");
+        const closestInputID = closestInput ? closestInput.dataset.titleId : null;
+        
+        // Delete and render all project item wrappers
+        if (closestInput) {
+          projects.deleteProject(closestInputID);
+          renderSavedProjects();
+        }
+      }
     });
   }
 
-  function switchEditingMode(input, imgEl) {
+  // Switch btn imgs - project folder / delete project; edit / check 
+  function switchEditingMode(input, editImgEl, deleteImgEl) {
     if (!input.hasAttribute("readonly")) {
-      imgEl.src = checkLighter;
+      editImgEl.src = checkLighter;
+      deleteImgEl.src = deleteLighter;
     } else {
-      imgEl.src = editPencilLighter;
+      editImgEl.src = editPencilLighter;
+      deleteImgEl.src = projectFolderImgLight;
     }
+  }
+
+  function toggleDeleteProjBtn(delProjBtn) {
+    delProjBtn.classList.toggle("active");
   }
   
   function markSelectedProject(target) {
@@ -469,12 +495,6 @@ function createTodo(existingID = null) {
     
     const projectRow = createProjectListItem(newProject);
     newProjectListContainer.prepend(projectRow);
-    
-    // New Project class w project class - proj. name, create ID, rename()
-    // New Projects module w Projects class (store all in array)
-    
-    // If existingID and input, save it on the existing todos.project
-    // If no existingID, save the project name upon save/getTodoInput
   });
 
   function validateProjectName(name) {
@@ -790,6 +810,7 @@ function renderTodos(existingID = null, deleting = null) {
     const newTitle = document.createElement("input");
 
     newTitle.setAttribute("class", "title-text");
+    newTitle.setAttribute("class", "todo-no-edit");
     newTitle.setAttribute("data-title-id", `${todo.ID}`);
     newTitle.setAttribute("name", "title");
     newTitle.setAttribute("placeholder", "Title");
@@ -827,7 +848,7 @@ function renderTodos(existingID = null, deleting = null) {
         newNote.setAttribute("class", "todo-note");
         newNote.setAttribute("name", "note");
         newNote.setAttribute("rows", "1");
-        newNote.classList.add("note", "no-border");
+        newNote.classList.add("note", "no-border", "todo-no-edit");
 
         newTodoCard.appendChild(newNote);
         // Add date container
