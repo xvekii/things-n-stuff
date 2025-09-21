@@ -32,7 +32,6 @@ header {
   justify-content: center;
   align-items: center;
   width: 100%;
-  z-index: 1000;
 }
 
 header > img {
@@ -139,6 +138,13 @@ nav,
 .project-name {
   font-size: .8rem;
   color: #0b0b0bb0;
+}
+
+.toggle-project.visible.edit-projects-container {
+  position: fixed;
+  top: 50%;      
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .toggle-project {

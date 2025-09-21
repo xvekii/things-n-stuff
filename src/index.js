@@ -1,5 +1,6 @@
 import "./styles.css";
 import projectFolderImgLight from "./assets/images/project-folder-lighter.svg";
+import { projects } from "./projects.js";
 import {
   createTodo,
   todos,
@@ -16,10 +17,22 @@ const containerLeft = document.querySelector(".container-left");
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const navUL = document.querySelector(".nav-ul");
+const projectBtnsLI = document.createElement("li");
 const addNewProjectBtn = document.querySelector(".add-new-project-btn");
+const editProjectsContainer = document.createElement("div");
+editProjectsContainer.classList.add("toggle-project", "edit-projects-container");
 
 hamburgerMenuBtn.addEventListener("click", () => {
   containerLeft.classList.toggle("active");
+  
+  if (containerLeft.classList.contains("active")) {
+    projectBtnsLI.replaceChildren();
+    projects.arr.forEach(project => {
+      const projBtn = createNavProjBtn(project);
+      projectBtnsLI.appendChild(projBtn);
+    });
+    navUL.appendChild(projectBtnsLI);
+  }
 });
 
 // Revise
@@ -29,21 +42,33 @@ addToDoBtn.addEventListener("click", () => {
 });
 
 addNewProjectBtn.addEventListener("click", () => {
-    const newLI = document.createElement("li");
-    const newProjectBtn = document.createElement("button");
-    const newProjectBtnImg = document.createElement("img");
-    
-    newProjectBtnImg.src = projectFolderImgLight;
-    newProjectBtnImg.alt = "Project icon";
-    newProjectBtn.type = "button";
-    newProjectBtn.classList.add("project-name");
-    
-    newProjectBtn.appendChild(newProjectBtnImg);
-    newProjectBtn.appendChild(document.createTextNode("New Project"));
-    newLI.appendChild(newProjectBtn);
+  // show Add to a project window - toggle-project
+  containerRight.appendChild(editProjectsContainer);
+  editProjectsContainer.classList.toggle("visible");
+});
 
-    navUL.appendChild(newLI);
-  });
+
+function createNavProjBtn(project = null) {
+  const newProjectBtn = document.createElement("button");
+  const newProjectBtnImg = document.createElement("img");
+  
+  const projName = project ? project.name : "New project";
+  
+  // If project
+  if (project) {
+    newProjectBtn.setAttribute("data-proj-id", `${project.ID}`);
+  }
+
+  newProjectBtnImg.src = projectFolderImgLight;
+  newProjectBtnImg.alt = "Project icon";
+  newProjectBtn.type = "button";
+  newProjectBtn.classList.add("project-name");
+  
+  newProjectBtn.appendChild(newProjectBtnImg);
+  newProjectBtn.appendChild(document.createTextNode(`${projName}`));
+
+  return newProjectBtn;
+}
 
 containerRight.addEventListener("click", (e) => {
   const clickedTodo = e.target.closest(".todo"); 
