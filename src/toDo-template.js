@@ -1,5 +1,12 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
+import {
+  createDiv, 
+  createInput, 
+  createSpan, 
+  createHeading,
+} from "./helpers.js";
+
 import { Project } from "./Project.js";
 import { projects } from "./projects.js";
 import { format, formatISO, parseISO } from "date-fns";
@@ -24,74 +31,75 @@ const navUL = document.querySelector(".nav-ul");
 const todos = new AllTodos();
 
 function createTodo(existingID = null) {
-  const newTodoCard = document.createElement("div");
-  const newPriorityCircle = document.createElement("span");
-  const newTitle = document.createElement("input");
-  const newNotesContainer = document.createElement("div");
-  const newBtnContainer = document.createElement("div");
-  const newReminderContainer = document.createElement("div");
-  const newReminderSpan = document.createElement("span");
-  const newPriorityContainer = document.createElement("div");
-  const newPriorityTitle = document.createElement("h5");
-  const newPriorityBtnContainer = document.createElement("div");
-
-  const newProjectContainer = document.createElement("div");
-  const newProjectTitle = document.createElement("h5");
-  const newProjectListContainer = document.createElement("div");
-  const newProjectInputContainer = document.createElement("div");
-  const newProjectInputWrapper = document.createElement("div");
-  const newProjectInputErrorMsg = document.createElement("span");
-  const newProjectInput = document.createElement("input");
-  const newProjectBtnContainer = document.createElement("div");
-
-  const newDateTimeContainer = document.createElement("div");
-  const newDateInput = document.createElement("input");
   const dataTitleID = existingID ? existingID : "temp1";
+  const newTodoCard = createDiv({ classes: ["todo-template-popup"] });
+  const newPriorityCircle = createSpan({ classes: ["priority-circle"] });
+  
+  const newTitle = createInput({
+    classes: ["title", "title-text", "no-border"],
+    attrs: {
+      "data-title-id": `${dataTitleID}`,
+      name: "title",
+      type: "text",
+      placeholder: "Title",
+      autocomplete: "off",
+      spellcheck: "false",
+      maxlength: "24",
+      contenteditable: "true",
+    },
+  });
+  const newNotesContainer = createDiv({ classes: ["new-notes-container"] });
+  const newBtnContainer = createDiv({ classes: ["todo-btn-container"] });
+  const newReminderContainer = createDiv({ classes: ["reminder-container"] });
+  const newReminderSpan = createSpan({ classes: ["reminder-span"] });
+  const newPriorityContainer = createDiv({ classes: ["toggle-priority"]} );
+  
+  const newPriorityTitle = createHeading({
+    classes: ["priority-title"], 
+    headLvl: "h5",
+    text: "Select priority:", 
+  });
+  const newPriorityBtnContainer = createDiv({ classes: ["priority-btn-container"] });
+  const newProjectContainer = createDiv({ classes: ["project-container", "toggle-project"] });
+  
+  const newProjectTitle = createHeading({
+    classes: ["project-title"],
+    headLvl: "h5",
+    text: "Add to a project:",
+  });
+  const newProjectListContainer = createDiv({ classes: ["project-list-container"] });
+  const newProjectInputContainer = createDiv({ classes: ["project-input-container"] });
+  const newProjectInputWrapper = createDiv({ classes: ["project-input-wrapper"] });
+  const newProjectInputErrorMsg = createSpan({ classes: ["project-input-error"] });
+  
+  const newProjectInput = createInput({
+    classes: ["project-input"],
+    attrs: {
+      "aria-label": "New project name",
+      name: "new project input",
+      type: "text",
+      placeholder: "New project name",
+      autocomplete: "off",
+      spellcheck: "false",
+      maxlength: "20",
+    },
+  });
+  
+  const newProjectBtnContainer = createDiv({ classes: ["project-btn-container"] });
+  const newDateTimeContainer = createDiv({ classes: ["toggle-datetime"] });
+  
+  const newDateInput = createInput({ 
+    classes: ["date-input"], 
+    attrs: {
+      type: "datetime-local",
+    }, 
+  });
+  
   const LOW = "#FFFFFF";
   const NORMAL = "#06D6A0";
   const MEDIUM = "#FFD166";
   const HIGH = "#EF476F";
-
-  newTitle.setAttribute("type", "text");
-  newTitle.setAttribute("class", "title-text");
-  newTitle.setAttribute("data-title-id", `${dataTitleID}`);
-  newTitle.setAttribute("name", "title");
-  newTitle.setAttribute("placeholder", "Title");
-  newTitle.setAttribute("autocomplete", "off");
-  newTitle.setAttribute("spellcheck", "false");
-  newTitle.setAttribute("maxlength", "24");
-  newDateInput.setAttribute("type", "datetime-local");
-  newProjectInput.setAttribute("type", "text");
-  newProjectInput.setAttribute("class", "project-input");
-  newProjectInput.setAttribute("name", "new project input");
-  newProjectInput.setAttribute("placeholder", "New project name");
-  newProjectInput.setAttribute("aria-label", "New project name");
-  newProjectInput.setAttribute("autocomplete", "off");
-  newProjectInput.setAttribute("spellcheck", "false");
-  newProjectInput.setAttribute("maxlength", "20");
-  
-  newTitle.classList.add("title", "no-border");
-  newTitle.contentEditable = "true";
-  newPriorityCircle.classList.add("priority-circle");
-  newNotesContainer.classList.add("new-notes-container");
-  newReminderContainer.classList.add("reminder-container");
-  newReminderSpan.classList.add("reminder-span");
-  newPriorityContainer.classList.add("toggle-priority");
-  newPriorityTitle.classList.add("priority-title");
-  newPriorityBtnContainer.classList.add("priority-btn-container");
  
-  newProjectContainer.classList.add("toggle-project", "project-container");
-  newProjectTitle.classList.add("project-title"); 
-  newProjectListContainer.classList.add("project-list-container");
-  newProjectInputContainer.classList.add("project-input-container");
-  newProjectInputWrapper.classList.add("project-input-wrapper");
-  newProjectInputErrorMsg.classList.add("project-input-error");
-  newProjectBtnContainer.classList.add("project-btn-container"); 
-  newDateTimeContainer.classList.add("toggle-datetime");
-
-  newTodoCard.classList.add("todo-template-popup");
-  newBtnContainer.classList.add("todo-btn-container");
-
   const removeReminderBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const closeDateTimeBtn = document.createElement("button");
@@ -118,8 +126,6 @@ function createTodo(existingID = null) {
   closePriorityBtn.classList.add("todo-btn", "close-priority-btn");
   closePriorityBtn.textContent = "Close";
   closePriorityBtn.type = "button";
-  newPriorityTitle.textContent = "Select priority:";
-  newProjectTitle.textContent = "Add to a project:"
   projectBtn.classList.add("todo-btn", "project-btn");
   projectBtn.type = "button";
   addProjectBtn.classList.add("todo-btn", "add-project-btn");
@@ -236,11 +242,6 @@ function createTodo(existingID = null) {
   function focusNote(note) {
     note.focus();
   }
-
-  // navUL.addEventListener("click", (e) => {
-  //   const target = e.target;
-
-  // });
 
   // Revise - add method to AllTodos for removing
   deleteBtn.addEventListener("click", () => {
