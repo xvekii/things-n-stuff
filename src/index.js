@@ -42,7 +42,7 @@ addToDoBtn.addEventListener("click", () => {
 });
 
 addNewProjectBtn.addEventListener("click", () => {
-  // show Add to a project window - toggle-project
+  // move to edit or replace toggle with add
   containerRight.appendChild(editProjectsContainer);
   editProjectsContainer.classList.toggle("visible");
 });
