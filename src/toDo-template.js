@@ -1,5 +1,8 @@
 import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
+import { Project } from "./Project.js";
+import { projects } from "./projects.js";
+import { format, formatISO, parseISO } from "date-fns";
 import {
   createDiv, 
   createInput, 
@@ -7,10 +10,6 @@ import {
   createHeading,
   createBtn,
 } from "./helpers.js";
-
-import { Project } from "./Project.js";
-import { projects } from "./projects.js";
-import { format, formatISO, parseISO } from "date-fns";
 
 import closeReminderImg from "./assets/images/closeX.svg";
 import deleteTodoImg from "./assets/images/delete.svg";
@@ -26,10 +25,15 @@ import editPencilLighter from "./assets/images/edit-pencil-lighter.svg";
 import checkLighter from "./assets/images/check-lighter.svg";
 import saveLighter from "./assets/images/save-lighter.svg";
 import selectedFolder from "./assets/images/selected-folder.svg";
+
 const containerRight = document.querySelector(".container-right");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const navUL = document.querySelector(".nav-ul");
 const todos = new AllTodos();
+const LOW = "#FFFFFF";
+const NORMAL = "#06D6A0";
+const MEDIUM = "#FFD166";
+const HIGH = "#EF476F";
 
 
 function createTodo(existingID = null) {
@@ -98,11 +102,6 @@ function createTodo(existingID = null) {
       type: "datetime-local",
     }, 
   });
-  
-  const LOW = "#FFFFFF";
-  const NORMAL = "#06D6A0";
-  const MEDIUM = "#FFD166";
-  const HIGH = "#EF476F";
  
   const removeReminderBtn = createBtn({
     classes: ["remove-reminder-btn"],
