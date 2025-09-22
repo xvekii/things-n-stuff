@@ -1,3 +1,4 @@
+// Create div, span, input, heading, btn + img
 export const createDiv = ({ classes }) => {
   const div = document.createElement("div");
   div.classList.add(...classes);
