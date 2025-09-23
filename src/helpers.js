@@ -32,6 +32,17 @@ export const createHeading = ({ classes, headLvl, text }) => {
   return heading;
 }
 
+export const createTextarea = ({ classes, attrs }) => {
+  const textarea = document.createElement("textarea");
+  textarea.classList.add(...classes);
+
+  Object.entries(attrs).forEach(([key, value]) => {
+    textarea.setAttribute(key, value);
+  });
+
+  return textarea;
+}
+
 export const createBtn = ({ classes, attrs, imgSrc, imgClass, imgAlt, text }) => {
   const button = document.createElement("button");
   button.classList.add(...classes);
