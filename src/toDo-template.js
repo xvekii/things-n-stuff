@@ -6,6 +6,7 @@ import { format, formatISO, parseISO } from "date-fns";
 import {
   createDiv, 
   createInput, 
+  createTextarea,
   createSpan, 
   createHeading,
   createBtn,
@@ -126,7 +127,7 @@ function createTodo(existingID = null) {
   });
   
   const dueDateBtn = createBtn({
-    classes: ["todo-btn"],
+    classes: ["todo-btn", "due-date-btn"],
     attrs: { type: "button", },
     imgSrc: dueDateImg,
     imgClass: "due-date-btn-img",
@@ -134,7 +135,7 @@ function createTodo(existingID = null) {
   });
   
   const priorityBtn = createBtn({
-    classes: ["todo-btn"],
+    classes: ["todo-btn", "open-priority-btn"],
     attrs: { type: "button", },
     imgSrc: priorityImg,
     imgClass: "priority-btn-img",
@@ -793,20 +794,22 @@ let noteIdCounter = 0;
 
 function createNewNote() {
   noteIdCounter += 1;
-  const newNote = document.createElement("textarea");
-
-  newNote.setAttribute("class", "note-text");
-  newNote.setAttribute("cols", "12");
-  newNote.setAttribute("rows", "1");
-  newNote.setAttribute("wrap", "hard");
-  newNote.setAttribute("maxlength", "580");
-  newNote.setAttribute("id", `note-${noteIdCounter}`);
-  newNote.setAttribute("name", "note");
-  newNote.setAttribute("placeholder", "Write a note...");
-  newNote.setAttribute("autocomplete", "off");
-  newNote.setAttribute("autocorrect", "off");
-  newNote.setAttribute("spellcheck", "false");
-  newNote.classList.add("note", "no-border");
+  
+  const newNote = createTextarea({
+    classes: ["note", "note-text", "no-border"],
+    attrs: {
+      id: `note-${noteIdCounter}`,
+      name: "note",
+      cols: "12",
+      rows: "1",
+      wrap: "hard",
+      maxlength: "580",
+      placeholder: "Write a note...",
+      autocomplete: "off",
+      autocorrect: "off",
+      spellcheck: "false",
+    }
+  });
 
   return newNote;
 }
@@ -848,24 +851,6 @@ function renderTodos(existingID = null, deleting = null) {
     
     newTodoCard.appendChild(newPriority);
     newTodoCard.appendChild(newTitle);
-    
-    // Add note
-    // Revise the number of notes visible 
-    if (todo.notes && todo.notes.length > 0) {
-      for (let i = 0; i < Math.min(3, todo.notes.length); i++) {
-        const newNote = document.createElement("textarea");
-        newNote.textContent = todo.notes[i];
-        
-        newNote.setAttribute("wrap", "hard");
-        newNote.setAttribute("class", "todo-note");
-        newNote.setAttribute("name", "note");
-        newNote.setAttribute("rows", "1");
-        newNote.classList.add("note", "no-border", "todo-no-edit");
-
-        newTodoCard.appendChild(newNote);
-        // Add date container
-      }
-    }
     containerRight.appendChild(newTodoCard);
   });
 }
