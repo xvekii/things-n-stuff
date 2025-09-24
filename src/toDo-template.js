@@ -540,48 +540,43 @@ function createTodo(existingID = null) {
   }
 
   function createProjectListItem(project) {
-    const projectItemWrapper = document.createElement("div");
-    projectItemWrapper.classList.add("project-item-wrapper");
+    const projectItemWrapper = createDiv({
+      classes: ["project-item-wrapper"],
+    });
 
     // Folder/trash btn + initial folder img, changes to delete
-    const deleteProjectItemBtn = document.createElement("button");
-    deleteProjectItemBtn.classList.add("todo-btn", "delete-project-item-btn");
-    deleteProjectItemBtn.type = "button";
-
-    const deleteProjectItemBtnImg = document.createElement("img");
-    deleteProjectItemBtnImg.classList.add("delete-project-item-img");
-    deleteProjectItemBtnImg.src = projectFolderImgLight;
-    deleteProjectItemBtnImg.alt = "Delete project item";
+    const deleteProjectItemBtn = createBtn({
+      classes: ["todo-btn", "delete-project-item-btn"],
+      attrs: { type: "button", },
+      imgSrc: projectFolderImgLight,
+      imgClass: "delete-project-item-img",
+      imgAlt: "Delete project item",
+    });
 
     // Project item input
-    const projectItemInput = document.createElement("input");
-    projectItemInput.setAttribute("type", "text");
-    projectItemInput.setAttribute("class", "project-item-input");
-    projectItemInput.setAttribute("data-title-id", `${project.ID}`);
-    projectItemInput.setAttribute("name", "project item input");
-    projectItemInput.setAttribute("aria-label", "project item input");
-    projectItemInput.setAttribute("autocomplete", "off");
-    projectItemInput.setAttribute("spellcheck", "false");
-    projectItemInput.setAttribute("maxlength", "20");
-    projectItemInput.setAttribute("readonly", true);
+    const projectItemInput = createInput({
+      classes: ["project-item-input"],
+      attrs: {
+        "data-title-id": `${project.ID}`,
+        "aria-label": "project item input",
+        type: "text",
+        name: "project item input",
+        autocomplete: "off",
+        spellcheck: "false",
+        maxlength: "20",
+        readonly: "true",
+      }
+    });
     
     // Btn pencil/save
-    const editProjectItemBtn = document.createElement("button");
-    editProjectItemBtn.classList.add("todo-btn", "edit-project-item-btn");
-    editProjectItemBtn.type = "button";
+    const editProjectItemBtn = createBtn({
+      classes: ["todo-btn", "edit-project-item-btn"],
+      attrs: { type: "button", },
+      imgSrc: editPencilLighter,
+      imgClass: "edit-project-item-img",
+      imgAlt: "Edit project item",
+    });
 
-    const editProjectItemBtnImg = document.createElement("img");
-    editProjectItemBtnImg.classList.add("edit-project-item-img");
-    editProjectItemBtnImg.src = editPencilLighter;
-    editProjectItemBtnImg.alt = "Edit project item";
-
-    // Append images to their buttons
-    deleteProjectItemBtn.appendChild(deleteProjectItemBtnImg);
-    editProjectItemBtn.appendChild(editProjectItemBtnImg);
-    
-    // Transfer project input value into the list item input
-    // Create a new instance of Project, push to Projects
-    // Check for existing name 
     projectItemInput.value = project.name;
 
     // Append buttons and input to project item wrapper (row)
@@ -820,20 +815,21 @@ function renderTodos(existingID = null, deleting = null) {
 
   const retrievedTodos = todos.getTodos();
   retrievedTodos.forEach((todo, idx) => {
-    const newTodoCard = document.createElement("div");
-    const newPriority = document.createElement("span");
-    const newTitle = document.createElement("input");
-
-    newTitle.setAttribute("class", "title-text");
-    newTitle.setAttribute("class", "todo-no-edit");
-    newTitle.setAttribute("data-title-id", `${todo.ID}`);
-    newTitle.setAttribute("name", "title");
-    newTitle.setAttribute("placeholder", "Title");
-
-    newPriority.classList.add("priority-circle");
-    newTitle.classList.add("title", "no-border");
-    newTitle.contentEditable = "false";
-    newTodoCard.classList.add("todo");
+    const newTodoCard = createDiv({
+      classes: ["todo"],
+    });
+    const newPriority = createSpan({
+      classes: ["priority-circle"],
+    });
+    const newTitle = createInput({
+      classes: ["title", "title-text", "todo-no-edit", "no-border"],
+      attrs: { 
+        "data-title-id": `${todo.ID}`,
+        name: "title",
+        placeholder: "Title",
+        contenteditable: "false",
+      }
+    });
 
     if (todo.ID === existingID) {
       newTodoCard.classList.add("todo-saved");
@@ -842,11 +838,11 @@ function renderTodos(existingID = null, deleting = null) {
     } 
     
     if (todo.priority) {
-      newPriority.style.backgroundColor = todo.priority;
+      setPriority(newPriority, todo.priority);
     }
     
     if (todo.title) {
-      newTitle.value = todo.title;
+      setTitle(newTitle, todo.title);
     } 
     
     newTodoCard.appendChild(newPriority);
@@ -854,7 +850,15 @@ function renderTodos(existingID = null, deleting = null) {
     containerRight.appendChild(newTodoCard);
   });
 }
-  
+
+function setTitle(titleEl, titleVal) {
+  titleEl.value = titleVal;
+}
+
+function setPriority(priorityEl, priorityVal) {
+  priorityEl.style.backgroundColor = priorityVal;
+}
+
 function showTodoBtn() {
   addToDoBtn.style.display = "flex";
 }
