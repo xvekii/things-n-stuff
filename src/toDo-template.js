@@ -258,6 +258,7 @@ function createTodo(existingID = null) {
   }
 
   // Revise - add method to AllTodos for removing
+
   deleteBtn.addEventListener("click", () => {
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");
@@ -297,6 +298,7 @@ function createTodo(existingID = null) {
     }
   });
 
+  // Add dedicated classList remove functions
   newPriorityContainer.addEventListener("click", (e) => {
     const clickedBtn = e.target;
 
@@ -315,6 +317,7 @@ function createTodo(existingID = null) {
     }
   });
 
+  // pass in newProjectListContainer
   function renderSavedProjects() {
     // Get the projects from Projects and renderTodos, add ID to attr
     newProjectListContainer.replaceChildren();
@@ -871,6 +874,7 @@ function hideTodoBtn() {
 function removePlaceholder(note) {
   note.removeAttribute("placeholder");
 }
+
 // Revise
 function addPlaceholder(note) {
   note.setAttribute("placeholder", "Write a note...");
