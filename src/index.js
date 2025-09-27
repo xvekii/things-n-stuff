@@ -4,15 +4,17 @@ import { projects } from "./projects.js";
 import {
   createTodo,
   todos,
-  createNewNote,
-  resizeNote,
-  removePlaceholder,
-  addPlaceholder,
 } from "./toDo-template.js";
 import {
   formatDateTime,
   formatForUser,
 } from "./utils/dateUtils.js";
+import {
+  createNewNote,
+  resizeNote,
+  addPlaceholder,
+  removePlaceholder,
+} from "./utils/noteUtils.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
