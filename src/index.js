@@ -8,9 +8,11 @@ import {
   resizeNote,
   removePlaceholder,
   addPlaceholder,
+} from "./toDo-template.js";
+import {
   formatDateTime,
   formatForUser,
-} from "./toDo-template.js";
+} from "./utils/dateUtils.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
