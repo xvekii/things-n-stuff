@@ -2,7 +2,11 @@ import { Todo } from "./Todo.js";
 import { AllTodos } from "./AllTodos.js";
 import { Project } from "./Project.js";
 import { projects } from "./projects.js";
-import { format, formatISO, parseISO } from "date-fns";
+import {
+  getDueDate,
+  formatDateTime,
+  formatForUser,
+} from "./utils/dateUtils.js";
 import {
   createDiv, 
   createInput, 
@@ -763,29 +767,6 @@ function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, ex
   }
 }
 
-function getDueDate(newDateTimeInput) {
-  if (!newDateTimeInput.trim()) return null;
-
-  const parsedDateTime = parseISO(newDateTimeInput);
-  return formatISO(parsedDateTime);
-}
-
-function formatDateTime(isoString) {
-  const dateTime = parseISO(isoString);
-  return format(dateTime, "MMM d, HH:mm");
-}
-
-function formatForUser(isoString) {
-  const date = new Date(isoString);
-  
-  return new Intl.DateTimeFormat(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(date);
-}
-
 
 // Revise
 let noteIdCounter = 0;
@@ -898,7 +879,5 @@ export {
   createNewNote, 
   removePlaceholder,
   addPlaceholder,
-  resizeNote, 
-  formatDateTime,
-  formatForUser,
+  resizeNote,
 };
