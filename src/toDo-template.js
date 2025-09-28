@@ -796,6 +796,7 @@ function renderTodos(existingID = null, deleting = null) {
       }
     });
 
+    // Revise
     if (todo.ID === existingID) {
       newTodoCard.classList.add("todo-saved");
     } else if (!existingID && idx === retrievedTodos.length - 1 && !deleting) {
