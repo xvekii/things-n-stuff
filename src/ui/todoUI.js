@@ -4,15 +4,15 @@ import {
   createSpan, 
   createHeading,
   createBtn,
-} from "./helpers.js";
+} from "../helpers.js";
 
-import closeReminderImg from "./assets/images/closeX.svg";
-import deleteTodoImg from "./assets/images/delete.svg";
-import dueDateImg from "./assets/images/due-date.svg";
-import priorityImg from "./assets/images/priority-flag.svg";
-import projectFolderImg from "./assets/images/project-folder.svg";
-import addProjectImg from "./assets/images/add-project.svg";
-import saveTodoImg from "./assets/images/save.svg";
+import closeReminderImg from "../assets/images/closeX.svg";
+import deleteTodoImg from "../assets/images/delete.svg";
+import dueDateImg from "../assets/images/due-date.svg";
+import priorityImg from "../assets/images/priority-flag.svg";
+import projectFolderImg from "../assets/images/project-folder.svg";
+import addProjectImg from "../assets/images/add-project.svg";
+import saveTodoImg from "../assets/images/save.svg";
 
 import { createNewNote } from "../utils/noteUtils.js";
 
@@ -214,15 +214,21 @@ export function createTodoUI(existingID = null) {
       newPriorityCircle,
       newTitle,
       newNotesContainer,
+      newDateTimeContainer,
+      newDateInput,
+      newPriorityContainer,
       newPriorityBtnContainer,
       newReminderContainer,
       newReminderSpan,
       removeReminderBtn, 
-      newProjectContainer, 
+      newProjectContainer,
+      newProjectListContainer, 
       newProjectInput,
+      newProjectInputErrorMsg,
       newBtnContainer,
       deleteBtn,
       dueDateBtn,
+      closeDateTimeBtn,
       priorityBtn,
       projectBtn,
       addProjectBtn,
