@@ -14,22 +14,15 @@ import {
   removePlaceholder,
   placeCaretAtStart,
 } from "./utils/noteUtils.js";
+import { createTodoUI } from "./ui/todoUI.js";
 import {
   createDiv, 
   createInput, 
   createSpan, 
-  createHeading,
   createBtn,
 } from "./helpers.js";
 
-import closeReminderImg from "./assets/images/closeX.svg";
-import deleteTodoImg from "./assets/images/delete.svg";
-import dueDateImg from "./assets/images/due-date.svg";
-import priorityImg from "./assets/images/priority-flag.svg";
-import projectFolderImg from "./assets/images/project-folder.svg";
 import projectFolderImgLight from "./assets/images/project-folder-lighter.svg";
-import addProjectImg from "./assets/images/add-project.svg";
-import saveTodoImg from "./assets/images/save.svg";
 import savedTodoImg from "./assets/images/saved.svg";
 import deleteLighter from "./assets/images/delete-lighter.svg";
 import editPencilLighter from "./assets/images/edit-pencil-lighter.svg";
@@ -48,216 +41,245 @@ const HIGH = "#EF476F";
 
 
 function createTodo(existingID = null) {
-  const dataTitleID = existingID ? existingID : "temp1";
-  const newTodoCard = createDiv({ classes: ["todo-template-popup"] });
-  const newPriorityCircle = createSpan({ classes: ["priority-circle"] });
+  const { root, refs } = createTodoUI(existingID);
+  const {
+      newPriorityCircle,
+      newTitle,
+      newNotesContainer,
+      newDateTimeContainer,
+      newDateInput,
+      newPriorityContainer,
+      newPriorityBtnContainer,
+      newReminderContainer,
+      newReminderSpan,
+      removeReminderBtn, 
+      newProjectContainer,
+      newProjectListContainer, 
+      newProjectInput,
+      newProjectInputErrorMsg,
+      newBtnContainer,
+      deleteBtn,
+      dueDateBtn,
+      closeDateTimeBtn,
+      priorityBtn,
+      projectBtn,
+      addProjectBtn,
+      saveProjectBtn,
+      saveBtn,
+    } = refs;
   
-  const newTitle = createInput({
-    classes: ["title", "title-text", "no-border"],
-    attrs: {
-      "data-title-id": `${dataTitleID}`,
-      name: "title",
-      type: "text",
-      placeholder: "Title",
-      autocomplete: "off",
-      spellcheck: "false",
-      maxlength: "24",
-      contenteditable: "true",
-    },
-  });
+  // const dataTitleID = existingID ? existingID : "temp1";
+  // const newTodoCard = createDiv({ classes: ["todo-template-popup"] });
+  // const newPriorityCircle = createSpan({ classes: ["priority-circle"] });
   
-  const newNotesContainer = createDiv({ classes: ["new-notes-container"] });
-  const newBtnContainer = createDiv({ classes: ["todo-btn-container"] });
-  const newReminderContainer = createDiv({ classes: ["reminder-container"] });
-  const newReminderSpan = createSpan({ classes: ["reminder-span"] });
-  const newPriorityContainer = createDiv({ classes: ["toggle-priority"]} );
+  // const newTitle = createInput({
+  //   classes: ["title", "title-text", "no-border"],
+  //   attrs: {
+  //     "data-title-id": `${dataTitleID}`,
+  //     name: "title",
+  //     type: "text",
+  //     placeholder: "Title",
+  //     autocomplete: "off",
+  //     spellcheck: "false",
+  //     maxlength: "24",
+  //     contenteditable: "true",
+  //   },
+  // });
   
-  const newPriorityTitle = createHeading({
-    classes: ["priority-title"], 
-    headLvl: "h5",
-    text: "Select priority:", 
-  });
+  // const newNotesContainer = createDiv({ classes: ["new-notes-container"] });
+  // const newReminderContainer = createDiv({ classes: ["reminder-container"] });
+  // const newReminderSpan = createSpan({ classes: ["reminder-span"] });
+  // const newBtnContainer = createDiv({ classes: ["todo-btn-container"] });
   
-  const newPriorityBtnContainer = createDiv({ classes: ["priority-btn-container"] });
-  const newProjectContainer = createDiv({ classes: ["project-container", "toggle-project"] });
+  // const newPriorityContainer = createDiv({ classes: ["toggle-priority"]} );
   
-  const newProjectTitle = createHeading({
-    classes: ["project-title"],
-    headLvl: "h5",
-    text: "Add to a project:",
-  });
-  const newProjectListContainer = createDiv({ classes: ["project-list-container"] });
-  const newProjectInputContainer = createDiv({ classes: ["project-input-container"] });
-  const newProjectInputWrapper = createDiv({ classes: ["project-input-wrapper"] });
-  const newProjectInputErrorMsg = createSpan({ classes: ["project-input-error"] });
+  // const newPriorityTitle = createHeading({
+  //   classes: ["priority-title"], 
+  //   headLvl: "h5",
+  //   text: "Select priority:", 
+  // });
   
-  const newProjectInput = createInput({
-    classes: ["project-input"],
-    attrs: {
-      "aria-label": "New project name",
-      name: "new project input",
-      type: "text",
-      placeholder: "New project name",
-      autocomplete: "off",
-      spellcheck: "false",
-      maxlength: "20",
-    },
-  });
+  // const newPriorityBtnContainer = createDiv({ classes: ["priority-btn-container"] });
+  // const newProjectContainer = createDiv({ classes: ["project-container", "toggle-project"] });
   
-  const newProjectBtnContainer = createDiv({ classes: ["project-btn-container"] });
-  const newDateTimeContainer = createDiv({ classes: ["toggle-datetime"] });
+  // const newProjectTitle = createHeading({
+  //   classes: ["project-title"],
+  //   headLvl: "h5",
+  //   text: "Add to a project:",
+  // });
+  // const newProjectListContainer = createDiv({ classes: ["project-list-container"] });
+  // const newProjectInputContainer = createDiv({ classes: ["project-input-container"] });
+  // const newProjectInputWrapper = createDiv({ classes: ["project-input-wrapper"] });
+  // const newProjectInputErrorMsg = createSpan({ classes: ["project-input-error"] });
   
-  const newDateInput = createInput({ 
-    classes: ["date-input"], 
-    attrs: {
-      type: "datetime-local",
-    }, 
-  });
+  // const newProjectInput = createInput({
+  //   classes: ["project-input"],
+  //   attrs: {
+  //     "aria-label": "New project name",
+  //     name: "new project input",
+  //     type: "text",
+  //     placeholder: "New project name",
+  //     autocomplete: "off",
+  //     spellcheck: "false",
+  //     maxlength: "20",
+  //   },
+  // });
+  
+  // const newProjectBtnContainer = createDiv({ classes: ["project-btn-container"] });
+  // const newDateTimeContainer = createDiv({ classes: ["toggle-datetime"] });
+  
+  // const newDateInput = createInput({ 
+  //   classes: ["date-input"], 
+  //   attrs: {
+  //     type: "datetime-local",
+  //   }, 
+  // });
  
-  const removeReminderBtn = createBtn({
-    classes: ["remove-reminder-btn"],
-    attrs: { type: "button", },
-    imgSrc: closeReminderImg,
-    imgClass: "remove-reminder-img",
-    imgAlt: "Remove reminder",
-  });
+  // const removeReminderBtn = createBtn({
+  //   classes: ["remove-reminder-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: closeReminderImg,
+  //   imgClass: "remove-reminder-img",
+  //   imgAlt: "Remove reminder",
+  // });
   
-  const deleteBtn = createBtn({
-    classes: ["todo-btn", "delete-btn"],
-    attrs: { type: "button", },
-    imgSrc: deleteTodoImg,
-    imgClass: "delete-btn-img",
-    imgAlt: "Delete todo",
-  });
+  // const deleteBtn = createBtn({
+  //   classes: ["todo-btn", "delete-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: deleteTodoImg,
+  //   imgClass: "delete-btn-img",
+  //   imgAlt: "Delete todo",
+  // });
   
-  const closeDateTimeBtn = createBtn({
-    classes: ["close-datetime-btn"],
-    attrs: { type: "button", },
-    text: "Close",
-  });
+  // const closeDateTimeBtn = createBtn({
+  //   classes: ["close-datetime-btn"],
+  //   attrs: { type: "button", },
+  //   text: "Close",
+  // });
   
-  const dueDateBtn = createBtn({
-    classes: ["todo-btn", "due-date-btn"],
-    attrs: { type: "button", },
-    imgSrc: dueDateImg,
-    imgClass: "due-date-btn-img",
-    imgAlt: "Set due date",
-  });
+  // const dueDateBtn = createBtn({
+  //   classes: ["todo-btn", "due-date-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: dueDateImg,
+  //   imgClass: "due-date-btn-img",
+  //   imgAlt: "Set due date",
+  // });
   
-  const priorityBtn = createBtn({
-    classes: ["todo-btn", "open-priority-btn"],
-    attrs: { type: "button", },
-    imgSrc: priorityImg,
-    imgClass: "priority-btn-img",
-    imgAlt: "Set priority",
-  });
+  // const priorityBtn = createBtn({
+  //   classes: ["todo-btn", "open-priority-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: priorityImg,
+  //   imgClass: "priority-btn-img",
+  //   imgAlt: "Set priority",
+  // });
   
-  const closePriorityBtn = createBtn({
-    classes: ["todo-btn", "close-priority-btn"],
-    attrs: { type: "button", },
-    text: "Close",
-  });
+  // const closePriorityBtn = createBtn({
+  //   classes: ["todo-btn", "close-priority-btn"],
+  //   attrs: { type: "button", },
+  //   text: "Close",
+  // });
   
-  const projectBtn = createBtn({
-    classes: ["todo-btn", "project-btn"],
-    attrs: { type: "button", },
-    imgSrc: projectFolderImg,
-    imgClass: "project-btn-img",
-    imgAlt: "Add to project",
-  });
+  // const projectBtn = createBtn({
+  //   classes: ["todo-btn", "project-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: projectFolderImg,
+  //   imgClass: "project-btn-img",
+  //   imgAlt: "Add to project",
+  // });
   
-  const addProjectBtn = createBtn({
-    classes: ["todo-btn", "add-project-btn"],
-    attrs: { type: "button", },
-    imgSrc: addProjectImg,
-    imgClass: "add-project-btn-img",
-    imgAlt: "Add project",
-  });
+  // const addProjectBtn = createBtn({
+  //   classes: ["todo-btn", "add-project-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: addProjectImg,
+  //   imgClass: "add-project-btn-img",
+  //   imgAlt: "Add project",
+  // });
   
-  const saveProjectBtn = createBtn({
-    classes: ["todo-btn", "save-project-btn"],
-    attrs: { type: "button", },
-    text: "Save",
-  });
+  // const saveProjectBtn = createBtn({
+  //   classes: ["todo-btn", "save-project-btn"],
+  //   attrs: { type: "button", },
+  //   text: "Save",
+  // });
   
-  const saveBtn = createBtn({
-    classes: ["todo-btn", "save-todo-btn"],
-    attrs: { type: "button", },
-    imgSrc: saveTodoImg,
-    imgClass: "save-todo-btn-img",
-    imgAlt: "Save",
-  });
+  // const saveBtn = createBtn({
+  //   classes: ["todo-btn", "save-todo-btn"],
+  //   attrs: { type: "button", },
+  //   imgSrc: saveTodoImg,
+  //   imgClass: "save-todo-btn-img",
+  //   imgAlt: "Save",
+  // });
 
-  // Priority btns
-  const priorityLowBtn = createBtn({
-    classes: ["priority-btn", "low"],
-    attrs: { type: "button", },
-    text: "Low",
-  });
+  // // Priority btns
+  // const priorityLowBtn = createBtn({
+  //   classes: ["priority-btn", "low"],
+  //   attrs: { type: "button", },
+  //   text: "Low",
+  // });
   
-  const priorityNormalBtn = createBtn({
-    classes: ["priority-btn", "normal"],
-    attrs: { type: "button", },
-    text: "Normal",
-  });
+  // const priorityNormalBtn = createBtn({
+  //   classes: ["priority-btn", "normal"],
+  //   attrs: { type: "button", },
+  //   text: "Normal",
+  // });
   
-  const priorityMediumBtn = createBtn({
-    classes: ["priority-btn", "medium"],
-    attrs: { type: "button", },
-    text: "Medium",
-  });
+  // const priorityMediumBtn = createBtn({
+  //   classes: ["priority-btn", "medium"],
+  //   attrs: { type: "button", },
+  //   text: "Medium",
+  // });
   
-  const priorityHighBtn = createBtn({
-    classes: ["priority-btn", "high"],
-    attrs: { type: "button", },
-    text: "High",  
-  });
+  // const priorityHighBtn = createBtn({
+  //   classes: ["priority-btn", "high"],
+  //   attrs: { type: "button", },
+  //   text: "High",  
+  // });
 
 
   // Appending
-  newReminderContainer.appendChild(newReminderSpan);
-  newReminderContainer.appendChild(removeReminderBtn);
+  // newReminderContainer.appendChild(newReminderSpan);
+  // newReminderContainer.appendChild(removeReminderBtn);
 
-  newBtnContainer.appendChild(deleteBtn);
-  newBtnContainer.appendChild(dueDateBtn);
-  newBtnContainer.appendChild(priorityBtn);
-  newBtnContainer.appendChild(projectBtn);
-  newBtnContainer.appendChild(saveBtn);
-  newBtnContainer.appendChild(newDateTimeContainer);
+  // newBtnContainer.appendChild(deleteBtn);
+  // newBtnContainer.appendChild(dueDateBtn);
+  // newBtnContainer.appendChild(priorityBtn);
+  // newBtnContainer.appendChild(projectBtn);
+  // newBtnContainer.appendChild(saveBtn);
+  // newBtnContainer.appendChild(newDateTimeContainer);
   
-  newDateTimeContainer.appendChild(newDateInput);
-  newDateTimeContainer.appendChild(closeDateTimeBtn);
+  // newDateTimeContainer.appendChild(newDateInput);
+  // newDateTimeContainer.appendChild(closeDateTimeBtn);
   
-  newPriorityContainer.appendChild(newPriorityTitle);
-  newPriorityContainer.appendChild(newPriorityBtnContainer);
-  newPriorityContainer.appendChild(closePriorityBtn);
-  newPriorityBtnContainer.appendChild(priorityLowBtn);
-  newPriorityBtnContainer.appendChild(priorityNormalBtn);
-  newPriorityBtnContainer.appendChild(priorityMediumBtn);
-  newPriorityBtnContainer.appendChild(priorityHighBtn);
+  // newPriorityContainer.appendChild(newPriorityTitle);
+  // newPriorityContainer.appendChild(newPriorityBtnContainer);
+  // newPriorityContainer.appendChild(closePriorityBtn);
+  // newPriorityBtnContainer.appendChild(priorityLowBtn);
+  // newPriorityBtnContainer.appendChild(priorityNormalBtn);
+  // newPriorityBtnContainer.appendChild(priorityMediumBtn);
+  // newPriorityBtnContainer.appendChild(priorityHighBtn);
 
-  newBtnContainer.appendChild(newPriorityContainer);
-  newBtnContainer.appendChild(newProjectContainer);
+  // newBtnContainer.appendChild(newPriorityContainer);
+  // newBtnContainer.appendChild(newProjectContainer);
   
-  newProjectContainer.appendChild(newProjectTitle);
-  newProjectContainer.appendChild(newProjectListContainer);
-  newProjectContainer.appendChild(newProjectInputContainer);
-  newProjectInputContainer.appendChild(newProjectInputWrapper);
-  newProjectInputWrapper.appendChild(newProjectInputErrorMsg);
-  newProjectInputWrapper.appendChild(newProjectInput);
-  newProjectInputContainer.appendChild(addProjectBtn);
-  newProjectBtnContainer.appendChild(saveProjectBtn);
-  newProjectContainer.appendChild(newProjectBtnContainer);
+  // newProjectContainer.appendChild(newProjectTitle);
+  // newProjectContainer.appendChild(newProjectListContainer);
+  // newProjectContainer.appendChild(newProjectInputContainer);
+  // newProjectInputContainer.appendChild(newProjectInputWrapper);
+  // newProjectInputWrapper.appendChild(newProjectInputErrorMsg);
+  // newProjectInputWrapper.appendChild(newProjectInput);
+  // newProjectInputContainer.appendChild(addProjectBtn);
+  // newProjectBtnContainer.appendChild(saveProjectBtn);
+  // newProjectContainer.appendChild(newProjectBtnContainer);
 
-  newTodoCard.appendChild(newPriorityCircle);
-  newTodoCard.appendChild(newTitle);
-  newTodoCard.appendChild(newNotesContainer);
-  newTodoCard.appendChild(newReminderContainer);
-  newTodoCard.appendChild(newBtnContainer);
+  // newTodoCard.appendChild(newPriorityCircle);
+  // newTodoCard.appendChild(newTitle);
+  // newTodoCard.appendChild(newNotesContainer);
+  // newTodoCard.appendChild(newReminderContainer);
+  // newTodoCard.appendChild(newBtnContainer);
 
-  const newNote = createNewNote();
-  newNotesContainer.appendChild(newNote);
+  // const newNote = createNewNote();
+  // newNotesContainer.appendChild(newNote);
 
+  // Move to noteUtils?
   function appendExtraNote(prevNote, extraNote) {
     prevNote.after(extraNote);
     focusNote(extraNote);
@@ -706,26 +728,40 @@ function createTodo(existingID = null) {
     if (removeBtn) {
       if (existingID) {
         const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
+        removeReminderSpan(newReminderSpan, newReminderContainer);
         if (!todoUpdate) return;
 
         if (todoUpdate.dueDate) {
           todoUpdate.dueDate = null;
           todoUpdate.clearReminder();
-          newReminderSpan.textContent = "";
-          newReminderContainer.classList.remove("active");
+          removeReminderSpan(newReminderSpan, newReminderContainer);
         }
       } else {
-        newDateInput.value = "";
-        newReminderSpan.textContent = "";
-        newReminderContainer.classList.remove("active");
+        clearDateInput(newDateInput);
+        removeReminderSpan(newReminderSpan, newReminderContainer);
       }
-    } else if (newReminderContainer.classList.contains("active")) {
-      newDateTimeContainer.classList.toggle("visible");
+    } 
+    
+    if (newReminderContainer.classList.contains("active")) {
+      toggleDateTimeContainerVisibility(newReminderContainer);
     }
   });
 
   hideTodoBtn();
-  return newTodoCard;
+  return root;
+}
+
+function toggleDateTimeContainerVisibility(container) {
+  container.classList.toggle("visible");
+}
+
+function clearDateInput(dateInput) {
+  dateInput.value = "";
+}
+
+function removeReminderSpan(reminderSpan, reminderContainer) {
+  reminderSpan.textContent = "";
+  reminderContainer.classList.remove("active");
 }
 
 function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID) {
