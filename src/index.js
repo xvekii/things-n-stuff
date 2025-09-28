@@ -15,6 +15,7 @@ import {
   addPlaceholder,
   removePlaceholder,
 } from "./utils/noteUtils.js";
+import { renderTodos } from "./toDo-template.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
