@@ -270,7 +270,9 @@ nav,
   gap: 1rem;
   margin: 2rem 0 2rem 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-gutter: stable;
+  padding-bottom: 4px;
 }
 
 .todo {
@@ -444,6 +446,7 @@ textarea {
   right: 2rem;
   border-radius: 10px;
   box-shadow: 2px 2px 3px 0px #00000070;
+  z-index: 5;
 }
 
 .add-toDo-btn > img {
