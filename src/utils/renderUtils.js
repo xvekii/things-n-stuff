@@ -1,4 +1,4 @@
- import { createDiv, createInput, createSpan } from "../helpers.js";
+import { createDiv, createInput, createSpan } from "../helpers.js";
  
 export function makeRenderTodos(containerRight, todos) {
   function setTitle(titleEl, titleVal) {
@@ -53,4 +53,3 @@ export function makeRenderTodos(containerRight, todos) {
     });
   }
 }
-

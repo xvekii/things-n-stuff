@@ -42,3 +42,12 @@ export function removePlaceholder(note) {
 export function placeCaretAtStart(el) {
   el.setSelectionRange(0, 0);
 }
+
+export function appendExtraNote(prevNote, extraNote) {
+    prevNote.after(extraNote);
+    focusNote(extraNote);
+  }
+
+export function focusNote(note) {
+  note.focus();
+}
