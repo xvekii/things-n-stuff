@@ -101,7 +101,6 @@ export function createTodoUI(existingID = null) {
     imgAlt: "Delete todo",
   });
   
-  
   const dueDateBtn = createBtn({
     classes: ["todo-btn", "due-date-btn"],
     attrs: { type: "button", },
@@ -134,10 +133,10 @@ export function createTodoUI(existingID = null) {
     imgAlt: "Add project",
   });
   
-  const saveProjectBtn = createBtn({
-    classes: ["todo-btn", "save-project-btn"],
+  const closeProjectBtn = createBtn({
+    classes: ["todo-btn", "close-project-btn"],
     attrs: { type: "button", },
-    text: "Save",
+    text: "Close",
   });
   
   const saveBtn = createBtn({
@@ -196,7 +195,7 @@ export function createTodoUI(existingID = null) {
   newProjectInputWrapper.append(newProjectInputErrorMsg);
   newProjectInputWrapper.append(newProjectInput);
   newProjectInputContainer.append(addProjectBtn);
-  newProjectBtnContainer.append(saveProjectBtn);
+  newProjectBtnContainer.append(closeProjectBtn);
   newProjectContainer.append(newProjectBtnContainer);
 
   newBtnContainer.append(deleteBtn, dueDateBtn, priorityBtn, 
@@ -232,7 +231,7 @@ export function createTodoUI(existingID = null) {
       priorityBtn,
       projectBtn,
       addProjectBtn,
-      saveProjectBtn,
+      closeProjectBtn,
       saveBtn,
     }
   }

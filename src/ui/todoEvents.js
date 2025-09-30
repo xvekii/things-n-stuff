@@ -107,7 +107,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
       const target = e.target;
 
       // Temporarily store the selected project ID
-      if (target.closest(".save-project-btn")) {
+      if (target.closest(".close-project-btn")) {
         const selectedInput = newProjectListContainer.querySelector(
         ".project-item-wrapper.selected-project .project-item-input"
         );

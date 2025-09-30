@@ -119,6 +119,7 @@ nav,
 .my-projects-btn {
   font-size: .9rem;
   padding: .2rem .4rem;
+  cursor: pointer;
 }
 
 .add-new-project-wrapper {
@@ -131,14 +132,20 @@ nav,
 
 .add-new-project-btn, 
 .edit-projects-btn {
-  color: #0b0b0bb0;
   font-size: .7rem;
 }
 
 .project-name {
   font-size: .8rem;
+}
+
+.project-name,
+.add-new-project-btn, 
+.edit-projects-btn {
+  cursor: pointer;
   color: #0b0b0bb0;
 }
+
 
 .toggle-project.visible.edit-projects-container {
   position: fixed;
@@ -288,6 +295,7 @@ nav,
   flex-direction: column;
   position: relative;
   user-select: none;
+  cursor: pointer;
 }
 
 .todo > .title-text {
@@ -459,6 +467,7 @@ textarea {
   align-items: center;
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 .todo-btn > img {
@@ -582,8 +591,7 @@ textarea {
 
 .close-datetime-btn, 
 .close-priority-btn,
-.cancel-project-btn,
-.save-project-btn {
+.close-project-btn {
   align-self: flex-end;
   background-color: white;
   border: 1px solid black;
@@ -592,6 +600,7 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .close-priority-btn {
   margin-top: 1rem;  
