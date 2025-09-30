@@ -1,11 +1,10 @@
-import { renderTodos } from "../toDo-template.js";
-import { renderSavedProjects } from "../toDo-template.js";
+import { renderTodos, renderSavedProjects } from "../toDo-template.js";
 import { hideError, emptyInput, showTodoBtn } from "../utils/uiUtils.js";
-import checkLighter from "../assets/images/check-lighter.svg";
-import deleteLighter from "../assets/images/delete-lighter.svg";
-import editPencilLighter from "../assets/images/edit-pencil-lighter.svg";
-import projectFolderImgLight from "../assets/images/project-folder-lighter.svg";
-import { markSelectedProject } from "../utils/projectUtils.js";
+import { 
+  markSelectedProject, 
+  toggleDeleteProjBtn,
+  switchEditingMode 
+} from "../utils/projectUtils.js";
 
 export function bindTodoEvents(refs, todos, projects, existingID) {
   const {
@@ -28,21 +27,6 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
 
   // Revise - add method to AllTodos for removing
 
-  function toggleDeleteProjBtn(delProjBtn) {
-    delProjBtn.classList.toggle("active");
-  }
-
-  // Switch btn imgs - project folder / delete project; edit / check 
-  function switchEditingMode(input, editImgEl, deleteImgEl) {
-    if (!input.hasAttribute("readonly")) {
-      editImgEl.src = checkLighter;
-      deleteImgEl.src = deleteLighter;
-    } else {
-      editImgEl.src = editPencilLighter;
-      deleteImgEl.src = projectFolderImgLight;
-    }
-  }
-      
   deleteBtn.addEventListener("click", () => {
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");

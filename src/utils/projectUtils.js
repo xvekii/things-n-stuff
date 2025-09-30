@@ -1,6 +1,9 @@
 import { createDiv, createInput, createBtn } from "../helpers.js";
 import projectFolderImgLight from "../assets/images/project-folder-lighter.svg";
 import editPencilLighter from "../assets/images/edit-pencil-lighter.svg";
+import checkLighter from "../assets/images/check-lighter.svg";
+import deleteLighter from "../assets/images/delete-lighter.svg";
+
 
 export function validateProjectName(name, projects) {
   if (!name) {
@@ -68,4 +71,19 @@ export function checkExistingProject(todo) {
 
 export function markSelectedProject(target) {
   target.classList.add("selected-project");
+}
+
+export function toggleDeleteProjBtn(delProjBtn) {
+  delProjBtn.classList.toggle("active");
+}
+
+// Switch btn imgs - project folder / delete project; edit / check 
+export function switchEditingMode(input, editImgEl, deleteImgEl) {
+  if (!input.hasAttribute("readonly")) {
+    editImgEl.src = checkLighter;
+    deleteImgEl.src = deleteLighter;
+  } else {
+    editImgEl.src = editPencilLighter;
+    deleteImgEl.src = projectFolderImgLight;
+  }
 }
