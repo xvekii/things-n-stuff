@@ -1,12 +1,25 @@
 import { Project } from "../Project.js";
-import { createProjectListItem } from "../utils/projectUtils.js";
-import { validateProjectName } from "../utils/projectUtils.js";
-import { showError, hideError, emptyInput, toggleDateTimeContainerVisibility, showTodoBtn } from "../utils/uiUtils.js";
-import { removeReminderSpan, clearDateInput } from "../utils/uiUtils.js";
+import { createProjectListItem, validateProjectName } from "../utils/projectUtils.js";
 import { getDueDate, formatDateTime, formatForUser } from "../utils/dateUtils.js";
-import { resizeNote, addPlaceholder, removePlaceholder, placeCaretAtStart, appendExtraNote, focusNote } from "../utils/noteUtils.js";
-import { createNewNote } from "../utils/noteUtils.js";
 import { getTodoInput } from "../utils/todoDataUtils.js";
+import { 
+  toggleDateTimeContainerVisibility,
+  removeReminderSpan,
+  clearDateInput,
+  showError,
+  hideError,
+  emptyInput,
+  showTodoBtn 
+} from "../utils/uiUtils.js";
+import { 
+  resizeNote,
+  createNewNote,
+  addPlaceholder,
+  removePlaceholder,
+  placeCaretAtStart,
+  appendExtraNote 
+} from "../utils/noteUtils.js";
+
 
 export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodos) {
   const { 
