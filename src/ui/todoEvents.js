@@ -31,19 +31,23 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");
     const titleID = title.dataset.titleId;
+    // Revise
     const currentTodos = todos.getTodos();
-    
+    // Revise - removing function
     currentTodos.forEach((todo, index) => {
       if (titleID === todo.ID) {
         currentTodos.splice(index, 1);
       }
     });
     renderTodos(existingID, true);
+    // Revise - import from index?
     showTodoBtn(document.querySelector(".add-toDo-btn")); 
   });
 
   priorityBtn.addEventListener("click", () => {
     newPriorityContainer.classList.toggle("visible");
+    // Add block all other todo btns when opened
+    // Reactivate other btns otherwise
   });
 
   newPriorityBtnContainer.addEventListener("click", (e) => {
@@ -72,6 +76,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
 
     if (clickedBtn.classList.contains("close-priority-btn")) {
       newPriorityContainer.classList.remove("visible");
+      // Reactivate other btns
     }
   });
 
@@ -79,6 +84,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
     hideError(newProjectInput, newProjectInputErrorMsg);
     emptyInput(newProjectInput);
     newProjectContainer.classList.toggle("visible");
+    // Add block all other todo btns when opened, reactivate otherwise
 
     if (newProjectContainer.classList.contains("visible")) {
       renderSavedProjects(newProjectListContainer, projects, todos, existingID);
