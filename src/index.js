@@ -15,7 +15,9 @@ import {
   addPlaceholder,
   removePlaceholder,
 } from "./utils/noteUtils.js";
-import { renderTodos } from "./toDo-template.js";
+import { renderTodos, renderSavedProjects } from "./toDo-template.js";
+import { bindProjectManagerEvents } from "./ui/projectEvents.js";
+import { createProjectContainerUI } from "./ui/projectContainerUI.js";
 
 const hamburgerMenuBtn = document.querySelector(".hamburger");
 const containerLeft = document.querySelector(".container-left");
@@ -31,12 +33,7 @@ hamburgerMenuBtn.addEventListener("click", () => {
   containerLeft.classList.toggle("active");
   
   if (containerLeft.classList.contains("active")) {
-    projectBtnsLI.replaceChildren();
-    projects.arr.forEach(project => {
-      const projBtn = createNavProjBtn(project);
-      projectBtnsLI.appendChild(projBtn);
-    });
-    navUL.appendChild(projectBtnsLI);
+    updateNavProjects();
   }
 });
 
@@ -48,10 +45,38 @@ addToDoBtn.addEventListener("click", () => {
 
 addNewProjectBtn.addEventListener("click", () => {
   // move to edit or replace toggle with add
-  containerRight.appendChild(editProjectsContainer);
-  editProjectsContainer.classList.toggle("visible");
-});
+    const { 
+    newProjectContainer, 
+    newProjectListContainer, 
+    newProjectInput, 
+    newProjectInputErrorMsg, 
+    addProjectBtn, 
+    closeProjectBtn 
+  } = createProjectContainerUI(true);
+  
+  containerRight.appendChild(newProjectContainer);
+  containerLeft.classList.toggle("active");
+  newProjectContainer.classList.add("visible", "edit-projects-container");
 
+  // Render existing projects
+  renderSavedProjects(newProjectListContainer, projects, todos, null);
+
+  // Bind project manager events with update callback
+  bindProjectManagerEvents(
+    {
+      newProjectContainer,
+      newProjectListContainer,
+      newProjectInput,
+      newProjectInputErrorMsg,
+      addProjectBtn,
+      closeProjectBtn
+    },
+    projects,
+    todos,
+    updateNavProjects
+  );
+
+});
 
 function createNavProjBtn(project = null) {
   const newProjectBtn = document.createElement("button");
@@ -111,6 +136,17 @@ containerRight.addEventListener("click", (e) => {
     renderTodo(toDoTemplatePopup);
   }
 });
+
+function updateNavProjects() {
+  projectBtnsLI.replaceChildren();
+  projects.arr.forEach(project => {
+    const projBtn = createNavProjBtn(project);
+    projectBtnsLI.appendChild(projBtn);
+  });
+  if (!navUL.contains(projectBtnsLI)) {
+    navUL.appendChild(projectBtnsLI);
+  }
+}
 
 // Revise
 function fillNotes(notesContainer, notes) {

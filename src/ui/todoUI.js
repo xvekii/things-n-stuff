@@ -11,9 +11,9 @@ import deleteTodoImg from "../assets/images/delete.svg";
 import dueDateImg from "../assets/images/due-date.svg";
 import priorityImg from "../assets/images/priority-flag.svg";
 import projectFolderImg from "../assets/images/project-folder.svg";
-import addProjectImg from "../assets/images/add-project.svg";
 import saveTodoImg from "../assets/images/save.svg";
 
+import { createProjectContainerUI } from "./projectContainerUI.js";
 import { createNewNote } from "../utils/noteUtils.js";
 
 export function createTodoUI(existingID = null) {
@@ -50,31 +50,14 @@ export function createTodoUI(existingID = null) {
   });
   newReminderContainer.append(newReminderSpan, removeReminderBtn);
 
-  const newProjectContainer = createDiv({ classes: ["project-container", "toggle-project"] });
-  const newProjectBtnContainer = createDiv({ classes: ["project-btn-container"] });
-
-  const newProjectTitle = createHeading({
-    classes: ["project-title"],
-    headLvl: "h5",
-    text: "Add to a project:",
-  });
-  const newProjectListContainer = createDiv({ classes: ["project-list-container"] });
-  const newProjectInputContainer = createDiv({ classes: ["project-input-container"] });
-  const newProjectInputWrapper = createDiv({ classes: ["project-input-wrapper"] });
-  const newProjectInputErrorMsg = createSpan({ classes: ["project-input-error"] });
-  
-  const newProjectInput = createInput({
-    classes: ["project-input"],
-    attrs: {
-      "aria-label": "New project name",
-      name: "new project input",
-      type: "text",
-      placeholder: "New project name",
-      autocomplete: "off",
-      spellcheck: "false",
-      maxlength: "20",
-    },
-  });
+  const { 
+    newProjectContainer,
+    newProjectListContainer, 
+    newProjectInput,
+    newProjectInputErrorMsg,
+    addProjectBtn,
+    closeProjectBtn
+  } = createProjectContainerUI();
 
   const newDateTimeContainer = createDiv({ classes: ["toggle-datetime"] });
   const newDateInput = createInput({ 
@@ -123,20 +106,6 @@ export function createTodoUI(existingID = null) {
     imgSrc: projectFolderImg,
     imgClass: "project-btn-img",
     imgAlt: "Add to project",
-  });
-  
-  const addProjectBtn = createBtn({
-    classes: ["todo-btn", "add-project-btn"],
-    attrs: { type: "button", },
-    imgSrc: addProjectImg,
-    imgClass: "add-project-btn-img",
-    imgAlt: "Add project",
-  });
-  
-  const closeProjectBtn = createBtn({
-    classes: ["todo-btn", "close-project-btn"],
-    attrs: { type: "button", },
-    text: "Close",
   });
   
   const saveBtn = createBtn({
@@ -189,14 +158,6 @@ export function createTodoUI(existingID = null) {
 
   newPriorityBtnContainer.append(priorityLowBtn, priorityNormalBtn, priorityMediumBtn, priorityHighBtn);
   newPriorityContainer.append(newPriorityTitle, newPriorityBtnContainer, closePriorityBtn);
-
-  newProjectContainer.append(newProjectTitle, newProjectListContainer, newProjectInputContainer);
-  newProjectInputContainer.append(newProjectInputWrapper);
-  newProjectInputWrapper.append(newProjectInputErrorMsg);
-  newProjectInputWrapper.append(newProjectInput);
-  newProjectInputContainer.append(addProjectBtn);
-  newProjectBtnContainer.append(closeProjectBtn);
-  newProjectContainer.append(newProjectBtnContainer);
 
   newBtnContainer.append(deleteBtn, dueDateBtn, priorityBtn, 
     projectBtn, saveBtn, newDateTimeContainer, 
