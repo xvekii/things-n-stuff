@@ -43,6 +43,7 @@ addToDoBtn.addEventListener("click", () => {
   renderTodo(toDoCard);
 });
 
+// Only edit button or both add and edit? Event delegation?
 addNewProjectBtn.addEventListener("click", () => {
   // move to edit or replace toggle with add
     const { 
@@ -73,7 +74,8 @@ addNewProjectBtn.addEventListener("click", () => {
     },
     projects,
     todos,
-    updateNavProjects
+    updateNavProjects,
+    true,
   );
 
 });

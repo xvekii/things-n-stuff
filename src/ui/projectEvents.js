@@ -2,14 +2,13 @@ import { Project } from "../Project.js";
 import {
   validateProjectName,
   createProjectListItem,
-  markSelectedProject,
   toggleDeleteProjBtn,
   switchEditingMode,
 } from "../utils/projectUtils.js";
 import { showError, hideError, emptyInput } from "../utils/uiUtils.js";
 import { renderSavedProjects } from "./projectUI.js";
 
-export function bindProjectEvents(elements, projects, todos, existingID) {
+export function bindProjectEvents(elements, projects, todos, existingID, noMark = false) {
   const { 
     newProjectContainer, 
     newProjectListContainer, 
@@ -51,12 +50,10 @@ export function bindProjectEvents(elements, projects, todos, existingID) {
       // Get the closest input ID, go through the todo list by existingID and remove projID
       } else {
         // Remove "selected-project" from all unselected
-        if (existingID) {
+        // Mark selected project item (row)
+         if (!noMark) {
           const allWrappers = newProjectListContainer.querySelectorAll(".project-item-wrapper");
           allWrappers.forEach(w => w.classList.toggle("selected-project", w === wrapper));
-
-          // Mark selected project item (row)
-          markSelectedProject(wrapper);
         }
         
         const closestInput = wrapper.querySelector(".project-item-input");
@@ -65,7 +62,7 @@ export function bindProjectEvents(elements, projects, todos, existingID) {
         wrapper.focus();
 
         if (closestInputID) {
-        projects.tempID = closestInputID;
+          projects.tempID = closestInputID;
         }
       }
     } 
@@ -125,7 +122,7 @@ export function bindProjectEvents(elements, projects, todos, existingID) {
   });
 }
 
-export function bindProjectManagerEvents(elements, projects, todos, updateCallback) {
+export function bindProjectManagerEvents(elements, projects, todos, updateCallback, noMark = false) {
   const { 
     newProjectContainer, 
     newProjectListContainer, 
@@ -136,7 +133,7 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
   } = elements;
 
   // Bind basic project interactions first
-  bindProjectEvents({ newProjectContainer, newProjectListContainer }, projects, todos, null);
+  bindProjectEvents({ newProjectContainer, newProjectListContainer }, projects, todos, null, noMark);
 
   // Add project creation functionality
   newProjectInput.addEventListener("keydown", (e) => {
@@ -187,6 +184,4 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
       updateCallback();
     }
   });
-
-
 }
