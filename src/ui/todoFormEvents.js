@@ -77,7 +77,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
 
   saveBtn.addEventListener("click", () => {
     getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID, todos, projects);
-    renderTodos(existingID); 
+    renderTodos({ existingID }); 
     projects.tempID = null; 
     showTodoBtn(document.querySelector(".add-toDo-btn"));  
   });

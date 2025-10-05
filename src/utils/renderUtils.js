@@ -13,18 +13,24 @@ export function makeRenderTodos(containerRight, todos) {
   // Refactor with several smaller functions
   return function renderTodos(params) {
     params = params || {};
-    const { existingID = null, deleting = null, projID = null } = params;
+    const { existingID = null, deleting = null, projID = null, showAll = null, showProjs = null } = params;
     
     containerRight.replaceChildren();
     let tempTodos;
 
     const allTodos = todos.getTodos();
 
-    if (projID) {
+    if (projID && !showAll) {
       tempTodos = allTodos.filter(todo => todo.projectID === projID);
+    } else if (showAll) {
+      tempTodos = allTodos;
+    } else if (showProjs) {
+      tempTodos = allTodos.filter(todo => 
+        todo.projectID !== null && todo.projectID !== "");
     } else {
       tempTodos = allTodos;
     }
+    
     const retrievedTodos = tempTodos;
     
     retrievedTodos.forEach((todo, idx) => {

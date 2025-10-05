@@ -56,7 +56,7 @@ containerLeft.addEventListener("click", (e) => {
 
   if (target.closest(".notes-btn")) {
     toggleMenu();
-    renderTodos();
+    renderTodos({ showAll: true });
   }
 
   const projBtn = target.closest("[data-proj-id]");
@@ -64,6 +64,11 @@ containerLeft.addEventListener("click", (e) => {
     const clickedProjBtnId = projBtn.dataset.projId;
     toggleMenu();
     renderTodos({ projID: clickedProjBtnId });
+  }
+
+  if (target.closest(".my-projects-btn")) {
+    toggleMenu();
+    renderTodos({ showProjs: true });
   }
 });
 
