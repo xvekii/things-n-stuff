@@ -92,7 +92,7 @@ nav,
   flex-direction: column;
 }
 
-.main-btn-li {
+.notes-btn-li {
   border-bottom: 1px solid #00000033;
   padding-bottom: 1rem;
 }
@@ -105,7 +105,7 @@ nav,
   margin-bottom: 1rem;
 }
 
-.main-btn,
+.notes-btn,
 .my-projects-btn,
 .add-new-project-btn,
 .project-name {
@@ -115,7 +115,7 @@ nav,
   gap: .8rem
 }
 
-.main-btn,
+.notes-btn,
 .my-projects-btn {
   font-size: .9rem;
   padding: .2rem .4rem;

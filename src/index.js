@@ -54,7 +54,7 @@ containerLeft.addEventListener("click", (e) => {
     renderProjectWindow();
   }
 
-  if (target.closest(".main-btn")) {
+  if (target.closest(".notes-btn")) {
     toggleMenu();
     renderTodos();
   }
