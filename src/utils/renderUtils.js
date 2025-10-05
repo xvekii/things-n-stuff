@@ -11,10 +11,22 @@ export function makeRenderTodos(containerRight, todos) {
 
   // Render saved todos
   // Refactor with several smaller functions
-  return function renderTodos(existingID = null, deleting = null) {
+  return function renderTodos(params) {
+    params = params || {};
+    const { existingID = null, deleting = null, projID = null } = params;
+    
     containerRight.replaceChildren();
+    let tempTodos;
 
-    const retrievedTodos = todos.getTodos();
+    const allTodos = todos.getTodos();
+
+    if (projID) {
+      tempTodos = allTodos.filter(todo => todo.projectID === projID);
+    } else {
+      tempTodos = allTodos;
+    }
+    const retrievedTodos = tempTodos;
+    
     retrievedTodos.forEach((todo, idx) => {
       const newTodoCard = createDiv({
         classes: ["todo"],

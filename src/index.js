@@ -30,7 +30,7 @@ const editProjectsContainer = document.createElement("div");
 editProjectsContainer.classList.add("toggle-project", "edit-projects-container");
 
 hamburgerMenuBtn.addEventListener("click", () => {
-  containerLeft.classList.toggle("active");
+  toggleMenu();
   
   if (containerLeft.classList.contains("active")) {
     updateNavProjects();
@@ -43,10 +43,32 @@ addToDoBtn.addEventListener("click", () => {
   renderTodo(toDoCard);
 });
 
-// Only edit button or both add and edit? Event delegation?
-addNewProjectBtn.addEventListener("click", () => {
-  // move to edit or replace toggle with add
-    const { 
+containerLeft.addEventListener("click", (e) => {
+  const target = e.target;
+
+  if (target.closest(".edit-projects-btn")) {
+    renderProjectWindow();
+  }
+
+  if (target.closest(".add-new-project-btn")) {
+    renderProjectWindow();
+  }
+
+  if (target.closest(".main-btn")) {
+    toggleMenu();
+    renderTodos();
+  }
+
+  const projBtn = target.closest("[data-proj-id]");
+  if (projBtn) {
+    const clickedProjBtnId = projBtn.dataset.projId;
+    toggleMenu();
+    renderTodos({ projID: clickedProjBtnId });
+  }
+});
+
+function renderProjectWindow() {
+  const { 
     newProjectContainer, 
     newProjectListContainer, 
     newProjectInput, 
@@ -56,7 +78,7 @@ addNewProjectBtn.addEventListener("click", () => {
   } = createProjectContainerUI(true);
   
   containerRight.appendChild(newProjectContainer);
-  containerLeft.classList.toggle("active");
+  toggleMenu();
   newProjectContainer.classList.add("visible", "edit-projects-container");
 
   // Render existing projects
@@ -77,8 +99,7 @@ addNewProjectBtn.addEventListener("click", () => {
     updateNavProjects,
     true,
   );
-
-});
+}
 
 function createNavProjBtn(project = null) {
   const newProjectBtn = document.createElement("button");
@@ -166,6 +187,10 @@ function fillNotes(notesContainer, notes) {
     
     notesContainer.appendChild(newNote);
   });
+}
+
+function toggleMenu() {
+  containerLeft.classList.toggle("active");
 }
 
 function renderTodo(todo) {

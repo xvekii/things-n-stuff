@@ -14,6 +14,10 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
     newProjectListContainer, 
   } = elements;
 
+    // Prevent multiple bindings on the same container
+  if (newProjectContainer.dataset.boundProjectEvents === "true") return;
+  newProjectContainer.dataset.boundProjectEvents = "true";
+
   newProjectContainer.addEventListener("click", (e) => {
     const target = e.target;
 

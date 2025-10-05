@@ -89,7 +89,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
         { newProjectContainer, newProjectListContainer },
         projects,
         todos,
-        existingID
+        existingID,
       );
     }
   });
