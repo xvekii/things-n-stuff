@@ -19,13 +19,12 @@ import { renderTodos, renderSavedProjects } from "./toDo-template.js";
 import { bindProjectManagerEvents } from "./ui/projectEvents.js";
 import { createProjectContainerUI } from "./ui/projectContainerUI.js";
 
-const hamburgerMenuBtn = document.querySelector(".hamburger");
+export const containerRight = document.querySelector(".container-right");
 const containerLeft = document.querySelector(".container-left");
-const containerRight = document.querySelector(".container-right");
+const hamburgerMenuBtn = document.querySelector(".hamburger");
 const addToDoBtn = document.querySelector(".add-toDo-btn");
 const navUL = document.querySelector(".nav-ul");
 const projectBtnsLI = document.createElement("li");
-const addNewProjectBtn = document.querySelector(".add-new-project-btn");
 const editProjectsContainer = document.createElement("div");
 editProjectsContainer.classList.add("toggle-project", "edit-projects-container");
 
@@ -55,6 +54,8 @@ containerLeft.addEventListener("click", (e) => {
   }
 
   if (target.closest(".notes-btn")) {
+    delete containerRight.dataset.projViewId;
+    
     toggleMenu();
     renderTodos({ showAll: true });
   }
@@ -63,6 +64,7 @@ containerLeft.addEventListener("click", (e) => {
   if (projBtn) {
     const clickedProjBtnId = projBtn.dataset.projId;
     toggleMenu();
+    toggleProjectContainer(containerRight, clickedProjBtnId);
     renderTodos({ projID: clickedProjBtnId });
   }
 
@@ -104,6 +106,14 @@ function renderProjectWindow() {
     updateNavProjects,
     true,
   );
+}
+
+function toggleProjectContainer(container, projID) {
+  if (projID != null && projID !== "") {
+    container.setAttribute("data-proj-view-id", `${projID}`);
+  } else {
+    delete container.dataset.projViewId;
+  }
 }
 
 function createNavProjBtn(project = null) {

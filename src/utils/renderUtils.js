@@ -13,7 +13,13 @@ export function makeRenderTodos(containerRight, todos) {
   // Refactor with several smaller functions
   return function renderTodos(params) {
     params = params || {};
-    const { existingID = null, deleting = null, projID = null, showAll = null, showProjs = null } = params;
+    const { 
+      existingID = null, 
+      deleting = null, 
+      projID = null,
+      showAll = null,
+      showProjs = null 
+    } = params;
     
     containerRight.replaceChildren();
     let tempTodos;
@@ -27,6 +33,12 @@ export function makeRenderTodos(containerRight, todos) {
     } else if (showProjs) {
       tempTodos = allTodos.filter(todo => 
         todo.projectID !== null && todo.projectID !== "");
+    } else if (containerRight.dataset.projViewId) {
+      const containerProjView = containerRight.dataset.projViewId;
+      tempTodos = allTodos.filter(todo => 
+        todo != null && todo.projectID === containerProjView);
+    } else if (!containerRight.dataset.projViewId) {
+      tempTodos = allTodos;
     } else {
       tempTodos = allTodos;
     }
@@ -51,9 +63,9 @@ export function makeRenderTodos(containerRight, todos) {
       });
 
       // Revise
-      if (todo.ID === existingID) {
+      if (todo.ID === existingID && !(showAll || showProjs || projID)) {
         newTodoCard.classList.add("todo-saved");
-      } else if (!existingID && idx === retrievedTodos.length - 1 && !deleting) {
+      } else if (!existingID && idx === retrievedTodos.length - 1 && !deleting && !(showAll || showProjs || projID)) {
         newTodoCard.classList.add("todo-saved");
       } 
       
