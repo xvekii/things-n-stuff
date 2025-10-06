@@ -45,8 +45,15 @@ header > img {
 }
 
 .main-container {
-  padding-top: 1rem;
+  padding-top: .5rem;
   height: 90vh;
+}
+
+.show-proj-name-para {
+  margin: 0;
+  text-align: center;
+  color: #545353;
+  font-weight: 600;
 }
 
 .container-left {

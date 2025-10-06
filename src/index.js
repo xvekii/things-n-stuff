@@ -27,6 +27,7 @@ const navUL = document.querySelector(".nav-ul");
 const projectBtnsLI = document.createElement("li");
 const editProjectsContainer = document.createElement("div");
 editProjectsContainer.classList.add("toggle-project", "edit-projects-container");
+const showCurrProjName = document.querySelector(".show-proj-name-span");
 
 hamburgerMenuBtn.addEventListener("click", () => {
   toggleMenu();
@@ -55,7 +56,8 @@ containerLeft.addEventListener("click", (e) => {
 
   if (target.closest(".notes-btn")) {
     delete containerRight.dataset.projViewId;
-    
+    const notesBtn = target;
+    updateCurrentLocation(notesBtn);
     toggleMenu();
     renderTodos({ showAll: true });
   }
@@ -64,11 +66,14 @@ containerLeft.addEventListener("click", (e) => {
   if (projBtn) {
     const clickedProjBtnId = projBtn.dataset.projId;
     toggleMenu();
+    updateCurrentLocation(projBtn);
     toggleProjectContainer(containerRight, clickedProjBtnId);
     renderTodos({ projID: clickedProjBtnId });
   }
 
   if (target.closest(".my-projects-btn")) {
+    const projectsBtn = target;
+    updateCurrentLocation(projectsBtn);
     toggleMenu();
     renderTodos({ showProjs: true });
   }
@@ -122,7 +127,6 @@ function createNavProjBtn(project = null) {
   
   const projName = project ? project.name : "New project";
   
-  // If project
   if (project) {
     newProjectBtn.setAttribute("data-proj-id", `${project.ID}`);
   }
@@ -174,6 +178,15 @@ containerRight.addEventListener("click", (e) => {
     renderTodo(toDoTemplatePopup);
   }
 });
+
+function updateCurrentLocation(btn) {
+  if (btn) {
+    const btnTxt = btn.textContent.trim();
+    showCurrProjName.textContent = btnTxt;
+  } else {
+    showCurrProjName.textContent = "";
+  }
+}
 
 function updateNavProjects() {
   projectBtnsLI.replaceChildren();
