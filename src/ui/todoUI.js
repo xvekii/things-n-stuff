@@ -69,7 +69,7 @@ export function createTodoUI(existingID = null) {
 
   const closeDateTimeBtn = createBtn({
     classes: ["close-datetime-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     text: "Close",
   });
   newDateTimeContainer.append(newDateInput, closeDateTimeBtn);
@@ -78,7 +78,7 @@ export function createTodoUI(existingID = null) {
 
   const deleteBtn = createBtn({
     classes: ["todo-btn", "delete-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     imgSrc: deleteTodoImg,
     imgClass: "delete-btn-img",
     imgAlt: "Delete todo",
@@ -86,7 +86,7 @@ export function createTodoUI(existingID = null) {
   
   const dueDateBtn = createBtn({
     classes: ["todo-btn", "due-date-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     imgSrc: dueDateImg,
     imgClass: "due-date-btn-img",
     imgAlt: "Set due date",
@@ -94,7 +94,7 @@ export function createTodoUI(existingID = null) {
   
   const priorityBtn = createBtn({
     classes: ["todo-btn", "open-priority-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     imgSrc: priorityImg,
     imgClass: "priority-btn-img",
     imgAlt: "Set priority",
@@ -102,7 +102,7 @@ export function createTodoUI(existingID = null) {
   
   const projectBtn = createBtn({
     classes: ["todo-btn", "project-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     imgSrc: projectFolderImg,
     imgClass: "project-btn-img",
     imgAlt: "Add to project",
@@ -110,7 +110,7 @@ export function createTodoUI(existingID = null) {
   
   const saveBtn = createBtn({
     classes: ["todo-btn", "save-todo-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     imgSrc: saveTodoImg,
     imgClass: "save-todo-btn-img",
     imgAlt: "Save",
@@ -128,31 +128,31 @@ export function createTodoUI(existingID = null) {
 
   const priorityLowBtn = createBtn({
     classes: ["priority-btn", "low"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     text: "Low",
   });
   
   const priorityNormalBtn = createBtn({
     classes: ["priority-btn", "normal"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     text: "Normal",
   });
   
   const priorityMediumBtn = createBtn({
     classes: ["priority-btn", "medium"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     text: "Medium",
   });
   
   const priorityHighBtn = createBtn({
     classes: ["priority-btn", "high"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     text: "High",  
   });
 
   const closePriorityBtn = createBtn({
     classes: ["todo-btn", "close-priority-btn"],
-    attrs: { type: "button", },
+    attrs: { type: "button" },
     text: "Close",
   });
 

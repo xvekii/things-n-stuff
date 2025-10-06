@@ -22,3 +22,7 @@ export function formatForUser(isoString) {
     minute: "2-digit",
   }).format(date);
 }
+
+export function toDatetimeLocalString(date = new Date()) {
+  return format(date, "yyyy-MM-dd'T'HH:mm");
+}

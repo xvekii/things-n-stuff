@@ -1,6 +1,6 @@
 import { Project } from "../Project.js";
 import { createProjectListItem, validateProjectName } from "../utils/projectUtils.js";
-import { getDueDate, formatDateTime, formatForUser } from "../utils/dateUtils.js";
+import { getDueDate, formatDateTime, formatForUser, toDatetimeLocalString } from "../utils/dateUtils.js";
 import { getTodoInput } from "../utils/todoDataUtils.js";
 import { 
   toggleDateTimeContainerVisibility,
@@ -83,13 +83,15 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
   });
 
   dueDateBtn.addEventListener("click", () => {
+    const dateTimeNow = new Date();
+    newDateInput.setAttribute("min", toDatetimeLocalString(dateTimeNow));
     newDateTimeContainer.classList.toggle("visible");
   });
 
   closeDateTimeBtn.addEventListener("click", () => {
     newDateTimeContainer.classList.toggle("visible");
     const dateTime = getDueDate(newDateInput.value);
-    
+
     if (dateTime) {
       const formattedDT = formatDateTime(dateTime)
       newReminderSpan.textContent = formatForUser(formattedDT);
