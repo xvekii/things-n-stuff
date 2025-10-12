@@ -61,8 +61,11 @@ export class Todo {
       projectID: obj.projectID,
     });
 
-     todo.reminderTimerId = null;
-     todo.setReminder(obj.dueDate, () => {
+    if (typeof todo.clearReminder === "function") {
+      todo.clearReminder();
+    }
+
+    todo.setReminder(obj.dueDate, () => {
       alert(todo.title);
     });
     
