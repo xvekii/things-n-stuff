@@ -49,10 +49,10 @@ header > img {
   height: 90vh;
 }
 
-.show-proj-name-para {
+.show-proj-name-div {
   margin: 0;
   text-align: center;
-  color: #545353;
+  color: #000000;
   font-weight: 600;
   height: 1rem;
 }
@@ -207,6 +207,7 @@ nav,
   gap: 2px;
   min-height: 1.4rem;
   justify-content: space-around;
+  margin: 0 0.1rem;
 }
 
 .project-item-wrapper:hover {
