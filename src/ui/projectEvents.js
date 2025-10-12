@@ -105,6 +105,7 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
         } else {
           closestInput.classList.remove("error");
           closestInput.setAttribute("readonly", "true");
+          saveToLS("lsProjects", projects.arr);
           switchEditingMode(closestInput, editImg, deleteProjImg);
           toggleDeleteProjBtn(deleteProjBtn);
         }
