@@ -18,6 +18,7 @@ import {
 import { renderTodos, renderSavedProjects } from "./toDo-template.js";
 import { bindProjectManagerEvents } from "./ui/projectEvents.js";
 import { createProjectContainerUI } from "./ui/projectContainerUI.js";
+import { loadLocalStorage } from "./services/storageService.js";
 
 export const containerRight = document.querySelector(".container-right");
 const containerLeft = document.querySelector(".container-left");
@@ -28,6 +29,8 @@ const projectBtnsLI = document.createElement("li");
 const editProjectsContainer = document.createElement("div");
 editProjectsContainer.classList.add("toggle-project", "edit-projects-container");
 const showCurrProjName = document.querySelector(".show-proj-name-span");
+
+loadLocalStorage();
 
 hamburgerMenuBtn.addEventListener("click", () => {
   toggleMenu();

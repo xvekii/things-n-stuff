@@ -7,6 +7,7 @@ import {
 } from "../utils/projectUtils.js";
 import { showError, hideError, emptyInput } from "../utils/uiUtils.js";
 import { renderSavedProjects } from "./projectUI.js";
+import { saveToLS } from "../services/storageService.js";
 
 export function bindProjectEvents(elements, projects, todos, existingID, noMark = false) {
   const { 
@@ -110,6 +111,7 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       }        
     } 
 
+    // Add LS
     if (target.closest(".delete-project-item-btn.active")) {
       const closestWrapper = target.closest(".project-item-wrapper");
       if (!closestWrapper) return;
@@ -120,6 +122,7 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       // Delete and render all project item wrappers
       if (closestInput) {
         projects.deleteProject(closestInputID);
+        saveToLS("lsProjects", projects.arr);
         renderSavedProjects(newProjectListContainer, projects, todos, existingID);
       }
     }
@@ -169,6 +172,7 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
     
     const newProject = new Project(inputName);
     projects.addProject(newProject);
+    saveToLS("lsProjects", projects.arr);
     emptyInput(newProjectInput);
     
     const projectRow = createProjectListItem(newProject);

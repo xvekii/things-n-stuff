@@ -1,3 +1,4 @@
+import { saveToLS } from "../services/storageService.js";
 import { Todo } from "../Todo.js";
 import { getDueDate, formatDateTime, formatForUser } from "./dateUtils.js";
 
@@ -22,10 +23,21 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
     reminderContainer.classList.remove("active");
   }
 
+  // Add LS
   if (!existingID) {
-    const newTodo = new Todo(priorityValue, titleValue, notes, dueDateISO, projectID);
+    const newTodo = new Todo({ 
+      priority: priorityValue,
+      title: titleValue,
+      notes,
+      dueDate: dueDateISO,
+      projectID, 
+    });
     todos.addTodo(newTodo);
+    
+    saveToLS("lsTodos", todos.getTodos());
+    saveToLS("lsProjects", projects.arr);
   } else {
+    // Add LS
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
 
@@ -43,5 +55,8 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
     if (projectID) {
       todoUpdate.projectID = projectID;
     }
+
+    saveToLS("lsTodos", todos.getTodos());
+    saveToLS("lsProjects", projects.arr);
   }
 } 

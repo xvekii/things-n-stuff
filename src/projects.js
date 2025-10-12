@@ -6,6 +6,13 @@ export const projects = {
     return this._arr;
   },
 
+  set arr(value) {
+    if (!Array.isArray(value)) {
+      return;
+    }
+    this._arr = value;
+  },
+
   addProject (obj) {
     this._arr.push(obj);
   },

@@ -1,6 +1,7 @@
 import { renderTodos, renderSavedProjects } from "../toDo-template.js";
 import { hideError, emptyInput, showTodoBtn } from "../utils/uiUtils.js";
 import { bindProjectEvents } from "./projectEvents.js"; 
+import { saveToLS } from "../services/storageService.js";
 
 export function bindTodoEvents(refs, todos, projects, existingID) {
   const {
@@ -35,6 +36,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
         currentTodos.splice(index, 1);
       }
     });
+    saveToLS("lsTodos", todos.getTodos());
     renderTodos(existingID, true);
     // Revise - import from index?
     showTodoBtn(document.querySelector(".add-toDo-btn")); 

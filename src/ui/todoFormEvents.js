@@ -67,6 +67,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     hideError(newProjectInput, newProjectInputErrorMsg);
     
     // Add new project
+    // Add LS
     const newProject = new Project(inputName);
     projects.addProject(newProject);
     emptyInput(newProjectInput);
@@ -176,9 +177,11 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     }
   });
 
+  // Remove reminder
   newReminderContainer.addEventListener("click", (e) => {
     const removeBtn = e.target.closest(".remove-reminder-btn");
 
+    // Add LS
     if (removeBtn) {
       if (existingID) {
         const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
