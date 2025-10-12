@@ -6,9 +6,19 @@ export const createDiv = ({ classes }) => {
   return div;
 }
 
-export const createSpan = ({ classes }) => {
+export const createSpan = ({ classes, imgSrc, imgClass, imgAlt }) => {
   const span = document.createElement("span");
   span.classList.add(...classes);
+
+  if (imgSrc) {
+    const image = document.createElement("img");
+    if (imgClass) {
+      image.classList.add(imgClass);
+    }
+    image.src = imgSrc;
+    image.alt = imgAlt;
+    span.appendChild(image);
+  }
   
   return span;
 }

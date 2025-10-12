@@ -1,4 +1,6 @@
 import { createDiv, createInput, createSpan } from "../helpers.js";
+import { formatForUser } from "./dateUtils.js";
+import dueDateBell from "../assets/images/due-date-bell.svg";
  
 export function makeRenderTodos(containerRight, todos) {
   function setTitle(titleEl, titleVal) {
@@ -7,6 +9,10 @@ export function makeRenderTodos(containerRight, todos) {
 
   function setPriority(priorityEl, priorityVal) {
     priorityEl.style.backgroundColor = priorityVal;
+  }
+
+  function setReminder(reminderEl, reminderVal) {
+    reminderEl.textContent = reminderVal;
   }
 
   // Render saved todos
@@ -49,9 +55,11 @@ export function makeRenderTodos(containerRight, todos) {
       const newTodoCard = createDiv({
         classes: ["todo"],
       });
+      
       const newPriority = createSpan({
         classes: ["priority-circle"],
       });
+      
       const newTitle = createInput({
         classes: ["title", "title-text", "todo-no-edit", "no-border"],
         attrs: { 
@@ -61,6 +69,24 @@ export function makeRenderTodos(containerRight, todos) {
           contenteditable: "false",
         }
       });
+
+      const newReminderWrapper = createDiv({
+        classes: ["todo-reminder-wrapper"],
+      }); 
+      
+      const newReminderContent = createDiv({
+        classes: ["todo-reminder-content"],
+      }); 
+
+      const newReminderImgSpan = createSpan({
+        classes: ["todo-reminder-img-span"],
+        imgClass: "todo-reminder-img",
+        imgSrc: dueDateBell,
+      }); 
+      
+      const newReminderTxtSpan = createSpan({
+        classes: ["todo-reminder-txt-span"],
+      }); 
 
       // Revise
       if (todo.ID === existingID && !(showAll || showProjs || projID)) {
@@ -76,9 +102,14 @@ export function makeRenderTodos(containerRight, todos) {
       if (todo.title) {
         setTitle(newTitle, todo.title);
       } 
+
+      if (todo.dueDate) {
+        setReminder(newReminderTxtSpan, formatForUser(todo.dueDate));
+        newReminderContent.append(newReminderImgSpan, newReminderTxtSpan);
+        newReminderWrapper.append(newReminderContent);
+      }
       
-      newTodoCard.appendChild(newPriority);
-      newTodoCard.appendChild(newTitle);
+      newTodoCard.append(newPriority, newTitle, newReminderWrapper);
       containerRight.appendChild(newTodoCard);
     });
   }
