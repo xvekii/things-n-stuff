@@ -31,7 +31,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     newProjectInput,
     newProjectInputErrorMsg,
     addProjectBtn,
-    newReminderSpan,
+    newReminderTxtSpan,
     newReminderContainer,
     newDateTimeContainer,
     closeDateTimeBtn,
@@ -95,7 +95,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
 
     if (dateTime) {
       const formattedDT = formatDateTime(dateTime)
-      newReminderSpan.textContent = formatForUser(formattedDT);
+      newReminderTxtSpan.textContent = formatForUser(formattedDT);
       newReminderContainer.classList.add("active");
     } 
   });
@@ -185,17 +185,17 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     if (removeBtn) {
       if (existingID) {
         const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
-        removeReminderSpan(newReminderSpan, newReminderContainer);
+        removeReminderSpan(newReminderTxtSpan, newReminderContainer);
         if (!todoUpdate) return;
 
         if (todoUpdate.dueDate) {
           todoUpdate.dueDate = null;
           todoUpdate.clearReminder();
-          removeReminderSpan(newReminderSpan, newReminderContainer);
+          removeReminderSpan(newReminderTxtSpan, newReminderContainer);
         }
       } else {
         clearDateInput(newDateInput);
-        removeReminderSpan(newReminderSpan, newReminderContainer);
+        removeReminderSpan(newReminderTxtSpan, newReminderContainer);
       }
     } 
     

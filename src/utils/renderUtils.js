@@ -67,6 +67,7 @@ export function makeRenderTodos(containerRight, todos) {
           name: "title",
           placeholder: "Title",
           contenteditable: "false",
+          readonly: "true",
         }
       });
 

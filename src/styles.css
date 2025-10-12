@@ -350,6 +350,7 @@ nav,
   justify-content: flex-start;
   align-items: center;
   margin-top: .2rem;
+  min-height: 1.3rem;
 }
 
 .todo-reminder-content {
@@ -357,7 +358,6 @@ nav,
   justify-content: center;
   align-items: center;
   gap: 0.6rem;
-  /* min-height: 1rem; */
   border-radius: 20px;
   background: ghostwhite;
   padding: 0.1rem 0.6rem;
@@ -367,6 +367,8 @@ nav,
   border: 1px solid #80808040;
 }
 
+.reminder-content,
+.reminder-img-span,
 .todo-reminder-img-span, 
 .todo-reminder-txt-span {
   display: flex;
@@ -379,7 +381,7 @@ nav,
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 0.6rem;
   margin-top: 1.3rem;
   width: 100%;
@@ -387,7 +389,7 @@ nav,
 }
 
 .note {
-  font-size: 1rem;
+  font-size: .9rem;
   width: 100%;
   overflow-wrap: break-word;
   margin-bottom: 0.5rem;
@@ -407,7 +409,7 @@ nav,
 }
 
 .reminder-container {
-  min-height: 2rem;
+  min-height: 1.6rem;
   border-radius: 20px;
   margin-top: 1rem;
   display: flex;
@@ -421,10 +423,26 @@ nav,
 .reminder-container.active {
   position: relative;
   border: 1px solid #80808040;
+  background: ghostwhite;
 }
 
-.reminder-span {
-  font-size: .9rem;
+.reminder-container:not(.active) .reminder-content {
+  display: none;
+}
+
+.reminder-content {
+  padding: 0.1rem 0.6rem;
+  font-size: 0.6rem;
+  user-select: none;
+  gap: 0.6rem;
+}
+
+.reminder-img {
+  width: 1.1rem;
+}
+
+.reminder-txt-span {
+  font-size: .8rem;
 }
 
 .remove-reminder-btn {
@@ -479,6 +497,7 @@ textarea {
   gap: 1rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  user-select: none;
 }
 
 .add-toDo-btn {

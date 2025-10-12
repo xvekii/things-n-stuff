@@ -29,6 +29,7 @@ const projectBtnsLI = document.createElement("li");
 const editProjectsContainer = document.createElement("div");
 editProjectsContainer.classList.add("toggle-project", "edit-projects-container");
 const showCurrProjName = document.querySelector(".show-proj-name-span");
+showCurrProjName.textContent = "Notes";
 
 loadLocalStorage();
 
@@ -159,7 +160,7 @@ containerRight.addEventListener("click", (e) => {
     const titleInput = toDoTemplatePopup.querySelector(".title-text");
     const notesContainer = toDoTemplatePopup.querySelector(".new-notes-container");
     const reminderContainer = toDoTemplatePopup.querySelector(".reminder-container");
-    const reminderSpan = toDoTemplatePopup.querySelector(".reminder-span");
+    const reminderSpan = toDoTemplatePopup.querySelector(".reminder-txt-span");
 
     const retrievedTodo = todos.getTodos().find(obj => obj.ID === titleID);
     if (!retrievedTodo) return;

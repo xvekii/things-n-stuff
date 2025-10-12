@@ -11,7 +11,7 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
   const projectID = projects.tempID;
   
   const reminderContainer = document.querySelector(".reminder-container");
-  const reminderSpan = document.querySelector(".reminder-span");
+  const reminderSpan = document.querySelector(".reminder-txt-span");
   
   const dueDateISO = getDueDate(newDateInput.value);
   
@@ -59,4 +59,4 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
     saveToLS("lsTodos", todos.getTodos());
     saveToLS("lsProjects", projects.arr);
   }
-} 
+}

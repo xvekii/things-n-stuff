@@ -12,6 +12,7 @@ import dueDateImg from "../assets/images/due-date.svg";
 import priorityImg from "../assets/images/priority-flag.svg";
 import projectFolderImg from "../assets/images/project-folder.svg";
 import saveTodoImg from "../assets/images/save.svg";
+import dueDateBell from "../assets/images/due-date-bell.svg";
 
 import { createProjectContainerUI } from "./projectContainerUI.js";
 import { createNewNote } from "../utils/noteUtils.js";
@@ -40,7 +41,15 @@ export function createTodoUI(existingID = null) {
   newNotesContainer.appendChild(newNote);
 
   const newReminderContainer = createDiv({ classes: ["reminder-container"] });
-  const newReminderSpan = createSpan({ classes: ["reminder-span"] });
+  const newReminderContent = createDiv({ classes: ["reminder-content"] });
+  const newReminderTxtSpan = createSpan({ classes: ["reminder-txt-span"] });
+
+  const newReminderImgSpan = createSpan({
+    classes: ["reminder-img-span"],
+    imgClass: "reminder-img",
+    imgSrc: dueDateBell,
+  }); 
+  
   const removeReminderBtn = createBtn({
     classes: ["remove-reminder-btn"],
     attrs: { type: "button" },
@@ -48,7 +57,8 @@ export function createTodoUI(existingID = null) {
     imgClass: "remove-reminder-img",
     imgAlt: "Remove reminder",
   });
-  newReminderContainer.append(newReminderSpan, removeReminderBtn);
+  newReminderContent.append(newReminderImgSpan, newReminderTxtSpan);
+  newReminderContainer.append(newReminderContent, removeReminderBtn);
 
   const { 
     newProjectContainer,
@@ -179,7 +189,7 @@ export function createTodoUI(existingID = null) {
       newPriorityContainer,
       newPriorityBtnContainer,
       newReminderContainer,
-      newReminderSpan,
+      newReminderTxtSpan,
       removeReminderBtn, 
       newProjectContainer,
       newProjectListContainer, 
