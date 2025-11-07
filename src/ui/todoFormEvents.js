@@ -19,7 +19,7 @@ import {
   placeCaretAtStart,
   appendExtraNote 
 } from "../utils/noteUtils.js";
-
+import { alertIfNotificationsDisabled } from "../utils/notificationUtils.js";
 
 export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodos) {
   const { 
@@ -97,13 +97,11 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
       const formattedDT = formatDateTime(dateTime)
       newReminderTxtSpan.textContent = formatForUser(formattedDT);
       newReminderContainer.classList.add("active");
+
+      alertIfNotificationsDisabled();
     } 
   });
 
-  // Add removeReminderBtn and closeDateTimeBtn to clearReminder
-  // Ask for notifications
-
-  // Revise to add new 
   newTitle.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const firstNote = newNotesContainer.firstElementChild;
