@@ -318,7 +318,7 @@ nav,
 }
 
 .todo-no-edit {
-  cursor: default;
+  cursor: pointer;
 }
 
 .todo-template-popup {
