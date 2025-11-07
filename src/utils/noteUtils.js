@@ -31,6 +31,23 @@ export function resizeNote(note) {
   });
 }
 
+export function fillNotes(notesContainer, notes) {
+  notesContainer.innerHTML = "";
+  notes.forEach((note, index) => {
+    const newNote = createNewNote();
+    newNote.value = note;
+    resizeNote(newNote);
+    
+    if (index === 0 && note === "" && notes.length === 1) {
+      addPlaceholder(newNote);
+    } else {
+      removePlaceholder(newNote);
+    }
+    
+    notesContainer.appendChild(newNote);
+  });
+}
+
 export function addPlaceholder(note) {
   note.setAttribute("placeholder", "Write a note...");
 } 

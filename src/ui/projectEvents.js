@@ -6,8 +6,83 @@ import {
   switchEditingMode,
 } from "../utils/projectUtils.js";
 import { showError, hideError, emptyInput } from "../utils/uiUtils.js";
-import { renderSavedProjects } from "./projectUI.js";
+
+import { createProjectContainerUI } from "./projectContainerUI.js";
+import { renderSavedProjects, todos } from "../toDo-template.js";
+import { projects } from "../projects.js";
+import { updateNavProjects, toggleProjectContainer } from "./projectUI.js";
+import { updateCurrentLocation, toggleMenu } from "./navEvents.js";
+import { renderTodos } from "../toDo-template.js";
 import { saveToLS } from "../services/storageService.js";
+
+
+export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
+  containerLeft.addEventListener("click", (e) => {
+    const target = e.target;
+
+    if (target.closest(".edit-projects-btn") || target.closest(".add-new-project-btn")) {
+      renderProjectWindow(containerRight);
+      toggleMenu(containerLeft);
+    }
+
+    if (target.closest(".notes-btn")) {
+      delete containerRight.dataset.projViewId;
+      const notesBtn = target;
+      updateCurrentLocation(notesBtn);
+      toggleMenu(containerLeft);
+      renderTodos({ showAll: true });
+    }
+
+    const projBtn = target.closest("[data-proj-id]");
+    if (projBtn) {
+      const clickedProjBtnId = projBtn.dataset.projId;
+      toggleMenu(containerLeft);
+      updateCurrentLocation(projBtn);
+      toggleProjectContainer(containerRight, clickedProjBtnId);
+      renderTodos({ projID: clickedProjBtnId });
+    }
+
+    if (target.closest(".my-projects-btn")) {
+      const projectsBtn = target;
+      updateCurrentLocation(projectsBtn);
+      toggleMenu(containerLeft);
+      renderTodos({ showProjs: true });
+    }
+  });
+}
+
+function renderProjectWindow(containerRight) {
+  const { 
+    newProjectContainer, 
+    newProjectListContainer, 
+    newProjectInput, 
+    newProjectInputErrorMsg, 
+    addProjectBtn, 
+    closeProjectBtn 
+  } = createProjectContainerUI(true);
+  
+  containerRight.appendChild(newProjectContainer);
+  newProjectContainer.classList.add("visible", "edit-projects-container");
+
+  // Render existing projects
+  renderSavedProjects(newProjectListContainer, projects, todos, null);
+
+  // Bind project manager events with update callback
+  bindProjectManagerEvents(
+    {
+      newProjectContainer,
+      newProjectListContainer,
+      newProjectInput,
+      newProjectInputErrorMsg,
+      addProjectBtn,
+      closeProjectBtn
+    },
+    projects,
+    todos,
+    updateNavProjects,
+    true,
+  );
+}
 
 export function bindProjectEvents(elements, projects, todos, existingID, noMark = false) {
   const { 

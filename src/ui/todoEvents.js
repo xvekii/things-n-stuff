@@ -2,6 +2,9 @@ import { renderTodos, renderSavedProjects } from "../toDo-template.js";
 import { hideError, emptyInput, showTodoBtn } from "../utils/uiUtils.js";
 import { bindProjectEvents } from "./projectEvents.js"; 
 import { saveToLS } from "../services/storageService.js";
+import { createTodo, todos } from "../toDo-template.js";
+import { formatDateTime, formatForUser } from "../utils/dateUtils.js";
+import { fillNotes } from "../utils/noteUtils.js";
 
 export function bindTodoEvents(refs, todos, projects, existingID) {
   const {
@@ -25,7 +28,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
   // Revise - add method to AllTodos for removing
 
   deleteBtn.addEventListener("click", () => {
-    const todoCard = deleteBtn.closest(".todo-template-popup"); 
+    const todoCard = deleteBtn.closest(".todo-template-todoCard"); 
     const title = todoCard.querySelector("input[data-title-id]");
     const titleID = title.dataset.titleId;
     // Revise
@@ -95,4 +98,49 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
       );
     }
   });
+}
+
+export function bindSavedTodoEvents({ containerRight }) {
+  const addToDoBtn = document.querySelector(".add-toDo-btn");
+  addToDoBtn.addEventListener("click", () => {
+    const toDoCard = createTodo();
+    containerRight.appendChild(toDoCard);
+  });
+
+  containerRight.addEventListener("click", (e) => {
+    const clickedTodo = e.target.closest(".todo");
+    if (!clickedTodo) return;
+
+    const title = clickedTodo.querySelector("input[data-title-id]");
+    const titleID = title?.dataset.titleId;
+    if (!titleID) return;
+
+    const savedTodoCard = createTodo(titleID);
+    buildTodoCard(savedTodoCard, titleID);
+    containerRight.appendChild(savedTodoCard);
+  });
+}
+
+function buildTodoCard(todoCard, todoId) {
+  const retrievedTodo = todos.getTodos().find(obj => obj.ID === todoId);
+  if (!retrievedTodo) return;
+
+  const priorityCircle = todoCard.querySelector(".priority-circle");
+  const titleInput = todoCard.querySelector(".title-text");
+  const notesContainer = todoCard.querySelector(".new-notes-container");
+  const reminderContainer = todoCard.querySelector(".reminder-container");
+  const reminderSpan = todoCard.querySelector(".reminder-txt-span");
+
+  priorityCircle.style.backgroundColor = retrievedTodo.priority;
+  titleInput.value = retrievedTodo.title;
+  fillNotes(notesContainer, retrievedTodo.notes);
+
+  if (retrievedTodo.dueDate) {
+    const formattedDateTime = formatDateTime(retrievedTodo.dueDate);
+    reminderSpan.textContent = formatForUser(formattedDateTime);
+    reminderContainer.classList.add("active");
+  } else {
+    reminderSpan.textContent = "";
+    reminderContainer.classList.remove("active");
+  }
 }
