@@ -79,13 +79,3 @@ export function loadLocalStorage() {
   console.log("Local storage loading successful");
   return true;
 }
-// Add check in main if localStorage populated 
-// - if populated, get the values of projects and todos
-// - else set intial projects and todos values in LS 
-
-// On delete todo
-
-
-// export function loadLocalStorage() {
-  // if unavailable, make sure app doesn't crash
-// }

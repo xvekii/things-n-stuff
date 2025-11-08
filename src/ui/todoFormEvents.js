@@ -66,8 +66,6 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     }
     hideError(newProjectInput, newProjectInputErrorMsg);
     
-    // Add new project
-    // Add LS
     const newProject = new Project(inputName);
     projects.addProject(newProject);
     emptyInput(newProjectInput);
