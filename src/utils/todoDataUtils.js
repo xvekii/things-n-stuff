@@ -3,7 +3,6 @@ import { Todo } from "../Todo.js";
 import { getDueDate, formatDateTime, formatForUser } from "./dateUtils.js";
 
 export function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID, todos, projects) {
-  // revise bgClr
   const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
@@ -23,7 +22,6 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
     reminderContainer.classList.remove("active");
   }
 
-  // Add LS
   if (!existingID) {
     const newTodo = new Todo({ 
       priority: priorityValue,
@@ -37,7 +35,6 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
     saveToLS("lsTodos", todos.getTodos());
     saveToLS("lsProjects", projects.arr);
   } else {
-    // Add LS
     const todoUpdate = todos.getTodos().find(obj => obj.ID === existingID);
     if (!todoUpdate) return;
 
