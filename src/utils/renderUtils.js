@@ -36,13 +36,13 @@ export function makeRenderTodos(containerRight, todos) {
       tempTodos = allTodos.filter(todo => todo.projectID === projID);
     } else if (showAll) {
       tempTodos = allTodos;
-    } else if (showProjs) {
+    } else if (showProjs || containerRight.dataset.projViewId === "allProjects") {
       tempTodos = allTodos.filter(todo => 
         todo.projectID !== null && todo.projectID !== "");
     } else if (containerRight.dataset.projViewId) {
       const containerProjView = containerRight.dataset.projViewId;
       tempTodos = allTodos.filter(todo => 
-        todo != null && todo.projectID === containerProjView);
+        todo !== null && todo.projectID === containerProjView);
     } else if (!containerRight.dataset.projViewId) {
       tempTodos = allTodos;
     } else {

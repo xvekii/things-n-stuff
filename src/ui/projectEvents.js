@@ -44,6 +44,8 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
 
     if (target.closest(".my-projects-btn")) {
       const projectsBtn = target;
+      const clickedAllProjectsBtnId = "allProjects";
+      toggleProjectContainer(containerRight, clickedAllProjectsBtnId);
       updateCurrentLocation(projectsBtn);
       toggleMenu(containerLeft);
       renderTodos({ showProjs: true });
