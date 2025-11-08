@@ -1,10 +1,11 @@
 import { renderTodos, renderSavedProjects } from "../toDo-template.js";
-import { hideError, emptyInput, showTodoBtn } from "../utils/uiUtils.js";
+import { hideError, emptyInput, showTodoBtn, toggleInert } from "../utils/uiUtils.js";
 import { bindProjectEvents } from "./projectEvents.js"; 
 import { saveToLS } from "../services/storageService.js";
 import { createTodo, todos } from "../toDo-template.js";
 import { formatDateTime, formatForUser } from "../utils/dateUtils.js";
 import { fillNotes } from "../utils/noteUtils.js";
+const mainContainer = document.querySelector(".main-container");
 
 export function bindTodoEvents(refs, todos, projects, existingID) {
   const {
@@ -28,9 +29,14 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
   // Revise - add method to AllTodos for removing
 
   deleteBtn.addEventListener("click", () => {
+    const containerRight = document.querySelector(".container-right");
     const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");
     const titleID = title.dataset.titleId;
+
+    todoCard.remove();
+    toggleInert(containerRight);
+    
     // Revise
     const currentTodos = todos.getTodos();
     // Revise - removing function
@@ -40,7 +46,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
       }
     });
     saveToLS("lsTodos", todos.getTodos());
-    renderTodos(existingID, true);
+    renderTodos({ existingID, deleting: true });
     // Revise - import from index?
     showTodoBtn(document.querySelector(".add-toDo-btn")); 
   });
@@ -100,16 +106,20 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
   });
 }
 
+// Add new todo / open todo-template-popup
 export function bindSavedTodoEvents({ containerRight }) {
   const addToDoBtn = document.querySelector(".add-toDo-btn");
   addToDoBtn.addEventListener("click", () => {
     const toDoCard = createTodo();
-    containerRight.appendChild(toDoCard);
+    mainContainer.appendChild(toDoCard);
+    toggleInert(containerRight);
   });
 
+  // Open clicked todo
   containerRight.addEventListener("click", (e) => {
     const clickedTodo = e.target.closest(".todo");
     if (!clickedTodo) return;
+    toggleInert(containerRight);
 
     const title = clickedTodo.querySelector("input[data-title-id]");
     const titleID = title?.dataset.titleId;
@@ -117,7 +127,7 @@ export function bindSavedTodoEvents({ containerRight }) {
 
     const savedTodoCard = createTodo(titleID);
     buildTodoCard(savedTodoCard, titleID);
-    containerRight.appendChild(savedTodoCard);
+    mainContainer.appendChild(savedTodoCard);
   });
 }
 

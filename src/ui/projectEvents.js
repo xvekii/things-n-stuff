@@ -5,15 +5,16 @@ import {
   toggleDeleteProjBtn,
   switchEditingMode,
 } from "../utils/projectUtils.js";
-import { showError, hideError, emptyInput } from "../utils/uiUtils.js";
+import { showError, hideError, emptyInput, toggleInert } from "../utils/uiUtils.js";
 
 import { createProjectContainerUI } from "./projectContainerUI.js";
-import { renderSavedProjects, todos } from "../toDo-template.js";
+import { addToDoBtn, renderSavedProjects, todos } from "../toDo-template.js";
 import { projects } from "../projects.js";
 import { updateNavProjects, toggleProjectContainer } from "./projectUI.js";
 import { updateCurrentLocation, toggleMenu } from "./navEvents.js";
 import { renderTodos } from "../toDo-template.js";
 import { saveToLS } from "../services/storageService.js";
+import { containerRight, mainContainer } from "../index.js";
 
 
 export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
@@ -21,11 +22,16 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     const target = e.target;
 
     if (target.closest(".edit-projects-btn") || target.closest(".add-new-project-btn")) {
-      renderProjectWindow(containerRight);
+      
+      toggleInert(containerRight);
+      toggleInert(addToDoBtn);
+      renderProjectWindow(mainContainer);
       toggleMenu(containerLeft);
     }
 
     if (target.closest(".notes-btn")) {
+      toggleInert(containerRight);
+      toggleInert(addToDoBtn);
       delete containerRight.dataset.projViewId;
       const notesBtn = target;
       updateCurrentLocation(notesBtn);
@@ -36,6 +42,8 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     const projBtn = target.closest("[data-proj-id]");
     if (projBtn) {
       const clickedProjBtnId = projBtn.dataset.projId;
+      toggleInert(containerRight);
+      toggleInert(addToDoBtn);
       toggleMenu(containerLeft);
       updateCurrentLocation(projBtn);
       toggleProjectContainer(containerRight, clickedProjBtnId);
@@ -43,6 +51,8 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     }
 
     if (target.closest(".my-projects-btn")) {
+      toggleInert(containerRight);
+      toggleInert(addToDoBtn);
       const projectsBtn = target;
       const clickedAllProjectsBtnId = "allProjects";
       toggleProjectContainer(containerRight, clickedAllProjectsBtnId);
@@ -53,7 +63,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
   });
 }
 
-function renderProjectWindow(containerRight) {
+function renderProjectWindow(mainContainer) {
   const { 
     newProjectContainer, 
     newProjectListContainer, 
@@ -63,11 +73,14 @@ function renderProjectWindow(containerRight) {
     closeProjectBtn 
   } = createProjectContainerUI(true);
   
-  containerRight.appendChild(newProjectContainer);
+  mainContainer.appendChild(newProjectContainer);
   newProjectContainer.classList.add("visible", "edit-projects-container");
 
   // Render existing projects
   renderSavedProjects(newProjectListContainer, projects, todos, null);
+
+  toggleInert(containerRight);
+  toggleInert(addToDoBtn);
 
   // Bind project manager events with update callback
   bindProjectManagerEvents(
@@ -189,7 +202,6 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       }        
     } 
 
-    // Add LS
     if (target.closest(".delete-project-item-btn.active")) {
       const closestWrapper = target.closest(".project-item-wrapper");
       if (!closestWrapper) return;
@@ -264,6 +276,9 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
 
   closeProjectBtn.addEventListener("click", () => {
     newProjectContainer.classList.remove("visible");
+
+    toggleInert(containerRight);
+    toggleInert(addToDoBtn);
     
     // Call the update callback if provided
     if (updateCallback) {

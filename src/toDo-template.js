@@ -7,8 +7,8 @@ import { hideTodoBtn } from "./utils/uiUtils.js";
 import { renderSavedProjects } from "./ui/projectUI.js";
 import { projects } from "./projects.js";
 
+export const addToDoBtn = document.querySelector(".add-toDo-btn");
 const containerRight = document.querySelector(".container-right");
-const addToDoBtn = document.querySelector(".add-toDo-btn");
 const renderTodos = makeRenderTodos(containerRight, todos);
 
 function createTodo(existingID = null) {

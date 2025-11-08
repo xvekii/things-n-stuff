@@ -9,7 +9,8 @@ import {
   showError,
   hideError,
   emptyInput,
-  showTodoBtn 
+  showTodoBtn,
+  toggleInert, 
 } from "../utils/uiUtils.js";
 import { 
   resizeNote,
@@ -17,9 +18,10 @@ import {
   addPlaceholder,
   removePlaceholder,
   placeCaretAtStart,
-  appendExtraNote 
+  appendExtraNote, 
 } from "../utils/noteUtils.js";
 import { alertIfNotificationsDisabled } from "../utils/notificationUtils.js";
+import { containerRight } from "../index.js";
 
 export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodos) {
   const { 
@@ -79,6 +81,13 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     renderTodos({ existingID }); 
     projects.tempID = null; 
     showTodoBtn(document.querySelector(".add-toDo-btn"));  
+
+    const popup = saveBtn.closest(".todo-template-popup");
+    if (popup) {
+      popup.remove();
+    }
+
+    toggleInert(containerRight);
   });
 
   dueDateBtn.addEventListener("click", () => {

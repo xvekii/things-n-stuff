@@ -33,3 +33,15 @@ export function showTodoBtn(btn) {
 export function hideTodoBtn(btn) {
   btn.style.display = "none";
 }
+
+export function toggleInert(el) {
+  if (isInert(el)) {
+    el.removeAttribute("inert");
+  } else {  
+    el.inert = true;
+  }
+}
+
+function isInert(el) {
+  return el.hasAttribute("inert") ? true : false;
+}
