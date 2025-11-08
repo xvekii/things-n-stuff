@@ -7,6 +7,7 @@ import { hideTodoBtn } from "./utils/uiUtils.js";
 import { renderSavedProjects } from "./ui/projectUI.js";
 import { projects } from "./projects.js";
 
+export const hamburgerMenuBtn = document.querySelector(".hamburger");
 export const addToDoBtn = document.querySelector(".add-toDo-btn");
 const containerRight = document.querySelector(".container-right");
 const renderTodos = makeRenderTodos(containerRight, todos);

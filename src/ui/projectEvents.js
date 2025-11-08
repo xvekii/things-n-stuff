@@ -6,13 +6,17 @@ import {
   switchEditingMode,
 } from "../utils/projectUtils.js";
 import { showError, hideError, emptyInput, toggleInert } from "../utils/uiUtils.js";
-
 import { createProjectContainerUI } from "./projectContainerUI.js";
-import { addToDoBtn, renderSavedProjects, todos } from "../toDo-template.js";
+import { 
+  addToDoBtn,
+  renderSavedProjects,
+  todos,
+  renderTodos,
+  hamburgerMenuBtn,
+} from "../toDo-template.js";
 import { projects } from "../projects.js";
 import { updateNavProjects, toggleProjectContainer } from "./projectUI.js";
 import { updateCurrentLocation, toggleMenu } from "./navEvents.js";
-import { renderTodos } from "../toDo-template.js";
 import { saveToLS } from "../services/storageService.js";
 import { containerRight, mainContainer } from "../index.js";
 
@@ -22,7 +26,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     const target = e.target;
 
     if (target.closest(".edit-projects-btn") || target.closest(".add-new-project-btn")) {
-      
+      toggleInert(hamburgerMenuBtn);
       toggleInert(containerRight);
       toggleInert(addToDoBtn);
       renderProjectWindow(mainContainer);
@@ -276,7 +280,8 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
 
   closeProjectBtn.addEventListener("click", () => {
     newProjectContainer.classList.remove("visible");
-
+    
+    toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
     toggleInert(addToDoBtn);
     

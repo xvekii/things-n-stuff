@@ -2,10 +2,10 @@ import { renderTodos, renderSavedProjects } from "../toDo-template.js";
 import { hideError, emptyInput, showTodoBtn, toggleInert } from "../utils/uiUtils.js";
 import { bindProjectEvents } from "./projectEvents.js"; 
 import { saveToLS } from "../services/storageService.js";
-import { createTodo, todos } from "../toDo-template.js";
+import { createTodo, todos, hamburgerMenuBtn } from "../toDo-template.js";
 import { formatDateTime, formatForUser } from "../utils/dateUtils.js";
 import { fillNotes } from "../utils/noteUtils.js";
-const mainContainer = document.querySelector(".main-container");
+import { mainContainer } from "../index.js";
 
 export function bindTodoEvents(refs, todos, projects, existingID) {
   const {
@@ -35,6 +35,8 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
     const titleID = title.dataset.titleId;
 
     todoCard.remove();
+    
+    toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
     
     // Revise
@@ -112,6 +114,8 @@ export function bindSavedTodoEvents({ containerRight }) {
   addToDoBtn.addEventListener("click", () => {
     const toDoCard = createTodo();
     mainContainer.appendChild(toDoCard);
+    
+    toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
   });
 
@@ -119,6 +123,8 @@ export function bindSavedTodoEvents({ containerRight }) {
   containerRight.addEventListener("click", (e) => {
     const clickedTodo = e.target.closest(".todo");
     if (!clickedTodo) return;
+    
+    toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
 
     const title = clickedTodo.querySelector("input[data-title-id]");

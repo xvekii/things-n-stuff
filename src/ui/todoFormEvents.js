@@ -22,6 +22,7 @@ import {
 } from "../utils/noteUtils.js";
 import { alertIfNotificationsDisabled } from "../utils/notificationUtils.js";
 import { containerRight } from "../index.js";
+import { hamburgerMenuBtn } from "../toDo-template.js";
 
 export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodos) {
   const { 
@@ -87,6 +88,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
       popup.remove();
     }
 
+    toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
   });
 
