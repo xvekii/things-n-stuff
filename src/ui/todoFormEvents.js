@@ -95,6 +95,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
   dueDateBtn.addEventListener("click", () => {
     const dateTimeNow = new Date();
     newDateInput.setAttribute("min", toDatetimeLocalString(dateTimeNow));
+    alertIfNotificationsDisabled();
     newDateTimeContainer.classList.toggle("visible");
   });
 
@@ -106,8 +107,6 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
       const formattedDT = formatDateTime(dateTime)
       newReminderTxtSpan.textContent = formatForUser(formattedDT);
       newReminderContainer.classList.add("active");
-
-      alertIfNotificationsDisabled();
     } 
   });
 

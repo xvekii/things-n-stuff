@@ -7,6 +7,6 @@ export function alertIfNotificationsDisabled() {
   if (perm !== "granted") {
     setTimeout(() => {
       alert("Turn on notifications in your browser site settings to receive reminder popups.");
-    }, 1000);
+    }, 300);
   }
 }
