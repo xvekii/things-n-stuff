@@ -55,6 +55,7 @@ header > img {
   color: #000000;
   font-weight: 600;
   height: 1rem;
+  user-select: none;
 }
 
 .container-left {
@@ -113,14 +114,17 @@ nav,
   margin-bottom: 1rem;
 }
 
+.hamburger-container,
 .notes-btn,
 .my-projects-btn,
+.edit-projects-btn,
 .add-new-project-btn,
 .project-name {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: .8rem
+  gap: .8rem;
+  user-select: none;
 }
 
 .notes-btn,
@@ -514,6 +518,7 @@ textarea {
   border-radius: 10px;
   box-shadow: 2px 2px 3px 0px #00000070;
   z-index: 5;
+  cursor: pointer;
 }
 
 .add-toDo-btn > img {
@@ -542,6 +547,7 @@ textarea {
   justify-content: center;
   align-items: center;
   z-index: 1001;
+  cursor: pointer;
 }
 
 .hamburger > img {
