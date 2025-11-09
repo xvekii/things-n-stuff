@@ -574,7 +574,7 @@ textarea {
   width: 16rem;
   background-color: lightgreen;
   border: 1px solid black;
-  box-shadow: 2px 2px 0px 0px #000000;
+  box-shadow: 2px 2px 12px 0px #000000;
   border-radius: 10px;
   padding: 16px;
   gap: 2rem;
@@ -600,7 +600,7 @@ textarea {
   gap: 2rem;
   min-height: 16rem;
   justify-content: space-around;
-  box-shadow: 2px 2px 0px 0px #000000;
+  box-shadow: 2px 2px 12px 0px #000000;
   z-index: 1;
 }
 
