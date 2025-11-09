@@ -176,15 +176,17 @@ nav,
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
-  top: 57px;
-  left: 17px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 20rem;
   background-color: #FCFAF8;
   border: 1px solid black;
   border-radius: 10px;
   padding: 16px;
   min-height: 21rem;
-  box-shadow: 2px 2px 0px 0px #000000;
+  box-shadow: 2px 2px 12px 0px #000000;
+  z-index: 1;
 }
 
 .project-title {
@@ -301,7 +303,7 @@ nav,
   min-width: 17.8rem;
   border-radius: 10px;
   background-color: #ffffff;
-  box-shadow: 2px 2px 2px 0px #073b4c59;
+  box-shadow: 1px 1px 0px 0px #073b4c59;
   border: 1px solid #0000005c;
   padding: 0 1rem .4rem;
   display: flex;
@@ -389,7 +391,7 @@ nav,
 .title {
   font-size: 1.1rem;
   margin-bottom: 0.6rem;
-  margin-top: 1.3rem;
+  margin-top: 1.1rem;
   width: 100%;
   font-weight: 600;
 }
@@ -556,8 +558,8 @@ textarea {
 }
 
 .priority-circle {
-  width: 15px;
-  height: 15px;
+  width: 13px;
+  height: 13px;
   background: rgb(255, 255, 255);
   border-radius: 50%;
   border: 1px solid #000;
@@ -574,13 +576,17 @@ textarea {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 166px;
-  left: 80px;
-  width: 14rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16rem;
   background-color: lightgreen;
-  border-radius: 12px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 0px 0px #000000;
+  border-radius: 10px;
   padding: 16px;
-  gap: 0.5rem;
+  gap: 1.5rem;
+  z-index: 1;
 }
 
 .toggle-priority {
@@ -591,17 +597,19 @@ textarea {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 57px;
-  left: 31px;
-  width: 14rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16rem;
   background-color: #FFF8F8;
   border: 1px solid black;
   border-radius: 10px;
   padding: 16px;
-  gap: 0.5rem;
+  gap: 2rem;
   min-height: 16rem;
   justify-content: space-around;
   box-shadow: 2px 2px 0px 0px #000000;
+  z-index: 1;
 }
 
 .priority-btn-container {
@@ -613,7 +621,9 @@ textarea {
   align-self: center;
 }
 
-.priority-title {
+.priority-title,
+.datetime-title
+ {
   margin: 0;
   font-size: 1rem;
 }
@@ -668,7 +678,8 @@ textarea {
   align-items: center;
   cursor: pointer;
 }
-.close-priority-btn {
+.close-priority-btn,
+.close-datetime-btn {
   margin-top: 1rem;  
 }
 
