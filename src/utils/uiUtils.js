@@ -35,6 +35,11 @@ export function hideTodoBtn(btn) {
 }
 
 export function toggleInert(el) {
+  if (!el) {
+    console.warn("toggleInert: element is null or undefined");
+    return;
+  }
+  
   if (isInert(el)) {
     el.removeAttribute("inert");
   } else {  
@@ -43,5 +48,6 @@ export function toggleInert(el) {
 }
 
 function isInert(el) {
+  if (!el) return false;
   return el.hasAttribute("inert") ? true : false;
 }
