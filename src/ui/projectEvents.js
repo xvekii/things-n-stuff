@@ -86,7 +86,6 @@ function renderProjectWindow(mainContainer) {
   toggleInert(containerRight);
   toggleInert(addToDoBtn);
 
-  // Bind project manager events with update callback
   bindProjectManagerEvents(
     {
       newProjectContainer,
@@ -107,9 +106,9 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
   const { 
     newProjectContainer, 
     newProjectListContainer, 
+    newBtnContainer,
   } = elements;
 
-    // Prevent multiple bindings on the same container
   if (newProjectContainer.dataset.boundProjectEvents === "true") return;
   newProjectContainer.dataset.boundProjectEvents = "true";
 
@@ -125,6 +124,10 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       
       projects.tempID = selectedID || null;
       newProjectContainer.classList.remove("visible");
+
+      if (newBtnContainer) {
+        toggleInert(newBtnContainer);
+      }
     } 
 
     if (target.matches("input.project-item-input[readonly]") ||
@@ -272,7 +275,7 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
     const projectRow = createProjectListItem(newProject);
     newProjectListContainer.prepend(projectRow);
     
-    // Call the update callback if provided
+    // Update Nav Projects
     if (updateCallback) {
       updateCallback();
     }
@@ -280,12 +283,12 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
 
   closeProjectBtn.addEventListener("click", () => {
     newProjectContainer.classList.remove("visible");
-    
+
     toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
     toggleInert(addToDoBtn);
     
-    // Call the update callback if provided
+    // Update Nav Projects
     if (updateCallback) {
       updateCallback();
     }

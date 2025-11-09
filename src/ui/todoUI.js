@@ -13,6 +13,7 @@ import priorityImg from "../assets/images/priority-flag.svg";
 import projectFolderImg from "../assets/images/project-folder.svg";
 import saveTodoImg from "../assets/images/save.svg";
 import dueDateBell from "../assets/images/due-date-bell.svg";
+const mainContainer = document.querySelector(".main-container");
 
 import { createProjectContainerUI } from "./projectContainerUI.js";
 import { createNewNote } from "../utils/noteUtils.js";
@@ -69,7 +70,16 @@ export function createTodoUI(existingID = null) {
     closeProjectBtn
   } = createProjectContainerUI();
 
+
+  // Datetime
   const newDateTimeContainer = createDiv({ classes: ["toggle-datetime"] });
+  
+  const newDateTimeTitle = createHeading({
+    classes: ["datetime-title"], 
+    headLvl: "h5",
+    text: "Set reminder:", 
+  });
+  
   const newDateInput = createInput({ 
     classes: ["date-input"], 
     attrs: {
@@ -82,7 +92,7 @@ export function createTodoUI(existingID = null) {
     attrs: { type: "button" },
     text: "Close",
   });
-  newDateTimeContainer.append(newDateInput, closeDateTimeBtn);
+  newDateTimeContainer.append(newDateTimeTitle, newDateInput, closeDateTimeBtn);
 
   const newBtnContainer = createDiv({ classes: ["todo-btn-container"] });
 
@@ -169,10 +179,9 @@ export function createTodoUI(existingID = null) {
   newPriorityBtnContainer.append(priorityLowBtn, priorityNormalBtn, priorityMediumBtn, priorityHighBtn);
   newPriorityContainer.append(newPriorityTitle, newPriorityBtnContainer, closePriorityBtn);
 
-  newBtnContainer.append(deleteBtn, dueDateBtn, priorityBtn, 
-    projectBtn, saveBtn, newDateTimeContainer, 
-    newPriorityContainer, newProjectContainer
-  );
+  newBtnContainer.append(deleteBtn, dueDateBtn, priorityBtn, projectBtn, saveBtn);
+
+  mainContainer.append(newDateTimeContainer, newPriorityContainer, newProjectContainer)
 
   newTodoCard.append(newPriorityCircle, newTitle, newNotesContainer, 
     newReminderContainer, newBtnContainer

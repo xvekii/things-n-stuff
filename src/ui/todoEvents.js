@@ -18,7 +18,8 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
     newProjectInputErrorMsg,
     deleteBtn,
     priorityBtn,
-    projectBtn, 
+    projectBtn,
+    newBtnContainer, 
   } = refs;
 
   const LOW = "#FFFFFF";
@@ -55,8 +56,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
 
   priorityBtn.addEventListener("click", () => {
     newPriorityContainer.classList.toggle("visible");
-    // Add block all other todo btns when opened
-    // Reactivate other btns otherwise
+    toggleInert(newBtnContainer);
   });
 
   newPriorityBtnContainer.addEventListener("click", (e) => {
@@ -85,7 +85,7 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
 
     if (clickedBtn.classList.contains("close-priority-btn")) {
       newPriorityContainer.classList.remove("visible");
-      // Reactivate other btns
+      toggleInert(newBtnContainer);
     }
   });
 
@@ -93,13 +93,13 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
     hideError(newProjectInput, newProjectInputErrorMsg);
     emptyInput(newProjectInput);
     newProjectContainer.classList.toggle("visible");
-    // Add block all other todo btns when opened, reactivate otherwise
+    toggleInert(newBtnContainer);
 
     if (newProjectContainer.classList.contains("visible")) {
       renderSavedProjects(newProjectListContainer, projects, todos, existingID);
 
       bindProjectEvents(
-        { newProjectContainer, newProjectListContainer },
+        { newProjectContainer, newProjectListContainer, newBtnContainer },
         projects,
         todos,
         existingID,

@@ -22,7 +22,7 @@ import {
 } from "../utils/noteUtils.js";
 import { alertIfNotificationsDisabled } from "../utils/notificationUtils.js";
 import { containerRight } from "../index.js";
-import { hamburgerMenuBtn } from "../toDo-template.js";
+const hamburgerMenuBtn = document.querySelector(".hamburger");
 
 export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodos) {
   const { 
@@ -39,7 +39,8 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     newDateTimeContainer,
     closeDateTimeBtn,
     dueDateBtn,
-    saveBtn
+    saveBtn,
+    newBtnContainer,
   } = refs;
 
   newProjectInput.addEventListener("keydown", (e) => {
@@ -93,6 +94,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
   });
 
   dueDateBtn.addEventListener("click", () => {
+    toggleInert(newBtnContainer);
     const dateTimeNow = new Date();
     newDateInput.setAttribute("min", toDatetimeLocalString(dateTimeNow));
     alertIfNotificationsDisabled();
@@ -100,6 +102,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
   });
 
   closeDateTimeBtn.addEventListener("click", () => {
+    toggleInert(newBtnContainer);
     newDateTimeContainer.classList.toggle("visible");
     const dateTime = getDueDate(newDateInput.value);
 
