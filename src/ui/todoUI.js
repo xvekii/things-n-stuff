@@ -32,7 +32,7 @@ export function createTodoUI(existingID = null) {
       placeholder: "Title",
       autocomplete: "off",
       spellcheck: "false",
-      maxlength: "24",
+      maxlength: "30",
       contenteditable: "true",
     },
   });
