@@ -77,7 +77,7 @@ export function createTodoUI(existingID = null) {
   const newDateTimeTitle = createHeading({
     classes: ["datetime-title"], 
     headLvl: "h5",
-    text: "Set reminder:", 
+    text: "Set reminder", 
   });
   
   const newDateInput = createInput({ 
@@ -143,7 +143,7 @@ export function createTodoUI(existingID = null) {
   const newPriorityTitle = createHeading({
     classes: ["priority-title"], 
     headLvl: "h5",
-    text: "Select priority:", 
+    text: "Select priority", 
   });
 
   const priorityLowBtn = createBtn({
