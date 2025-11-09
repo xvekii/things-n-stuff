@@ -35,7 +35,7 @@ html {
 body {
   font-family: Inter, monospace, ui-sans-serif, system-ui, sans-serif;
   margin: 0;
-  background-color: #ff98000f;
+  background-color: #f5f5f5;
   line-height: 1.2;
   overflow-x: hidden;
   max-height: 100vh;
