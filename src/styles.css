@@ -54,6 +54,23 @@ header > img {
   user-select: none;
 }
 
+.menu-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-weight: 600;
+  position: absolute;
+  align-self: center;
+  top: 3rem;
+  font-size: 0.8rem;
+}
+
+.menu-logo {
+  width: 4rem;
+  user-select: none;
+}
+
 .hamburger-container {
   display: flex; 
   justify-content: center;
@@ -61,7 +78,7 @@ header > img {
 }
 
 .main-container {
-  padding-top: .5rem;
+  padding-top: .2rem;
   height: 90vh;
 }
 
@@ -77,8 +94,7 @@ header > img {
 .container-left {
   position: fixed;
   background: #FFFFFF;
-  width: 18rem;
-  /* height: 66vh; */
+  width: min(18rem, 90vw);
   left: -400px;
   top: 6rem;
   transition: 0.2s ease-in-out;
@@ -111,7 +127,7 @@ nav,
 
 .nav-ul {
   list-style-type: none;
-  padding: 0;
+  padding: 2rem 0 1rem 0;
   display: flex;
   flex-direction: column;
 }
@@ -278,10 +294,10 @@ nav,
   flex-wrap: wrap;
   gap: 1rem;
   margin: 2rem 0 2rem 1rem;
+  padding: 0 60px 4px 60px;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-gutter: stable;
-  padding-bottom: 4px;
 }
 
 .todo {
