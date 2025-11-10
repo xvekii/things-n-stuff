@@ -668,6 +668,7 @@ textarea {
   justify-content: flex-start;
   padding: .2rem .2rem;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .priority-btn::before {
