@@ -232,6 +232,7 @@ nav,
 
 .project-item-input {
   border: none;
+  user-select: none;
 }
 
 .project-item-input.error {
@@ -302,7 +303,7 @@ nav,
 
 .todo {
   width: 200px;
-  min-width: 17.8rem;
+  min-width: 15.8rem;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 1px 1px 0px 0px #073b4cd6;
@@ -667,6 +668,7 @@ textarea {
   align-items: center;
   justify-content: flex-start;
   padding: .2rem .2rem;
+  border: 2px solid black;
   border-radius: 6px;
   cursor: pointer;
 }
