@@ -158,8 +158,11 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
         extraNote.value = targetNote.value.slice(targetNoteStartCaretPos).trim();
         targetNote.value = targetNote.value.slice(0, targetNoteStartCaretPos);
         extraNote.setSelectionRange(0, 0);
+        resizeNote(targetNote);
       }
+      // resizeNote(extraNote);
       appendExtraNote(targetNote, extraNote);
+      resizeNote(extraNote);
     }
     // Deleting a note   
     if (e.key === "Backspace" && index > 0) {
@@ -171,6 +174,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
       } else if (prevNote && targetNote.value && targetNote.selectionStart === 0) {
         const targetNoteValue = targetNote.value;
         targetNote.remove();
+        resizeNote(prevNote);
         e.preventDefault();
         prevNote.focus();
         prevNote.setSelectionRange(prevNote.value.length, prevNote.value.length);
