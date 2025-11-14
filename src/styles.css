@@ -232,6 +232,8 @@ nav,
 
 .project-item-input {
   border: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
@@ -245,6 +247,7 @@ nav,
 
 .project-item-input[readonly]:focus {
   outline: none;
+  caret-color: transparent;
 }
 
 .project-item-input:not([readonly]):hover {
@@ -492,7 +495,6 @@ textarea {
   overflow: hidden;
 }
 
-/* Revise */
 .no-border {
   border: none;
   outline: none;
@@ -544,6 +546,10 @@ textarea {
 
 .todo-btn > img {
   width: 1.3rem;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .hamburger {
