@@ -37,7 +37,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
       toggleInert(containerRight);
       toggleInert(addToDoBtn);
       delete containerRight.dataset.projViewId;
-      const notesBtn = target;
+      const notesBtn = target.closest(".notes-btn");
       updateCurrentLocation(nav, notesBtn);
       toggleMenu(containerLeft);
       renderTodos({ showAll: true });
@@ -57,7 +57,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     if (target.closest(".my-projects-btn")) {
       toggleInert(containerRight);
       toggleInert(addToDoBtn);
-      const projectsBtn = target;
+      const projectsBtn = target.closest(".my-projects-btn");
       const clickedAllProjectsBtnId = "allProjects";
       toggleProjectContainer(containerRight, clickedAllProjectsBtnId);
       updateCurrentLocation(nav, projectsBtn);
