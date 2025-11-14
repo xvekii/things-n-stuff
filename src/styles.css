@@ -139,6 +139,10 @@ nav,
   padding-top: 1rem;
 }
 
+.selected-menu-btn {
+  box-shadow: -4px 0px 0px 0px #F44336;
+}
+
 .my-projects-btn-li {
   display: flex;
   justify-content: space-between;

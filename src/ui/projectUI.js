@@ -1,6 +1,7 @@
 import projectFolderImgLight from "../assets/images/project-folder-lighter.svg";
 import { createProjectListItem, markSelectedProject, checkExistingProject } from "../utils/projectUtils.js";
 import { projects } from "../projects.js";
+import { updateCurrentLocation } from "./navEvents.js";
 
 const navUL = document.querySelector(".nav-ul");
 const projectBtnsLI = document.createElement("li");
@@ -46,7 +47,7 @@ export function createNavProjBtn(project = null) {
   newProjectBtnImg.src = projectFolderImgLight;
   newProjectBtnImg.alt = "Project icon";
   newProjectBtn.type = "button";
-  newProjectBtn.classList.add("project-name");
+  newProjectBtn.classList.add("project-name", "main-menu-btn");
   
   newProjectBtn.appendChild(newProjectBtnImg);
   newProjectBtn.appendChild(document.createTextNode(`${projName}`));
@@ -54,19 +55,27 @@ export function createNavProjBtn(project = null) {
   return newProjectBtn;
 }
 
-export function updateNavProjects() {
+export function updateNavProjects(contRight = null) {
   projectBtnsLI.replaceChildren();
   projects.arr.forEach(project => {
     const projBtn = createNavProjBtn(project);
     projectBtnsLI.appendChild(projBtn);
   });
+
+  if (contRight && contRight.dataset.projViewId) {
+    const matchBtn = projectBtnsLI.querySelector(`[data-proj-id="${contRight.dataset.projViewId}"]`);
+    if (matchBtn) {
+      updateCurrentLocation(navUL, matchBtn);
+    }
+  }
+
   if (!navUL.contains(projectBtnsLI)) {
     navUL.appendChild(projectBtnsLI);
   }
 }
 
 export function toggleProjectContainer(container, projID) {
-  if (projID != null && projID !== "") {
+  if (projID !== null && projID !== "") {
     container.setAttribute("data-proj-view-id", `${projID}`);
   } else {
     delete container.dataset.projViewId;

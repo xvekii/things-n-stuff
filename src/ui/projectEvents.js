@@ -20,8 +20,8 @@ import { updateCurrentLocation, toggleMenu } from "./navEvents.js";
 import { saveToLS } from "../services/storageService.js";
 import { containerRight, mainContainer } from "../index.js";
 
-
 export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
+  const nav = document.querySelector(".nav-ul");
   containerLeft.addEventListener("click", (e) => {
     const target = e.target;
 
@@ -38,7 +38,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
       toggleInert(addToDoBtn);
       delete containerRight.dataset.projViewId;
       const notesBtn = target;
-      updateCurrentLocation(notesBtn);
+      updateCurrentLocation(nav, notesBtn);
       toggleMenu(containerLeft);
       renderTodos({ showAll: true });
     }
@@ -49,7 +49,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
       toggleInert(containerRight);
       toggleInert(addToDoBtn);
       toggleMenu(containerLeft);
-      updateCurrentLocation(projBtn);
+      updateCurrentLocation(nav, projBtn);
       toggleProjectContainer(containerRight, clickedProjBtnId);
       renderTodos({ projID: clickedProjBtnId });
     }
@@ -60,7 +60,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
       const projectsBtn = target;
       const clickedAllProjectsBtnId = "allProjects";
       toggleProjectContainer(containerRight, clickedAllProjectsBtnId);
-      updateCurrentLocation(projectsBtn);
+      updateCurrentLocation(nav, projectsBtn);
       toggleMenu(containerLeft);
       renderTodos({ showProjs: true });
     }

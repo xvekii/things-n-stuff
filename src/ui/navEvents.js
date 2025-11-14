@@ -13,13 +13,15 @@ export function bindNavEvents({ containerLeft }) {
     toggleMenu(containerLeft);
   
     if (containerLeft.classList.contains("active")) {
-      updateNavProjects();
+      updateNavProjects(containerRight);
     }
   });
 }
 
-export function updateCurrentLocation(btn) {
-  showCurrProjName.textContent = btn ? btn.textContent.trim() : "";
+export function updateCurrentLocation(nav, clickedBtn) {
+  const allMenuBtns = nav.querySelectorAll(".main-menu-btn");
+  allMenuBtns.forEach(btn => btn.classList.toggle("selected-menu-btn", btn === clickedBtn)); 
+  showCurrProjName.textContent = clickedBtn ? clickedBtn.textContent.trim() : "";
 }
 
 export function toggleMenu(containerLeft) {
