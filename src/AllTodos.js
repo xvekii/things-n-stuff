@@ -22,8 +22,8 @@ export class AllTodos {
     return this.getTodos().find(obj => obj.ID === todoID);
   }
   
-  getTodoByProjID(prID) {
-    return this.getTodos().find(obj => obj.projectID === prID);
+  getTodosByProjID(prID) {
+    return this.getTodos().filter(obj => obj.projectID === prID);
   }
   // Add check for existing todo
   // Upon editing an existing todo, check its place in todosArr

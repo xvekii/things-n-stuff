@@ -219,9 +219,13 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       // Delete and render all project item wrappers
       if (closestInput) {
         projects.deleteProject(closestInputID);
-        const deletedProjTodo = todos.getTodoByProjID(closestInputID);
-        deletedProjTodo.clearProjID();
+        
+        const deletedProjTodos = todos.getTodosByProjID(closestInputID);
+        if (deletedProjTodos && deletedProjTodos.length > 0) {
+          deletedProjTodos.forEach(todo => todo.clearProjID());
+        }
         saveToLS("lsProjects", projects.arr);
+        saveToLS("lsTodos", todos.todosArr); 
         renderSavedProjects(newProjectListContainer, projects, todos, existingID);
         checkIfDeletedProj(closestInputID);
       }
