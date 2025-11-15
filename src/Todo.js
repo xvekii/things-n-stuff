@@ -51,6 +51,10 @@ export class Todo {
     }
   }
 
+  clearProjID() {
+    this.projectID = null;
+  }
+
   static fromJSON(obj) {
     const todo = new Todo({
       ID: obj.ID,
