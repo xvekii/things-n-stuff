@@ -24,6 +24,10 @@ export function updateCurrentLocation(nav, clickedBtn) {
   showCurrProjName.textContent = clickedBtn ? clickedBtn.textContent.trim() : "";
 }
 
+export function showProjsAsCurrLocation() {
+  showCurrProjName.textContent = "Projects";
+}
+
 export function toggleMenu(containerLeft) {
   containerLeft.classList.toggle("active");
 }
