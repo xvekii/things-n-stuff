@@ -16,7 +16,7 @@ import {
 } from "../toDo-template.js";
 import { projects } from "../projects.js";
 import { updateNavProjects, toggleProjectContainer } from "./projectUI.js";
-import { updateCurrentLocation, toggleMenu } from "./navEvents.js";
+import { updateCurrentLocation, toggleMenu, showProjsAsCurrLocation } from "./navEvents.js";
 import { saveToLS } from "../services/storageService.js";
 import { containerRight, mainContainer } from "../index.js";
 
@@ -219,11 +219,24 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       // Delete and render all project item wrappers
       if (closestInput) {
         projects.deleteProject(closestInputID);
+        const deletedProjTodo = todos.getTodoByProjID(closestInputID);
+        deletedProjTodo.clearProjID();
         saveToLS("lsProjects", projects.arr);
         renderSavedProjects(newProjectListContainer, projects, todos, existingID);
+        checkIfDeletedProj(closestInputID);
       }
     }
   });
+}
+
+// Show Projects window if project deleted while in deleted project window
+function checkIfDeletedProj(deletedProjID) {
+  if (containerRight.dataset.projViewId === deletedProjID) {
+    const allProjectsID = "allProjects";
+    toggleProjectContainer(containerRight, allProjectsID);
+    showProjsAsCurrLocation();
+    renderTodos({ showProjs: true });
+  }
 }
 
 export function bindProjectManagerEvents(elements, projects, todos, updateCallback, noMark = false) {
