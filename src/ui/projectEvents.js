@@ -149,7 +149,6 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
           currentTodo.projectID = null;
           projects.tempID = null;
         }
-      // Get the closest input ID, go through the todo list by existingID and remove projID
       } else {
         // Remove "selected-project" from all unselected
         // Mark selected project item (row)
@@ -253,10 +252,9 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
     closeProjectBtn 
   } = elements;
 
-  // Bind basic project interactions first
+  // Bind basic project interactions
   bindProjectEvents({ newProjectContainer, newProjectListContainer }, projects, todos, null, noMark);
 
-  // Add project creation functionality
   newProjectInput.addEventListener("keydown", (e) => {
     if (e.key === "Backspace" && newProjectInput.value === "") {
       hideError(newProjectInput, newProjectInputErrorMsg);

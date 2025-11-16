@@ -27,8 +27,6 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
   const MEDIUM = "#FFD166";
   const HIGH = "#EF476F";
 
-  // Revise - add method to AllTodos for removing
-
   deleteBtn.addEventListener("click", () => {
     const containerRight = document.querySelector(".container-right");
     const title = todoCard.querySelector("input[data-title-id]");
@@ -39,9 +37,8 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
     
-    // Revise
     const currentTodos = todos.getTodos();
-    // Revise - removing function
+
     currentTodos.forEach((todo, index) => {
       if (titleID === todo.ID) {
         currentTodos.splice(index, 1);
@@ -49,7 +46,6 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     });
     saveToLS("lsTodos", todos.getTodos());
     renderTodos({ existingID, deleting: true });
-    // Revise - import from index?
     showTodoBtn(document.querySelector(".add-toDo-btn")); 
   });
 
@@ -78,7 +74,6 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     }
   });
 
-  // Add dedicated classList remove functions
   newPriorityContainer.addEventListener("click", (e) => {
     const clickedBtn = e.target;
 
