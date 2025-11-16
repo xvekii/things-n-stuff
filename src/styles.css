@@ -209,14 +209,14 @@ nav,
   scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
-  gap: .2rem;
+  gap: .4rem;
 }
 
 .project-item-wrapper {
   display: flex;
   align-items: center;
   gap: 2px;
-  min-height: 1.4rem;
+  height: 1.5rem;
   justify-content: space-around;
   margin: 0 0.1rem;
 }
@@ -355,7 +355,7 @@ nav,
   display: grid;
   opacity: 0;
   animation: todo-open 0.3s forwards;
-  grid-template-rows: 3.6rem 2fr 2rem 4rem;
+  grid-template-rows: 3.6rem 2fr 2.2rem 4.3rem;
 }
 
 .todo-saved {
@@ -427,13 +427,13 @@ nav,
 }
 
 .reminder-container {
-  min-height: 1.6rem;
+  min-height: 1.7rem;
   border-radius: 4px;
   margin-top: 1rem;
+  margin-right: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 1rem;
   user-select: none;
 }
 
@@ -510,7 +510,7 @@ textarea {
 .todo-btn-container {
   display: flex;
   justify-content: center;
-  gap: 1.7rem;
+  gap: 1.4rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   user-select: none;
@@ -543,6 +543,15 @@ textarea {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.todo-menu-btn {
+  border-radius: 20px;
+  padding: 8px;
+}
+
+.todo-menu-btn:active {
+  background: ghostwhite;
 }
 
 .todo-btn > img {
