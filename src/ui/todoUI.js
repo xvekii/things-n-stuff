@@ -97,7 +97,7 @@ export function createTodoUI(existingID = null) {
   const newBtnContainer = createDiv({ classes: ["todo-btn-container"] });
 
   const deleteBtn = createBtn({
-    classes: ["todo-btn", "delete-btn"],
+    classes: ["todo-btn", "todo-menu-btn", "delete-btn"],
     attrs: { type: "button" },
     imgSrc: deleteTodoImg,
     imgClass: "delete-btn-img",
@@ -105,7 +105,7 @@ export function createTodoUI(existingID = null) {
   });
   
   const dueDateBtn = createBtn({
-    classes: ["todo-btn", "due-date-btn"],
+    classes: ["todo-btn", "todo-menu-btn", "due-date-btn"],
     attrs: { type: "button" },
     imgSrc: dueDateImg,
     imgClass: "due-date-btn-img",
@@ -113,7 +113,7 @@ export function createTodoUI(existingID = null) {
   });
   
   const priorityBtn = createBtn({
-    classes: ["todo-btn", "open-priority-btn"],
+    classes: ["todo-btn", "todo-menu-btn", "open-priority-btn"],
     attrs: { type: "button" },
     imgSrc: priorityImg,
     imgClass: "priority-btn-img",
@@ -121,7 +121,7 @@ export function createTodoUI(existingID = null) {
   });
   
   const projectBtn = createBtn({
-    classes: ["todo-btn", "project-btn"],
+    classes: ["todo-btn", "todo-menu-btn", "project-btn"],
     attrs: { type: "button" },
     imgSrc: projectFolderImg,
     imgClass: "project-btn-img",
@@ -129,7 +129,7 @@ export function createTodoUI(existingID = null) {
   });
   
   const saveBtn = createBtn({
-    classes: ["todo-btn", "save-todo-btn"],
+    classes: ["todo-btn", "todo-menu-btn", "save-todo-btn"],
     attrs: { type: "button" },
     imgSrc: saveTodoImg,
     imgClass: "save-todo-btn-img",
