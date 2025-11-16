@@ -7,7 +7,7 @@ import { formatDateTime, formatForUser } from "../utils/dateUtils.js";
 import { fillNotes } from "../utils/noteUtils.js";
 import { mainContainer } from "../index.js";
 
-export function bindTodoEvents(refs, todos, projects, existingID) {
+export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
   const {
     newPriorityCircle,
     newPriorityContainer,
@@ -31,7 +31,6 @@ export function bindTodoEvents(refs, todos, projects, existingID) {
 
   deleteBtn.addEventListener("click", () => {
     const containerRight = document.querySelector(".container-right");
-    const todoCard = deleteBtn.closest(".todo-template-popup"); 
     const title = todoCard.querySelector("input[data-title-id]");
     const titleID = title.dataset.titleId;
 
@@ -128,7 +127,7 @@ export function bindSavedTodoEvents({ containerRight }) {
     toggleInert(containerRight);
 
     const title = clickedTodo.querySelector("input[data-title-id]");
-    const titleID = title?.dataset.titleId;
+    const titleID = title.dataset.titleId;
     if (!titleID) return;
 
     const savedTodoCard = createTodo(titleID);

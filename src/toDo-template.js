@@ -15,7 +15,7 @@ const renderTodos = makeRenderTodos(containerRight, todos);
 function createTodo(existingID = null) {
   const { root, refs } = createTodoUI(existingID);
   
-  bindTodoEvents(refs, todos, projects, existingID);
+  bindTodoEvents(root, refs, todos, projects, existingID);
 
   bindTodoFormEvents(refs, todos, projects, existingID, renderTodos);
 
