@@ -45,13 +45,13 @@ header {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
+  position: fixed;
   align-items: center;
   width: 100%;
 }
 
 header > img {
   width: 5rem;
-  user-select: none;
 }
 
 .menu-logo-container {
@@ -72,6 +72,8 @@ header > img {
 }
 
 .hamburger-container {
+  position: absolute;
+  left: 30px;
   display: flex; 
   justify-content: center;
   align-items: center;
@@ -83,12 +85,27 @@ header > img {
 }
 
 .show-proj-name-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
   margin: 0;
-  text-align: center;
+  user-select: none;
+}
+
+.hamburger-container img,
+.show-proj-name-div img {
+  width: 4.5rem;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.show-proj-name-span {
   color: #000000;
   font-weight: 600;
-  height: 1rem;
-  user-select: none;
 }
 
 .container-left {
@@ -299,7 +316,7 @@ nav,
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem 0 2rem 1rem;
+  margin: 7rem 0 2rem 1rem;
   padding: 0 60px 4px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -563,8 +580,6 @@ textarea {
 }
 
 .hamburger {
-  left: 30px;
-  position: fixed;
   background: transparent;
   border: none;
   display: flex;
@@ -575,7 +590,7 @@ textarea {
 }
 
 .hamburger > img {
-  width: 3rem;
+  width: 2.5rem;
 }
 
 .priority-circle {
