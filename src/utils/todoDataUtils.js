@@ -3,7 +3,7 @@ import { Todo } from "../Todo.js";
 import { getDueDate, formatDateTime, formatForUser } from "./dateUtils.js";
 
 export function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID, todos, projects) {
-  const priorityValue = getComputedStyle(newPriorityCircle).backgroundColor;
+  const priorityValue = newPriorityCircle.dataset.priority;
   const titleValue = title.value;
   const notes = [...notesContainer.querySelectorAll(".note-text")].map(input => input.value.trim());
   // Temporary project ID

@@ -6,6 +6,8 @@ import { createTodo, todos, hamburgerMenuBtn } from "../toDo-template.js";
 import { formatDateTime, formatForUser } from "../utils/dateUtils.js";
 import { fillNotes } from "../utils/noteUtils.js";
 import { mainContainer } from "../index.js";
+import { PRIORITY_LEVELS } from "../utils/priorityUtils.js";
+import { setPriority } from "../utils/renderUtils.js";
 
 export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
   const {
@@ -22,10 +24,7 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     newBtnContainer, 
   } = refs;
 
-  const LOW = "#FFFFFF";
-  const NORMAL = "#06D6A0";
-  const MEDIUM = "#FFD166";
-  const HIGH = "#EF476F";
+  const { LOW_LVL, NORMAL_LVL, MEDIUM_LVL, HIGH_LVL } = PRIORITY_LEVELS;
 
   deleteBtn.addEventListener("click", () => {
     const containerRight = document.querySelector(".container-right");
@@ -58,19 +57,19 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     const clickedBtn = e.target;
 
     if (clickedBtn.classList.contains("low")) {
-      newPriorityCircle.style.backgroundColor = LOW;
+      setPriority(newPriorityCircle, LOW_LVL);
     }
 
     if (clickedBtn.classList.contains("normal")) {
-      newPriorityCircle.style.backgroundColor = NORMAL;
+      setPriority(newPriorityCircle, NORMAL_LVL);
     }
 
     if (clickedBtn.classList.contains("medium")) {
-      newPriorityCircle.style.backgroundColor = MEDIUM;
+      setPriority(newPriorityCircle, MEDIUM_LVL);
     }
 
     if (clickedBtn.classList.contains("high")) {
-      newPriorityCircle.style.backgroundColor = HIGH;
+      setPriority(newPriorityCircle, HIGH_LVL);
     }
   });
 
@@ -126,12 +125,12 @@ export function bindSavedTodoEvents({ containerRight }) {
     if (!titleID) return;
 
     const savedTodoCard = createTodo(titleID);
-    buildTodoCard(savedTodoCard, titleID);
+    populateTodoCard(savedTodoCard, titleID);
     mainContainer.appendChild(savedTodoCard);
   });
 }
 
-function buildTodoCard(todoCard, todoId) {
+function populateTodoCard(todoCard, todoId) {
   const retrievedTodo = todos.getTodos().find(obj => obj.ID === todoId);
   if (!retrievedTodo) return;
 
@@ -141,7 +140,7 @@ function buildTodoCard(todoCard, todoId) {
   const reminderContainer = todoCard.querySelector(".reminder-container");
   const reminderSpan = todoCard.querySelector(".reminder-txt-span");
 
-  priorityCircle.style.backgroundColor = retrievedTodo.priority;
+  setPriority(priorityCircle, retrievedTodo.priority);
   titleInput.value = retrievedTodo.title;
   fillNotes(notesContainer, retrievedTodo.notes);
 
