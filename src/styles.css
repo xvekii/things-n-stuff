@@ -62,12 +62,11 @@ header > img {
   font-weight: 600;
   position: absolute;
   align-self: center;
-  top: 3rem;
-  font-size: 0.8rem;
+  top: 2rem;
 }
 
 .menu-logo {
-  width: 4rem;
+  width: 4.5rem;
   user-select: none;
 }
 
@@ -88,7 +87,8 @@ header > img {
   cursor: pointer;
 }
 
-.hamburger > img {
+.hamburger img,
+.close-main-menu-btn img  {
   width: 2rem;
 }
 
@@ -145,6 +145,13 @@ header > img {
   user-select: none;
 }
 
+.close-main-menu-btn {
+  position: absolute;
+  left: 30px;
+  top: 45px;
+  cursor: pointer;
+}
+
 .container-left button {
   border: none;
   background: #FFFFFF;
@@ -157,7 +164,7 @@ nav,
 
 .nav-ul {
   list-style-type: none;
-  padding: 2rem 0 1rem 0;
+  padding: 1rem 0 1rem 0;
 }
 
 .notes-btn-li {
