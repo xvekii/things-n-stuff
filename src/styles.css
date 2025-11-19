@@ -72,7 +72,7 @@ header > img {
 
 .hamburger-container {
   position: absolute;
-  left: 30px;
+  left: 25px;
   display: flex; 
   justify-content: center;
   align-items: center;
@@ -135,7 +135,7 @@ header > img {
   align-items: center;
   overflow-y: auto;
   scrollbar-gutter: stable;
-  padding: 6rem 0 6rem 0.8rem;
+  padding: 6rem .8rem 6rem .8rem;
   justify-content: center;
 }
 
@@ -147,9 +147,12 @@ header > img {
 
 .close-main-menu-btn {
   position: absolute;
-  left: 30px;
-  top: 45px;
+  left: 26px;
+  top: 44px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-left button {
