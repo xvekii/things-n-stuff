@@ -3,28 +3,32 @@ import { formatForUser } from "./dateUtils.js";
 import dueDateBell from "../assets/images/due-date-bell.svg";
 import { PRIORITY_COLORS, PRIORITY_LEVELS } from "./priorityUtils.js";
 
- 
 
 export function setPriority(priorityEl, priorityVal) {
   const { LOW_CLR, NORMAL_CLR, MEDIUM_CLR, HIGH_CLR } = PRIORITY_COLORS;
   const { LOW_LVL, NORMAL_LVL, MEDIUM_LVL, HIGH_LVL } = PRIORITY_LEVELS;
   
-  if (priorityVal === LOW_LVL) {
-    priorityEl.style.backgroundColor = LOW_CLR;
-    priorityEl.dataset.priority = LOW_LVL;
-  } else if (priorityVal === NORMAL_LVL){
-    priorityEl.style.backgroundColor = NORMAL_CLR;
-    priorityEl.dataset.priority = NORMAL_LVL;
-  } else if (priorityVal === MEDIUM_LVL){
-    priorityEl.style.backgroundColor = MEDIUM_CLR;
-    priorityEl.dataset.priority = MEDIUM_LVL;
-  } else if (priorityVal === HIGH_LVL){
-    priorityEl.style.backgroundColor = HIGH_CLR;
-    priorityEl.dataset.priority = HIGH_LVL;
-  } else {
-    priorityEl.style.backgroundColor = LOW_CLR;
-    priorityEl.dataset.priority = LOW_LVL;
+  switch (priorityVal) {
+    case LOW_LVL:
+      setPriorityValues(priorityEl, LOW_CLR, LOW_LVL);
+      break;
+    case NORMAL_LVL:
+      setPriorityValues(priorityEl, NORMAL_CLR, NORMAL_LVL);
+      break;
+    case MEDIUM_LVL:
+      setPriorityValues(priorityEl, MEDIUM_CLR, MEDIUM_LVL);
+      break;
+    case HIGH_LVL:
+      setPriorityValues(priorityEl, HIGH_CLR, HIGH_LVL);
+      break;
+    default:
+      setPriorityValues(priorityEl, LOW_CLR, LOW_LVL);
   }
+}
+
+function setPriorityValues(el, clr, lvl) {
+  el.style.backgroundColor = clr;
+  el.dataset.priority = lvl;
 }
 
 export function makeRenderTodos(containerRight, todos) {
