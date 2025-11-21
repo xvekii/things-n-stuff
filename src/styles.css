@@ -60,9 +60,8 @@ header > img {
   align-items: center;
   gap: 0.2rem;
   font-weight: 600;
-  position: absolute;
+  position: relative;
   align-self: center;
-  top: 2rem;
 }
 
 .menu-logo {
@@ -124,6 +123,8 @@ header > img {
   position: fixed;
   background: #FFFFFF;
   width: min(18rem, 90vw);
+  min-height: 38rem;
+  max-height: calc(100vh - 2rem);
   left: -400px;
   top: 0;
   transition: 0.2s ease-in-out;
@@ -134,9 +135,7 @@ header > img {
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  scrollbar-gutter: stable;
-  padding: 6rem .8rem 6rem .8rem;
-  justify-content: center;
+  padding: 2rem .8rem 2rem .8rem;
 }
 
 .container-left.active {
@@ -147,7 +146,7 @@ header > img {
 
 .close-main-menu-btn {
   position: absolute;
-  left: 26px;
+  left: 25px;
   top: 44px;
   cursor: pointer;
   display: flex;
@@ -786,3 +785,9 @@ textarea {
     transform: scale(1);
   }
 }
+
+/* @media (min-width: 640px) {
+  .container-left.active {
+    padding: 6rem 0 6rem .8rem;
+  }
+} */
