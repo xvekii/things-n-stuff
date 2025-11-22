@@ -19,7 +19,9 @@
 }
 
 @supports not (scrollbar-gutter: stable) {
-  .container-right {
+  .container-right,
+  .new-notes-container,
+  .project-list-container {
     overflow-y: scroll;
   }
 }
@@ -684,13 +686,6 @@ textarea {
   user-select: none;
 }
 
-.toggle-project.visible.edit-projects-container {
-  position: fixed;
-  top: 4.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .priority-btn-container {
   display: flex;
   gap: .7rem;
@@ -791,8 +786,25 @@ textarea {
   }
 }
 
-/* @media (min-width: 640px) {
-  .container-left.active {
-    padding: 6rem 0 6rem .8rem;
+@media (max-width: 640px) {
+  .toggle-project.visible,
+  .toggle-project.visible.edit-projects-container,  
+  .toggle-priority.visible,
+  .toggle-datetime.visible {
+    position: absolute;
+    top: 4.6rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
-} */
+}
+
+@media (min-width: 1600px) {
+  .todo-template-popup {
+    min-width: 25rem;
+    height: 45rem;
+  }
+  
+  .todo-btn-container {
+    gap: 2.4rem;
+  }
+}
