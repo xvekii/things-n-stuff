@@ -174,6 +174,7 @@ nav,
   padding-bottom: 1rem;
   border-top: solid 1px #00000033;
   padding-top: 1rem;
+  font-size: 1rem;
 }
 
 .selected-menu-btn {
@@ -206,6 +207,7 @@ nav,
   font-size: .9rem;
   padding: .2rem .4rem;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .add-new-project-wrapper {
@@ -275,6 +277,7 @@ nav,
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  font-size: .8rem;
 }
 
 .project-item-input.error {
@@ -338,7 +341,7 @@ nav,
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 7rem 0 2rem 1rem;
+  margin: 7.5rem 0 2rem 1rem;
   padding: 0 60px 4px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -366,6 +369,9 @@ nav,
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .todo > .todo-note {
@@ -806,6 +812,10 @@ textarea {
   .todo-template-popup {
     min-width: 25rem;
     height: 45rem;
+  }
+
+  .todo {
+    min-width: 17.8rem;
   }
   
   .todo-btn-container {
