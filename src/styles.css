@@ -341,7 +341,7 @@ nav,
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 7.5rem 0 2rem 1rem;
+  margin: 7.5rem 0 2rem 0;
   padding: 0 60px 4px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -565,7 +565,7 @@ textarea {
 
 .add-toDo-btn {
   background: #565770;
-  padding: 1.2rem 1.3rem;
+  padding: 1.3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -802,6 +802,28 @@ textarea {
   }
 }
 
+ /* Reduce padding for smaller dev  */
+ /* Min 2 rows */
+ /* Adjust todo width for various sizes + padding cont right */
+ /* smaller todo until which size
+
+ .container-right {
+ 
+  gap: 1rem;
+  padding: 0 0 4px;
+} */
+
+@media (max-width: 770px) {
+  .add-toDo-btn {
+    padding: 1rem;
+    
+    top: 75vh;
+    right: 2rem;
+    
+  }
+}
+
+
 @media (max-width: 1024px) {
   .project-list-container {
     padding: .5rem 1rem .5rem 0.9rem;
@@ -809,6 +831,12 @@ textarea {
 }
 
 @media (min-width: 1600px) {
+  .container-right {
+    margin: 7.5rem 0 2rem 0;
+    padding: 0 20rem 4px;
+    
+  }
+  
   .todo-template-popup {
     min-width: 25rem;
     height: 45rem;
