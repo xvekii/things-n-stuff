@@ -65,7 +65,7 @@ header > img {
 
 .hamburger-container {
   position: absolute;
-  left: 25px;
+  left: 24px;
   display: flex; 
   justify-content: center;
   align-items: center;
@@ -118,7 +118,7 @@ header > img {
   background: #FFFFFF;
   width: min(18rem, 90vw);
   min-height: 38rem;
-  max-height: calc(100vh - 2rem);
+  max-height: 100vh;
   left: -400px;
   top: 0;
   transition: 0.2s ease-in-out;
@@ -140,7 +140,7 @@ header > img {
 
 .close-main-menu-btn {
   position: absolute;
-  left: 25px;
+  left: 24px;
   top: 44px;
   cursor: pointer;
   display: flex;
@@ -196,10 +196,9 @@ nav,
   user-select: none;
 }
 
-.notes-btn,
+.notes-btn, 
 .my-projects-btn {
   font-size: .9rem;
-  padding: .2rem .4rem;
   cursor: pointer;
   font-weight: 600;
 }
@@ -226,7 +225,7 @@ nav,
 .edit-projects-btn {
   cursor: pointer;
   color: #0b0b0bb0;
-  padding: 0.1rem .4rem;
+  padding-top: 0.1rem;
 }
 
 .project-title {
@@ -570,6 +569,7 @@ textarea {
   box-shadow: 1px 1px 3px 0px #00000070;
   z-index: 5;
   cursor: pointer;
+  user-select: none;
 }
 
 .add-toDo-btn > img {
@@ -855,7 +855,7 @@ textarea {
   }
 
   .add-toDo-btn > img {
-    width: 1.7rem;
+    width: 1.4rem;
   }
 }
 
