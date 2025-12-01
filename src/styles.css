@@ -153,6 +153,10 @@ header > img {
   background: #FFFFFF;
 }
 
+.main-menu-btn:hover {
+  background-color: #9e9e9e33;
+}
+
 nav,
 .add-new-project-wrapper {
   width: 88%;
