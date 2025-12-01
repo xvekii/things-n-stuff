@@ -165,22 +165,24 @@ nav,
 
 .notes-btn-li {
   border-bottom: 1px solid #00000033;
-  padding-bottom: 1rem;
   border-top: solid 1px #00000033;
-  padding-top: 1rem;
   font-size: 1rem;
 }
 
+.notes-btn-li,
+.my-projects-btn-li {
+  padding: 0.5rem 0;
+}
+
 .selected-menu-btn {
-  box-shadow: -4px 0px 0px -1px #EF476F;
+  box-shadow: -5px 0px 0px -1px #666666;
 }
 
 .my-projects-btn-li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .hamburger-container,
@@ -201,6 +203,18 @@ nav,
   font-size: .9rem;
   cursor: pointer;
   font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.notes-btn, 
+.my-projects-btn,
+.project-name {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  border: transparent;
+  border-radius: 5px;
 }
 
 .add-new-project-wrapper {
@@ -216,6 +230,10 @@ nav,
   font-size: .7rem;
 }
 
+.edit-projects-btn {
+  padding: .8rem;
+}
+
 .project-name {
   font-size: .8rem;
 }
@@ -225,7 +243,6 @@ nav,
 .edit-projects-btn {
   cursor: pointer;
   color: #0b0b0bb0;
-  padding-top: 0.1rem;
 }
 
 .project-title {
