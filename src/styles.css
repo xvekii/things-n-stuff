@@ -154,7 +154,7 @@ header > img {
 }
 
 .main-menu-btn:hover {
-  background-color: #9e9e9e33;
+  background-color: #9e9e9e18;
 }
 
 nav,
@@ -178,8 +178,9 @@ nav,
   padding: 0.5rem 0;
 }
 
-.selected-menu-btn {
+.container-left .selected-menu-btn {
   box-shadow: -5px 0px 0px -1px #666666;
+  background-color: #9e9e9e24;
 }
 
 .my-projects-btn-li {
@@ -225,7 +226,7 @@ nav,
   display: flex;
   justify-content: flex-start;
   border-bottom: 1px solid #00000033;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   margin-bottom: 1rem;
 }
 
