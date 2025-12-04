@@ -25,9 +25,6 @@ export class AllTodos {
   getTodosByProjID(prID) {
     return this.getTodos().filter(obj => obj.projectID === prID);
   }
-  // Add check for existing todo
-  // Upon editing an existing todo, check its place in todosArr
-  // Add method for removing a todo (186, template)
 }
 
 export const todos = new AllTodos();

@@ -13,10 +13,9 @@ export function renderSavedProjects(newProjectListContainer, projects, todos, ex
 
   projects.arr.forEach(project => {
     const newProjectRow = createProjectListItem(project);
-    // if existingID, get project name if there is one, mark selected
+    // If existingID, get project name if there is one, mark selected
     const currentTodo = todos.getTodos().find(obj => obj.ID === existingID);
     
-    // revise
     // If rendered upon opening and there's a saved todo
     let selectedProjectID;
     if (currentTodo && !projects.tempID) {

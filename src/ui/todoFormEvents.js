@@ -134,7 +134,6 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
     }
   });
 
-  // Revise 
   newNotesContainer.addEventListener("keydown", (e) => {
     const targetNote = e.target;
     const prevNote = targetNote.previousElementSibling;
