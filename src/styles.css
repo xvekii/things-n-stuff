@@ -874,8 +874,6 @@ textarea {
 
   .todo-template-popup {
     min-width: 90%;
-    /* height: 45rem;
-    top: 460px; */
   }
 
   .notes-btn,
@@ -919,8 +917,4 @@ textarea {
   .todo {
     min-width: 17.8rem;
   }
-  
-  /* .todo-btn-container {
-    gap: 1.5rem;
-  } */
 }
