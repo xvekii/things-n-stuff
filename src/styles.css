@@ -613,10 +613,13 @@ textarea {
 .todo-menu-btn {
   border-radius: 25px;
   padding: 14px;
+  transition: background-color 0.5s ease-in-out, transform 0.15s ease-out;
 }
 
 .todo-menu-btn:active {
   background: ghostwhite;
+  transition: background-color 0s;
+  transform: scale(1.1);
 }
 
 .todo-btn > img {
