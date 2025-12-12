@@ -3,7 +3,7 @@ import { hideError, emptyInput, showTodoBtn, toggleInert } from "../utils/uiUtil
 import { bindProjectEvents } from "./projectEvents.js"; 
 import { saveToLS } from "../services/storageService.js";
 import { createTodo, todos, hamburgerMenuBtn } from "../toDo-template.js";
-import { formatDateTime, formatForUser } from "../utils/dateUtils.js";
+import { formatForUser } from "../utils/dateUtils.js";
 import { fillNotes } from "../utils/noteUtils.js";
 import { mainContainer } from "../index.js";
 import { PRIORITY_LEVELS } from "../utils/priorityUtils.js";
@@ -145,8 +145,7 @@ function populateTodoCard(todoCard, todoId) {
   fillNotes(notesContainer, retrievedTodo.notes);
 
   if (retrievedTodo.dueDate) {
-    const formattedDateTime = formatDateTime(retrievedTodo.dueDate);
-    reminderSpan.textContent = formatForUser(formattedDateTime);
+    reminderSpan.textContent = formatForUser(retrievedTodo.dueDate);
     reminderContainer.classList.add("active");
   } else {
     reminderSpan.textContent = "";

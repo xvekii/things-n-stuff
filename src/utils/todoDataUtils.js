@@ -1,6 +1,6 @@
 import { saveToLS } from "../services/storageService.js";
 import { Todo } from "../Todo.js";
-import { getDueDate, formatDateTime, formatForUser } from "./dateUtils.js";
+import { getDueDate, formatForUser } from "./dateUtils.js";
 
 export function getTodoInput(newPriorityCircle, title, notesContainer, newDateInput, existingID, todos, projects) {
   const priorityValue = newPriorityCircle.dataset.priority;
@@ -15,8 +15,7 @@ export function getTodoInput(newPriorityCircle, title, notesContainer, newDateIn
   const dueDateISO = getDueDate(newDateInput.value);
   
   if (dueDateISO) {
-    const formattedDateTime = formatDateTime(dueDateISO)
-    reminderSpan.textContent = formatForUser(formattedDateTime);
+    reminderSpan.textContent = formatForUser(dueDateISO);
   } else {
     reminderSpan.textContent = ""; 
     reminderContainer.classList.remove("active");
