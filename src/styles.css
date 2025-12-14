@@ -278,7 +278,6 @@ nav,
   display: flex;
   align-items: center;
   gap: 2px;
-  height: 1.5rem;
   justify-content: space-around;
   margin: 0 0.1rem;
 }
@@ -582,7 +581,7 @@ textarea {
 
 .add-toDo-btn {
   background: #073B4C;
-  padding: 1rem;
+  padding: .9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -887,8 +886,7 @@ textarea {
 
 @media (max-width: 770px) {
   .add-toDo-btn {
-    padding: 1.1rem;
-    top: 75vh;
+    top: 80vh;
     right: 1.2rem;
   }
 
@@ -902,6 +900,16 @@ textarea {
 
   .project-list-container {
     gap: 0.6rem;
+  }
+
+  .project-item-input {
+    font-size: 1rem;
+    height: 2rem;
+  }
+
+  .project-name {
+    font-size: 1rem;
+    margin-bottom: .5rem;
   }
 }
 
