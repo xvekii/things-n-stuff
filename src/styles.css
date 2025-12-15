@@ -652,9 +652,9 @@ textarea {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 50%;
+  top: clamp(100px, 170px, 400px);
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 20rem;
   background-color: #FCFAF8;
   border: 1px solid black;
@@ -674,9 +674,9 @@ textarea {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 50%;
+  top: clamp(100px, 220px, 400px);
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 16rem;
   background-color: lightgreen;
   border: 1px solid black;
@@ -695,9 +695,9 @@ textarea {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 50%;
+  top: clamp(100px, 220px, 400px);
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 16rem;
   background-color: #FFF8F8;
   border: 1px solid black;
@@ -823,7 +823,7 @@ textarea {
   }
 
   .todo {
-    width: 150px;
+    width: clamp(130px, 44vw, 150px);
     min-width: 47%;
     padding: 0 1rem 0.2rem;
   }
@@ -864,15 +864,6 @@ textarea {
 }
 
 @media (max-width: 640px) {
-  .toggle-project.visible,
-  .toggle-project.visible.edit-projects-container,  
-  .toggle-priority.visible,
-  .toggle-datetime.visible {
-    position: absolute;
-    top: 4.6rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 
   .todo-template-popup {
     min-width: 90%;
