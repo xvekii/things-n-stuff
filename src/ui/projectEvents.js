@@ -5,7 +5,8 @@ import {
   toggleDeleteProjBtn,
   switchEditingMode,
 } from "../utils/projectUtils.js";
-import { showError, hideError, emptyInput, toggleInert } from "../utils/uiUtils.js";
+import { createSpan } from "../helpers.js";
+import { showError, hideError, removeProjError, emptyInput, toggleInert } from "../utils/uiUtils.js";
 import { createProjectContainerUI } from "./projectContainerUI.js";
 import { 
   addToDoBtn,
@@ -182,29 +183,70 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       
       // Switch editing mode
       if (closestInput.hasAttribute("readonly")) {
+        closestInput.dataset.originalValue = closestInput.value.trim();
         closestInput.removeAttribute("readonly");
         switchEditingMode(closestInput, editImg, deleteProjImg);
         toggleDeleteProjBtn(deleteProjBtn);
         closestInput.focus();
       } else {
-        const closestInputValue = closestInput.value.trim();
-        if (!closestInputValue) {
-          closestInput.classList.add("error");
-          alert("Name cannot be empty");
-        }
+        const newValue = closestInput.value.trim();
+        const originalValue = closestInput.dataset.originalValue;
         
-        const updateMsg = projects.updateName(closestInputValue, closestInputID);
-  
-        if (updateMsg) {
-          closestInput.classList.add("error");
-          alert(updateMsg);
-        } else {
+        // Reuse existing error span if present; create only if missing
+        const existingErr = closestWrapper.previousElementSibling;
+        const hasExistingErr = existingErr && existingErr.classList.contains("error-span");
+        const errSpan = hasExistingErr ? existingErr : createSpan({ classes: ["error-span"] });
+        
+        // If unchanged, just exit edit mode without validation/update
+        if (newValue === originalValue) {
           closestInput.classList.remove("error");
+          const currentErr = closestWrapper.previousElementSibling;
+          if (currentErr && currentErr.classList.contains("error-span")) {
+            removeProjError(closestInput, currentErr);
+          }
           closestInput.setAttribute("readonly", "true");
-          saveToLS("lsProjects", projects.arr);
+          delete closestInput.dataset.originalValue;
           switchEditingMode(closestInput, editImg, deleteProjImg);
           toggleDeleteProjBtn(deleteProjBtn);
+          return;
         }
+
+        // Basic validation (empty + duplicate via validateProjectName)
+        const { valid, error } = validateProjectName(newValue, projects);
+        if (!valid) {
+          closestInput.classList.add("error");
+          if (!hasExistingErr) closestWrapper.before(errSpan);
+          showError(closestInput, errSpan, error);
+          return;
+        } else {
+          const currentErr = closestWrapper.previousElementSibling;
+          if (currentErr && currentErr.classList.contains("error-span")) {
+            removeProjError(closestInput, currentErr);
+          }
+          closestInput.classList.remove("error");
+        }
+        
+        // Apply update; projects.updateName handles duplicates and unchanged
+        const updateMsg = projects.updateName(newValue, closestInputID);
+        if (updateMsg) {
+          // Duplicate name case
+          closestInput.classList.add("error");
+          if (!hasExistingErr) closestWrapper.before(errSpan);
+          showError(closestInput, errSpan, updateMsg);
+          return;
+        }
+
+        // Success: finalize edit
+        closestInput.classList.remove("error");
+        closestInput.setAttribute("readonly", "true");
+        delete closestInput.dataset.originalValue;
+        const currentErr = closestWrapper.previousElementSibling;
+        if (currentErr && currentErr.classList.contains("error-span")) {
+          removeProjError(closestInput, currentErr);
+        }
+        saveToLS("lsProjects", projects.arr);
+        switchEditingMode(closestInput, editImg, deleteProjImg);
+        toggleDeleteProjBtn(deleteProjBtn);
       }        
     } 
 

@@ -294,11 +294,18 @@ nav,
 }
 
 .project-item-input {
-  border: none;
+  border: transparent;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
   font-size: .8rem;
+  width: 60%;
+}
+
+.error-span {
+  font-size: .8rem;
+  color: red;
+  padding-left: 0.5rem;
 }
 
 .project-item-input.error {

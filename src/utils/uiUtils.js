@@ -22,6 +22,11 @@ export function hideError(input, errorMsg) {
   errorMsg.style.visibility = "hidden";  
 }
 
+export function removeProjError(input, errorSpan) {
+  input.style.borderColor = "";
+  if (errorSpan && errorSpan.parentNode) errorSpan.parentNode.removeChild(errorSpan); 
+}
+
 export function emptyInput(input) {
   input.value = "";
 }
