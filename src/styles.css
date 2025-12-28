@@ -871,6 +871,13 @@ textarea {
 }
 
 @media (max-width: 640px) {
+  .container-left {
+    max-height: 100svh;
+  }
+
+  .container-right {
+    max-height: 80svh;
+  }
 
   .todo-template-popup {
     min-width: 90%;
