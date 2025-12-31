@@ -1,6 +1,6 @@
 import { updateNavProjects } from "./projectUI.js";
 import { containerRight } from "../index.js";
-import { toggleInert } from "../utils/uiUtils.js";
+import { toggleInert, showTodoBtn, hideTodoBtn } from "../utils/uiUtils.js";
 import { addToDoBtn, hamburgerMenuBtn } from "../toDo-template.js";
 
 const closeMainMenuBtn = document.querySelector(".close-main-menu-btn");
@@ -10,7 +10,7 @@ showCurrProjName.textContent = "Notes";
 export function bindNavEvents({ containerLeft }) {
   hamburgerMenuBtn.addEventListener("click", () => {
     toggleInert(containerRight);
-    toggleInert(addToDoBtn);
+    hideTodoBtn(addToDoBtn);
     toggleMenu(containerLeft);
   
     if (containerLeft.classList.contains("active")) {
@@ -20,7 +20,7 @@ export function bindNavEvents({ containerLeft }) {
 
   closeMainMenuBtn.addEventListener("click", () => {
     toggleInert(containerRight);
-    toggleInert(addToDoBtn);
+    showTodoBtn(addToDoBtn);
     toggleMenu(containerLeft);
   });
 }

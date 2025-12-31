@@ -6,7 +6,7 @@ import {
   switchEditingMode,
 } from "../utils/projectUtils.js";
 import { createSpan } from "../helpers.js";
-import { showError, hideError, removeProjError, emptyInput, toggleInert, isActive } from "../utils/uiUtils.js";
+import { showError, hideError, removeProjError, emptyInput, toggleInert, isActive, showTodoBtn } from "../utils/uiUtils.js";
 import { createProjectContainerUI } from "./projectContainerUI.js";
 import { 
   addToDoBtn,
@@ -29,14 +29,13 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     if (target.closest(".edit-projects-btn") || target.closest(".add-new-project-btn")) {
       toggleInert(hamburgerMenuBtn);
       toggleInert(containerRight);
-      toggleInert(addToDoBtn);
       renderProjectWindow(mainContainer);
       toggleMenu(containerLeft);
     }
 
     if (target.closest(".notes-btn")) {
       toggleInert(containerRight);
-      toggleInert(addToDoBtn);
+      showTodoBtn(addToDoBtn);
       delete containerRight.dataset.projViewId;
       const notesBtn = target.closest(".notes-btn");
       updateCurrentLocation(nav, notesBtn);
@@ -48,7 +47,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
     if (projBtn) {
       const clickedProjBtnId = projBtn.dataset.projId;
       toggleInert(containerRight);
-      toggleInert(addToDoBtn);
+      showTodoBtn(addToDoBtn);
       toggleMenu(containerLeft);
       updateCurrentLocation(nav, projBtn);
       toggleProjectContainer(containerRight, clickedProjBtnId);
@@ -57,7 +56,7 @@ export function bindProjectSidebarEvents({ containerLeft, containerRight }) {
 
     if (target.closest(".my-projects-btn")) {
       toggleInert(containerRight);
-      toggleInert(addToDoBtn);
+      showTodoBtn(addToDoBtn);
       const projectsBtn = target.closest(".my-projects-btn");
       const clickedAllProjectsBtnId = "allProjects";
       toggleProjectContainer(containerRight, clickedAllProjectsBtnId);
@@ -85,7 +84,6 @@ function renderProjectWindow(mainContainer) {
   renderSavedProjects(newProjectListContainer, projects, todos, null);
 
   toggleInert(containerRight);
-  toggleInert(addToDoBtn);
 
   bindProjectManagerEvents(
     {
@@ -123,6 +121,8 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
       ".project-item-wrapper.selected-project .project-item-input"
       );
       const selectedID = selectedInput ? selectedInput.dataset.titleId : null;
+
+      showTodoBtn(addToDoBtn);
       
       projects.tempID = selectedID || null;
       newProjectContainer.classList.remove("visible");
@@ -131,7 +131,7 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
         toggleInert(newBtnContainer);
       }
 
-      if (isActive(newReminderContainer)) {
+      if (newReminderContainer && isActive(newReminderContainer)) {
         toggleInert(newReminderContainer);
       }
     } 
@@ -353,8 +353,6 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
 
     toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
-    toggleInert(addToDoBtn);
-    // toggleInert(newReminderCont);
     
     // Update Nav Projects
     if (updateCallback) {
