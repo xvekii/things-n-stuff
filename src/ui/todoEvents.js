@@ -1,5 +1,5 @@
 import { renderTodos, renderSavedProjects } from "../toDo-template.js";
-import { hideError, emptyInput, showTodoBtn, toggleInert } from "../utils/uiUtils.js";
+import { hideError, emptyInput, showTodoBtn, toggleInert, isActive } from "../utils/uiUtils.js";
 import { bindProjectEvents } from "./projectEvents.js"; 
 import { saveToLS } from "../services/storageService.js";
 import { createTodo, todos, hamburgerMenuBtn } from "../toDo-template.js";
@@ -21,7 +21,8 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     deleteBtn,
     priorityBtn,
     projectBtn,
-    newBtnContainer, 
+    newBtnContainer,
+    newReminderContainer,
   } = refs;
 
   const { LOW_LVL, NORMAL_LVL, MEDIUM_LVL, HIGH_LVL } = PRIORITY_LEVELS;
@@ -51,6 +52,9 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
   priorityBtn.addEventListener("click", () => {
     newPriorityContainer.classList.toggle("visible");
     toggleInert(newBtnContainer);
+    if (isActive(newReminderContainer)) {
+      toggleInert(newReminderContainer);
+    }
   });
 
   newPriorityBtnContainer.addEventListener("click", (e) => {
@@ -79,6 +83,9 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     if (clickedBtn.classList.contains("close-priority-btn")) {
       newPriorityContainer.classList.remove("visible");
       toggleInert(newBtnContainer);
+      if (isActive(newReminderContainer)) {
+        toggleInert(newReminderContainer);
+      }
     }
   });
 
@@ -87,12 +94,15 @@ export function bindTodoEvents(todoCard, refs, todos, projects, existingID) {
     emptyInput(newProjectInput);
     newProjectContainer.classList.toggle("visible");
     toggleInert(newBtnContainer);
+    if (isActive(newReminderContainer)) {
+      toggleInert(newReminderContainer);
+    }
 
     if (newProjectContainer.classList.contains("visible")) {
       renderSavedProjects(newProjectListContainer, projects, todos, existingID);
 
       bindProjectEvents(
-        { newProjectContainer, newProjectListContainer, newBtnContainer },
+        { newProjectContainer, newProjectListContainer, newBtnContainer, newReminderContainer },
         projects,
         todos,
         existingID,

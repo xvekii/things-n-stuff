@@ -6,7 +6,7 @@ import {
   switchEditingMode,
 } from "../utils/projectUtils.js";
 import { createSpan } from "../helpers.js";
-import { showError, hideError, removeProjError, emptyInput, toggleInert } from "../utils/uiUtils.js";
+import { showError, hideError, removeProjError, emptyInput, toggleInert, isActive } from "../utils/uiUtils.js";
 import { createProjectContainerUI } from "./projectContainerUI.js";
 import { 
   addToDoBtn,
@@ -108,6 +108,7 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
     newProjectContainer, 
     newProjectListContainer, 
     newBtnContainer,
+    newReminderContainer,
   } = elements;
 
   if (newProjectContainer.dataset.boundProjectEvents === "true") return;
@@ -128,6 +129,10 @@ export function bindProjectEvents(elements, projects, todos, existingID, noMark 
 
       if (newBtnContainer) {
         toggleInert(newBtnContainer);
+      }
+
+      if (isActive(newReminderContainer)) {
+        toggleInert(newReminderContainer);
       }
     } 
 
@@ -295,7 +300,12 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
   } = elements;
 
   // Bind basic project interactions
-  bindProjectEvents({ newProjectContainer, newProjectListContainer }, projects, todos, null, noMark);
+  bindProjectEvents({ newProjectContainer, newProjectListContainer }, 
+    projects, 
+    todos, 
+    null, 
+    noMark
+  );
 
   newProjectInput.addEventListener("keydown", (e) => {
     if (e.key === "Backspace" && newProjectInput.value === "") {
@@ -344,6 +354,7 @@ export function bindProjectManagerEvents(elements, projects, todos, updateCallba
     toggleInert(hamburgerMenuBtn);
     toggleInert(containerRight);
     toggleInert(addToDoBtn);
+    // toggleInert(newReminderCont);
     
     // Update Nav Projects
     if (updateCallback) {

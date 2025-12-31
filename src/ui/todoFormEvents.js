@@ -10,7 +10,8 @@ import {
   hideError,
   emptyInput,
   showTodoBtn,
-  toggleInert, 
+  toggleInert,
+  isActive, 
 } from "../utils/uiUtils.js";
 import { 
   resizeNote,
@@ -95,6 +96,9 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
 
   dueDateBtn.addEventListener("click", () => {
     toggleInert(newBtnContainer);
+    if (isActive(newReminderContainer)) {
+      toggleInert(newReminderContainer);
+    }
     const dateTimeNow = new Date();
     newDateInput.setAttribute("min", toDatetimeLocalString(dateTimeNow));
     alertIfNotificationsDisabled();
@@ -103,6 +107,9 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
 
   closeDateTimeBtn.addEventListener("click", () => {
     toggleInert(newBtnContainer);
+    if (isActive(newReminderContainer)) {
+      toggleInert(newReminderContainer);
+    }
     newDateTimeContainer.classList.toggle("visible");
     const dateTime = getDueDate(newDateInput.value);
 
@@ -210,7 +217,7 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
       }
     } 
     
-    if (newReminderContainer.classList.contains("active")) {
+    if (isActive(newReminderContainer)) {
       toggleDateTimeContainerVisibility(newReminderContainer);
     }
   });

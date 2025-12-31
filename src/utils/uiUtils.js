@@ -39,6 +39,10 @@ export function hideTodoBtn(btn) {
   btn.style.display = "none";
 }
 
+export function isActive(el) {
+  return el.classList.contains("active") ?  true : false;
+}
+
 export function toggleInert(el) {
   if (!el) {
     console.warn("toggleInert: element is null or undefined");
