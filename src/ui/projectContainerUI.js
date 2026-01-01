@@ -6,7 +6,7 @@ import addProjectImg from "../assets/images/add-project.svg";
 export function createProjectContainerUI(addFromMenu = null) {
   const newProjectContainer = createDiv({ classes: ["project-container", "toggle-project"] });
   const newProjectBtnContainer = createDiv({ classes: ["project-btn-container"] });
-  const todoProjectTitle = "Add to a project" ;
+  const todoProjectTitle = "Add to a project — click to select" ;
   const menuProjectTitle = "Edit projects" ;
   const projectTitleText = addFromMenu ? menuProjectTitle : todoProjectTitle;
 
