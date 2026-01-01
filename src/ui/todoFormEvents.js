@@ -81,6 +81,12 @@ export function bindTodoFormEvents(refs, todos, projects, existingID, renderTodo
   });
 
   saveBtn.addEventListener("click", () => {
+    const title = newTitle.value.trim();
+    if (!title) {
+      alert("Title is required");
+      newTitle.focus();
+      return;
+    }
     getTodoInput(newPriorityCircle, newTitle, newNotesContainer, newDateInput, existingID, todos, projects);
     renderTodos({ existingID }); 
     projects.tempID = null; 
