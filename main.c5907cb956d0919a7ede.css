@@ -316,11 +316,19 @@ nav,
   outline: 2px solid #4d352c;
 }
 
+.project-item-input[readonly] {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  caret-color: transparent;
+}
+
 .project-item-input[readonly]:focus {
   outline: none;
   caret-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 .project-item-input:not([readonly]):hover {
@@ -955,4 +963,4 @@ textarea {
   }
 }
 
-/*# sourceMappingURL=main.400698876c945895b055.css.map*/
+/*# sourceMappingURL=main.c5907cb956d0919a7ede.css.map*/
