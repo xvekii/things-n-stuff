@@ -679,8 +679,9 @@ textarea {
 }
 
 .date-input {
-  height: 1.5rem;
+  height: 1.8rem;
   width: auto;
+  font-size: 0.9rem;
 }
 
 .toggle-datetime.visible {
@@ -742,7 +743,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.2rem .2rem;
+  padding: 0.3rem .2rem;
   border: 1px solid #000000;
   border-radius: 5px;
   cursor: pointer;
@@ -807,8 +808,9 @@ textarea {
 
 .enable-notifications-btn {
   align-self: center;
-  margin-top: 1rem;
-  background-color: #607D8B;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  background-color: #3b4f58;
   color: #FFFFFF;
 }
 
