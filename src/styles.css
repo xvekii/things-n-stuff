@@ -774,7 +774,8 @@ textarea {
   background: #EF476F;
 }
 
-.close-datetime-btn, 
+.close-datetime-btn,
+.enable-notifications-btn, 
 .close-priority-btn,
 .close-project-btn {
   align-self: flex-end;
@@ -792,6 +793,13 @@ textarea {
 .close-priority-btn,
 .close-datetime-btn {
   margin-top: 1.5rem;  
+}
+
+.enable-notifications-btn {
+  align-self: center;
+  margin-top: 1rem;
+  background-color: #607D8B;
+  color: #FFFFFF;
 }
 
 
@@ -875,7 +883,8 @@ textarea {
     max-height: 100svh;
   }
 
-  .container-right {
+  .container-right,
+  .main-container {
     max-height: 80svh;
   }
 
