@@ -92,7 +92,14 @@ export function createTodoUI(existingID = null) {
     attrs: { type: "button" },
     text: "Close",
   });
-  newDateTimeContainer.append(newDateTimeTitle, newDateInput, closeDateTimeBtn);
+  
+  const enableNotificationsBtn = createBtn({
+    classes: ["enable-notifications-btn"],
+    attrs: { type: "button" },
+    text: "Enable notifications",
+  });
+
+  newDateTimeContainer.append(newDateTimeTitle, newDateInput, enableNotificationsBtn, closeDateTimeBtn);
 
   const newBtnContainer = createDiv({ classes: ["todo-btn-container"] });
 
@@ -208,6 +215,7 @@ export function createTodoUI(existingID = null) {
       deleteBtn,
       dueDateBtn,
       closeDateTimeBtn,
+      enableNotificationsBtn,
       priorityBtn,
       projectBtn,
       addProjectBtn,
