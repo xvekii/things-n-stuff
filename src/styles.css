@@ -92,7 +92,7 @@ button, input {
 
 .main-container {
   height: 80vh;
-  margin-top: 8rem;
+  margin-top: 7.5rem;
 }
 
 .show-proj-name-div {
@@ -319,6 +319,8 @@ nav,
 .project-item-input[readonly]:focus {
   outline: none;
   caret-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .project-item-input:not([readonly]):hover {
@@ -625,7 +627,6 @@ textarea {
 .todo-menu-btn:active {
   background: ghostwhite;
   transition: background-color 0s;
-
 }
 
 .todo-btn > img {
@@ -677,6 +678,11 @@ textarea {
   display: none;
 }
 
+.date-input {
+  height: 1.5rem;
+  width: auto;
+}
+
 .toggle-datetime.visible {
   display: flex;
   flex-direction: column;
@@ -718,12 +724,10 @@ textarea {
 
 .priority-btn-container {
   display: flex;
-  gap: .7rem;
+  gap: 1rem;
   flex-direction: column;
-  height: 118px;
   width: 58%;
   align-self: center;
-  margin-bottom: 1.5rem;
 }
 
 .priority-title,
@@ -738,12 +742,18 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: .2rem .2rem;
-  border: 2px solid #979797;
-  border-radius: 17px;
+  padding: 0.2rem .2rem;
+  border: 1px solid #000000;
+  border-radius: 5px;
   cursor: pointer;
   font-size: .9rem;
-  box-shadow: 1px 1px 0px 0px #0000008a;
+  box-shadow: 1px 1px 1px 0px #0000008a;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.08s ease;
+}
+
+.priority-btn:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 2px #00000033;
 }
 
 .priority-btn::before {
