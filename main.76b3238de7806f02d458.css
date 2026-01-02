@@ -32,7 +32,6 @@ body {
   background-color: #f5f5f5;
   line-height: 1.2;
   overflow-x: hidden;
-  max-height: 100vh;
 }
 
 header {
@@ -98,6 +97,7 @@ button, input {
 
 .main-container {
   height: 80vh;
+  max-height: 80vh;
   margin-top: 7.5rem;
 }
 
@@ -373,7 +373,7 @@ nav,
 }
 
 .container-right {
-  height: 80vh;
+  max-height: 80vh;
   display: flex;
   justify-content: center;
   align-content: flex-start;
@@ -431,7 +431,6 @@ nav,
   min-width: 22rem;
   min-height: 10rem;
   max-height: min(65vh, 32rem);
-  max-height: min(65svh, 32rem);
   border-radius: 10px;
   background-color: #FFFFFF;
   box-shadow: 2px 0px 11px 0px #073b4ccc;
@@ -906,10 +905,12 @@ textarea {
 
   .container-right,
   .main-container {
+    height: 80svh;
     max-height: 80svh;
   }
 
   .todo-template-popup {
+    max-height: min(65svh, 32rem);
     min-width: 90%;
   }
 
@@ -964,4 +965,4 @@ textarea {
   }
 }
 
-/*# sourceMappingURL=main.c32356f99424b395a228.css.map*/
+/*# sourceMappingURL=main.76b3238de7806f02d458.css.map*/
