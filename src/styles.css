@@ -322,13 +322,7 @@ nav,
   outline: 2px solid #4d352c;
 }
 
-.project-item-input[readonly] {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  caret-color: transparent;
-}
-
+.project-item-input[readonly],
 .project-item-input[readonly]:focus {
   outline: none;
   caret-color: transparent;
