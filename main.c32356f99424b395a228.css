@@ -48,6 +48,12 @@ header > img {
   width: 5rem;
 }
 
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  color: black;
+}
+
 .menu-logo-container {
   display: flex;
   flex-direction: column;
@@ -316,13 +322,7 @@ nav,
   outline: 2px solid #4d352c;
 }
 
-.project-item-input[readonly] {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  caret-color: transparent;
-}
-
+.project-item-input[readonly],
 .project-item-input[readonly]:focus {
   outline: none;
   caret-color: transparent;
@@ -431,11 +431,12 @@ nav,
   min-width: 22rem;
   min-height: 10rem;
   max-height: min(65vh, 32rem);
+  max-height: min(65svh, 32rem);
   border-radius: 10px;
   background-color: #FFFFFF;
   box-shadow: 2px 0px 11px 0px #073b4ccc;
   border: 1px solid black;
-  padding: 0 0 0 1rem;
+  padding-left: 1rem;
   display: grid;
   opacity: 0;
   animation: todo-open 0.3s forwards;
@@ -604,7 +605,7 @@ textarea {
   align-items: center;
   border: none;
   position: fixed;
-  top: 75vh;
+  bottom: 8rem;
   right: 3rem;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 0px #00000070;
@@ -920,7 +921,7 @@ textarea {
 
 @media (max-width: 770px) {
   .add-toDo-btn {
-    top: 80vh;
+    bottom: 5rem;
     right: 1.2rem;
   }
 
@@ -963,4 +964,4 @@ textarea {
   }
 }
 
-/*# sourceMappingURL=main.c5907cb956d0919a7ede.css.map*/
+/*# sourceMappingURL=main.c32356f99424b395a228.css.map*/
