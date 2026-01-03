@@ -373,6 +373,7 @@ nav,
 }
 
 .container-right {
+  height: 80vh;
   max-height: 80vh;
   display: flex;
   justify-content: center;
@@ -965,4 +966,4 @@ textarea {
   }
 }
 
-/*# sourceMappingURL=main.76b3238de7806f02d458.css.map*/
+/*# sourceMappingURL=main.3600b9ab010566a742ee.css.map*/
