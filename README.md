@@ -50,12 +50,18 @@ A todo application with project management, reminders, and priority levels built
 ### Mobile view
 
 <p align="center">
-  <img width="270" height="555" alt="Screenshot 2026-01-03 at 14 09 27" src="https://github.com/user-attachments/assets/7332662d-e885-4ea4-8ef8-2ebc7512254f" />
-  &nbsp;&nbsp;&nbsp;
-  <img width="270" height="555" alt="Screenshot 2026-01-03 at 14 09 54" src="https://github.com/user-attachments/assets/dc2ef5bc-0f7d-4996-bc8c-51a68072707b" />
-  &nbsp;&nbsp;&nbsp;
-  <img width="270" height="555" alt="Screenshot 2026-01-03 at 14 10 02" src="https://github.com/user-attachments/assets/7d1ab755-0954-4198-bd48-1e937d57a4c1" />
+  <img width="270" height="555" alt="Screenshot 2026-01-03 at 14 09 27" 
+       src="https://github.com/user-attachments/assets/7332662d-e885-4ea4-8ef8-2ebc7512254f" 
+       style="margin:0 20px;" />
+  <img width="270" height="555" alt="Screenshot 2026-01-03 at 14 09 54" 
+       src="https://github.com/user-attachments/assets/dc2ef5bc-0f7d-4996-bc8c-51a68072707b" 
+       style="margin:0 20px;" />
+  <img width="270" height="555" alt="Screenshot 2026-01-03 at 14 10 02" 
+       src="https://github.com/user-attachments/assets/7d1ab755-0954-4198-bd48-1e937d57a4c1" 
+       style="margin:0 20px;" />
 </p>
+
+
 
 
 
